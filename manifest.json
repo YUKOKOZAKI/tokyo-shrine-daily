@@ -1,0 +1,18 @@
+{
+  "name": "東京神社めぐり",
+  "short_name": "神社めぐり",
+  "description": "毎日ひとつ、東京の神社を巡る旅",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f5f0e8",
+  "theme_color": "#8b2635",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

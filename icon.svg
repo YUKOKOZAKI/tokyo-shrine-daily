@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="80" fill="#8b2635"/>
+  <!-- Torii gate -->
+  <g stroke="#fff" stroke-linecap="round" fill="none">
+    <!-- Top beam (kasagi) -->
+    <line x1="70" y1="130" x2="442" y2="130" stroke-width="28"/>
+    <!-- Curved top -->
+    <path d="M60 125 Q256 80 452 125" stroke-width="16" fill="none"/>
+    <!-- Second beam (nuki) -->
+    <line x1="110" y1="180" x2="402" y2="180" stroke-width="16"/>
+    <!-- Left pillar -->
+    <line x1="140" y1="120" x2="140" y2="360" stroke-width="24"/>
+    <!-- Right pillar -->
+    <line x1="372" y1="120" x2="372" y2="360" stroke-width="24"/>
+  </g>
+  <!-- Text -->
+  <text x="256" y="430" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="bold" font-size="56">神社めぐり</text>
+</svg>

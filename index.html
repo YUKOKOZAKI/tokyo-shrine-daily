@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>東京神社めぐり - 今日の一社</title>
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#8b2635">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="神社めぐり">
+    <link rel="apple-touch-icon" href="icon.svg">
+    <link rel="icon" href="icon.svg" type="image/svg+xml">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Noto+Sans+JP:wght@300;400;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: #f5f0e8;
+            color: #2c2c2c;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #8b2635 0%, #c41e3a 50%, #8b2635 100%);
+            color: white;
+            text-align: center;
+            padding: 30px 20px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5 L30 15 M20 15 L40 15 M25 15 L25 20 M35 15 L35 20 M22 20 L38 20' stroke='%23ffffff10' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+            opacity: 0.3;
+        }
+
+        header h1 {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 2rem;
+            letter-spacing: 0.3em;
+            position: relative;
+            z-index: 1;
+        }
+
+        header h1 .torii {
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .date-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 6px 20px;
+            border-radius: 20px;
+            margin-top: 12px;
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Main content */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Shrine Card */
+        .shrine-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-top: -30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .shrine-header {
+            padding: 24px 28px 16px;
+            border-bottom: 1px solid #f0ebe3;
+        }
+
+        .shrine-name {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.8rem;
+            color: #8b2635;
+            margin-bottom: 4px;
+        }
+
+        .shrine-reading {
+            font-size: 0.85rem;
+            color: #999;
+            letter-spacing: 0.2em;
+        }
+
+        .shrine-location {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .shrine-location::before {
+            content: '📍';
+        }
+
+        /* Tags */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 16px 28px;
+        }
+
+        .tag {
+            background: #fdf2f4;
+            color: #8b2635;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid #f5d5da;
+        }
+
+        /* Description sections */
+        .content-section {
+            padding: 20px 28px;
+        }
+
+        .content-section + .content-section {
+            border-top: 1px solid #f0ebe3;
+        }
+
+        .section-title {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.1rem;
+            color: #8b2635;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title .icon {
+            font-size: 1.2rem;
+        }
+
+        .content-section p {
+            line-height: 1.9;
+            font-size: 0.95rem;
+            color: #444;
+        }
+
+        /* Info table */
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .info-table tr {
+            border-bottom: 1px solid #f0ebe3;
+        }
+
+        .info-table tr:last-child {
+            border-bottom: none;
+        }
+
+        .info-table th {
+            text-align: left;
+            padding: 10px 12px;
+            font-weight: 400;
+            color: #888;
+            font-size: 0.85rem;
+            width: 120px;
+            vertical-align: top;
+        }
+
+        .info-table td {
+            padding: 10px 12px;
+            font-size: 0.9rem;
+            color: #444;
+        }
+
+        /* Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            padding: 16px 28px 24px;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.02);
+        }
+
+        /* Navigation */
+        .nav-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 28px 28px;
+            border-top: 1px solid #f0ebe3;
+        }
+
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border: 2px solid #8b2635;
+            background: transparent;
+            color: #8b2635;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: #8b2635;
+            color: white;
+        }
+
+        .nav-btn:disabled {
+            border-color: #ccc;
+            color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .nav-btn:disabled:hover {
+            background: transparent;
+            color: #ccc;
+        }
+
+        .day-counter {
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        /* Map link */
+        .map-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #8b2635;
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 8px 16px;
+            border: 1px solid #e8d5d8;
+            border-radius: 8px;
+            margin: 0 28px 20px;
+            transition: background 0.2s;
+        }
+
+        .map-link:hover {
+            background: #fdf2f4;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: #999;
+            font-size: 0.8rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+            .hero-image {
+                height: 260px;
+            }
+            .shrine-name {
+                font-size: 1.4rem;
+            }
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+            .gallery img {
+                height: 180px;
+            }
+            .shrine-header, .content-section, .tags, .nav-section {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+        }
+
+        /* Loading animation */
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .loading .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #f0ebe3;
+            border-top-color: #8b2635;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 16px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>
+        <span class="torii">⛩️</span>
+        東京神社めぐり
+    </h1>
+    <div class="date-badge" id="dateBadge"></div>
+</header>
+
+<div class="container">
+    <div class="shrine-card" id="shrineCard">
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>今日の神社を読み込み中...</p>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>東京神社めぐり — 毎日ひとつ、東京の神社を巡る旅</p>
+</footer>
+
+<div class="lightbox" id="lightbox">
+    <img id="lightboxImg" src="" alt="">
+</div>
+
+<script>
+const shrines = [
+    {
+        name: "明治神宮",
+        reading: "めいじじんぐう",
+        location: "東京都渋谷区代々木神園町1-1",
+        tags: ["初詣日本一", "縁結び", "パワースポット", "世界遺産級"],
+        mainImage: "https://images.unsplash.com/photo-1590253230532-a67f6bc61c9e?w=800&h=500&fit=crop",
+        gallery: [
+            "https://images.unsplash.com/photo-1583766395091-2eb9994ed094?w=400&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1624601573012-efb68f3f150d?w=400&h=300&fit=crop"
+        ],
+        history: "明治神宮は1920年（大正9年）に創建された、明治天皇と昭憲皇太后をお祀りする神社です。全国から届けられた約10万本の献木によって造成された鎮守の森は、今では都心にありながら豊かな自然が広がる貴重な空間となっています。初詣の参拝者数は毎年日本一を誇り、約300万人が訪れます。",
+        features: "原宿駅からすぐの場所にありながら、一歩足を踏み入れると都会の喧騒を忘れるほどの静寂に包まれます。参道を進むと見える大鳥居は、台湾の阿里山から運ばれたヒノキで作られた日本最大級の木造鳥居です。本殿は流造（ながれづくり）の様式で、荘厳な雰囲気を醸し出しています。広大な敷地内には御苑（庭園）があり、6月には花菖蒲が見頃を迎えます。",
+        worship: "良縁祈願・家内安全・合格祈願・厄除けなど幅広いご利益があるとされています。特に「夫婦楠」と呼ばれる2本の楠の御神木は、縁結び・夫婦円満の象徴として人気です。",
+        info: {
+            "創建": "1920年（大正9年）",
+            "御祭神": "明治天皇・昭憲皇太后",
+            "例大祭": "11月3日",
+            "参拝時間": "日の出〜日の入り（月により変動）",
+            "アクセス": "JR原宿駅 徒歩1分 / 東京メトロ明治神宮前駅 徒歩1分"
+        },
+        mapQuery: "明治神宮"
+    },
+    {
+        name: "浅草寺・浅草神社",
+        reading: "せんそうじ・あさくさじんじゃ",
+        location: "東京都台東区浅草2-3-1",
+        tags: ["東京最古", "三社祭", "雷門", "下町文化"],
+        mainImage: "https://images.unsplash.com/photo-1570459027562-4a916cc6113f?w=800&h=500&fit=crop",
+        gallery: [
+            "https://images.unsplash.com/photo-1583766395091-2eb9994ed094?w=400&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1528164344705-47542687000d?w=400&h=300&fit=crop"
+        ],
+        history: "浅草神社は浅草寺の隣に鎮座する神社で、「三社様」として親しまれています。628年に隅田川で漁をしていた檜前浜成・竹成兄弟が観音像を引き上げ、それを土師真中知が自宅に祀ったことが起源とされます。この三人を祭神として祀るのが浅草神社です。毎年5月に行われる「三社祭」は東京を代表する祭りの一つです。",
+        features: "浅草寺の象徴である雷門（風雷神門）は、高さ3.9m・重さ約700kgの大提灯が圧巻です。仲見世通りは日本最古の商店街の一つで、約250mの参道に約90の店が並びます。五重塔や宝蔵門など見どころが多く、夜間のライトアップも美しいスポットです。浅草神社は権現造りの社殿が特徴で、1649年に徳川家光により建立された社殿は国の重要文化財に指定されています。",
+        worship: "所願成就・商売繁盛・家内安全など。浅草寺は「聖観世音菩薩」を本尊とし、あらゆる願いに応じてくださるとされています。浅草神社はお守りの種類が豊富で、特に「被官稲荷神社」は出世・仕事運のご利益があると人気です。",
+        info: {
+            "創建": "628年（推古天皇36年）",
+            "御祭神": "檜前浜成命・檜前竹成命・土師真中知命（浅草神社）",
+            "例大祭": "5月第3週の金〜日曜（三社祭）",
+            "参拝時間": "浅草寺 6:00〜17:00 / 浅草神社 終日",
+            "アクセス": "東京メトロ銀座線 浅草駅 徒歩5分"
+        },
+        mapQuery: "浅草神社"
+    },
+    {
+        name: "神田明神（神田神社）",
+        reading: "かんだみょうじん（かんだじんじゃ）",
+        location: "東京都千代田区外神田2-16-2",
+        tags: ["商売繁盛", "IT祈願", "江戸総鎮守", "アニメ聖地"],
+        mainImage: "https://images.unsplash.com/photo-1590559899731-a382839e5549?w=800&h=500&fit=crop",
+        gallery: [
+            "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=400&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1592882631893-cf4e818ddca3?w=400&h=300&fit=crop"
+        ],
+        history: "神田明神は730年（天平2年）に創建された、1300年近い歴史を持つ由緒ある神社です。江戸時代には「江戸総鎮守」として江戸城を含む広大な地域の守り神とされました。大己貴命（だいこく様）、少彦名命（えびす様）、平将門命をお祀りしています。神田祭は江戸三大祭の一つに数えられ、「天下祭」とも呼ばれました。",
+        features: "秋葉原に近い立地から「IT情報安全守護」の祈願が人気で、パソコンやサーバーのお祓いに訪れる企業も多いのが特徴です。2018年に完成した文化交流館「EDOCCO」にはカフェやショップが併設され、伝統と現代が融合した空間が広がります。朱塗りの隨神門（ずいしんもん）は存在感があり、境内のだいこく様の石像は高さ6.6mと圧巻です。アニメ『ラブライブ!』の聖地としても有名です。",
+        worship: "商売繁盛・縁結び・厄除け・勝負運など。特にIT関連のお守り「IT情報安全守護」は秋葉原らしいユニークなお守りとして人気です。ビジネスの成功を祈る参拝者が多く、新年には多くの企業が仕事始めの参拝に訪れます。",
+        info: {
+            "創建": "730年（天平2年）",
+            "御祭神": "大己貴命・少彦名命・平将門命",
+            "例大祭": "5月中旬（神田祭・隔年本祭）",
+            "参拝時間": "24時間（社務所 9:00〜16:00）",
+            "アクセス": "JR御茶ノ水駅 徒歩5分 / 東京メトロ新御茶ノ水駅 徒歩5分"
+        },
+        mapQuery: "神田明神"
+    },
+    {
+        name: "靖國神社",
+        reading: "やすくにじんじゃ",
+        location: "東京都千代田区九段北3-1-1",
+        tags: ["桜の名所", "遊就館", "歴史", "大鳥居"],
+        mainImage: "https://images.unsplash.com/photo-1604928141064-207cea6f571f?w=800&h=500&fit=crop",
+        gallery: [
+            "https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?w=400&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?w=400&h=300&fit=crop"
+        ],
+        history: "靖國神社は1869年（明治2年）に明治天皇の思し召しにより「東京招魂社」として創建され、1879年に「靖國神社」と改称されました。幕末の戊辰戦争から第二次世界大戦までの戦没者約246万6千柱をお祀りしています。「靖國」の名は「国を靖（安）んずる」という意味が込められています。",
+        features: "参道入口にそびえる第一鳥居（大鳥居）は高さ25mの鋼製鳥居で、日本有数の大きさを誇ります。境内には約500本の桜があり、東京の桜の開花を告げる「標本木」（靖國の桜）があることでも知られています。併設の「遊就館」は日本の近代史に関する資料を展示する博物館です。境内は静謐な雰囲気に包まれ、広大な敷地を散策できます。",
+        worship: "国家安泰・家内安全・世界平和などの祈願ができます。桜の時期には多くの参拝者で賑わい、境内の桜は「靖國の桜」として広く親しまれています。",
+        info: {
+            "創建": "1869年（明治2年）",
+            "御祭神": "護国の英霊 約246万6千柱",
+            "例大祭": "春季例大祭 4月 / 秋季例大祭 10月",
+            "参拝時間": "6:00〜18:00（季節により変動）",
+            "アクセス": "東京メトロ九段下駅 徒歩5分"
+        },
+        mapQuery: "靖國神社"
+    },
+    {
+        name: "日枝神社",
+        reading: "ひえじんじゃ",
+        location: "東京都千代田区永田町2-10-5",
+        tags: ["山王祭", "仕事運", "政財界", "エスカレーター参道"],
+        mainImage: "https://images.unsplash.com/photo-1478436127897-769e1b3f0f36?w=800&h=500&fit=crop",
+        gallery: [
+            "https://images.unsplash.com/photo-1576073719676-aa95576db207?w=400&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=400&h=300&fit=crop"
+        ],
+        history: "日枝神社の起源は鎌倉時代初期にさかのぼり、江戸城の鎮守として太田道灌が城内に祀ったことに始まります。徳川家康が江戸に入府した際、城の鎮守として崇敬し、以来「山王さま」として江戸城（現在の皇居）の裏鬼門を守護する神社として信仰されてきました。山王祭は神田祭と並ぶ「天下祭」として知られています。",
+        features: "赤坂・永田町という政治の中枢に位置し、国会議事堂や首相官邸にほど近い場所にあります。特徴的なのは、神門に至る参道にエスカレーターが設置されていること。都市型神社の先駆けと言えます。境内には神猿（まさる）の像があり、「勝る」「魔が去る」に通じることから縁起が良いとされます。山王鳥居と呼ばれる独特の形の鳥居も見どころです。",
+        worship: "仕事運・出世運・商売繁盛・縁結び・安産など。政財界の要人が多く参拝することから、ビジネス成功の神社としても知られています。神猿（まさる）にちなんだお守りが人気です。",
+        info: {
+            "創建": "鎌倉時代初期（約800年前）",
+            "御祭神": "大山咋神（おおやまくいのかみ）",
+            "例大祭": "6月（山王祭・隔年本祭）",
+            "参拝時間": "5:00〜18:00（4月〜9月）/ 6:00〜17:00（10月〜3月）",
+            "アクセス": "東京メトロ溜池山王駅 徒歩3分 / 赤坂駅 徒歩3分"
+        },
+        mapQuery: "日枝神社 東京"
+    },
+    {
+        name: "根津神社",
+        reading: "ねづじんじゃ",
+        location: "東京都文京区根津1-28-9",
+        tags: ["つつじ祭り", "重要文化財", "千本鳥居", "谷根千"],
+        mainImage: "https://images.unsplash.com/photo-1576073719676-aa95576db207?w=800&h=500&fit=crop",
+        gallery: [
+            "https://images.unsplash.com/photo-1528164344705-47542687000d?w=400&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=400&h=300&fit=crop"
+        ],
+        history: "根津神社は今から約1900年前、日本武尊（やまとたけるのみこと）が千駄木の地に創建したと伝えられる古社です。現在の社殿は1706年（宝永3年）、五代将軍・徳川綱吉が世継ぎの徳川家宣（後の六代将軍）の氏神として造営したもので、権現造りの本殿・拝殿・唐門・楼門など7棟が国の重要文化財に指定されています。",
+        features: "東京に現存する江戸時代の神社建築としては最大規模を誇ります。乙女稲荷神社に続く朱塗りの千本鳥居は、フォトスポットとして大人気です。毎年4月〜5月に開催される「文京つつじまつり」では、約100種3,000株のつつじが境内のつつじ苑を彩り、多くの観光客で賑わいます。谷根千（谷中・根津・千駄木）エリアの中心的存在で、下町散策の拠点としても最適です。",
+        worship: "厄除け・学業成就・縁結び・家内安全など。境内の乙女稲荷神社は特に女性の願掛けにご利益があるとされ、縁結びのパワースポットとして人気です。",
+        info: {
+            "創建": "約1900年前（日本武尊による）",
+            "御祭神": "須佐之男命・大山咋命・誉田別命",
+            "例大祭": "9月21日前後",
+            "参拝時間": "24時間（社務所 9:00〜17:00）",
+            "アクセス": "東京メトロ千代田線 根津駅 徒歩5分"
+        },
+        mapQuery: "根津神社"
+    },
+    {
+        name: "東京大神宮",
+        reading: "とうきょうだいじんぐう",
+        location: "東京都千代田区富士見2-4-1",
+        tags: ["縁結び最強", "東京のお伊勢さま", "神前結婚式発祥", "恋愛成就"],
+        mainImage: "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=800&h=500&fit=crop",
+        gallery: [
+            "https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?w=400&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?w=400&h=300&fit=crop"
+        ],
+        history: "東京大神宮は1880年（明治13年）に伊勢神宮の遥拝殿（ようはいでん）として創建されました。伊勢神宮まで参拝に行けない人々のために、東京にいながら伊勢神宮を参拝できる場として「東京のお伊勢さま」と親しまれています。1900年には大正天皇のご成婚の慶事に際し、神前結婚式を創始したことでも知られ、神前結婚式の発祥の地とされています。",
+        features: "飯田橋のビル街にひっそりと佇む神社ですが、縁結びのご利益が非常に強いと評判で、特に若い女性の参拝者が多いのが特徴です。境内はこぢんまりとしていますが、美しく整えられており、都会のオアシスのような空間です。お守りやおみくじの種類が豊富で、特に「縁結び鈴蘭守り」「恋愛成就のお守り」は大変人気があります。おみくじには恋愛に関するアドバイスが書かれており、参拝後の楽しみの一つです。",
+        worship: "縁結び・恋愛成就・良縁祈願が最も有名。その他、家内安全・商売繁盛・厄除開運・学業成就など。伊勢神宮と同じ天照皇大神と豊受大神をお祀りしているため、あらゆるご利益があるとされています。",
+        info: {
+            "創建": "1880年（明治13年）",
+            "御祭神": "天照皇大神・豊受大神・造化の三神",
+            "例大祭": "4月17日",
+            "参拝時間": "6:00〜21:00",
+            "アクセス": "JR飯田橋駅 徒歩5分 / 東京メトロ飯田橋駅 徒歩5分"
+        },
+        mapQuery: "東京大神宮"
+    },
+    {
+        name: "花園神社",
+        reading: "はなぞのじんじゃ",
+        location: "東京都新宿区新宿5-17-3",
+        tags: ["新宿総鎮守", "酉の市", "芸能", "歌舞伎町"],
+        mainImage: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=800&h=500&fit=crop",
+        gallery: [
+            "https://images.unsplash.com/photo-1590253230532-a67f6bc61c9e?w=400&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1576073719676-aa95576db207?w=400&h=300&fit=crop"
+        ],
+        history: "花園神社は徳川家康が江戸に入った1590年頃にはすでに存在していたと伝えられ、新宿の総鎮守として400年以上の歴史を持ちます。もとは現在の伊勢丹付近にありましたが、寛政年間に朝倉筑後守の屋敷の庭（花園）の跡地に移転したことから「花園神社」と呼ばれるようになりました。",
+        features: "新宿・歌舞伎町のすぐそばという都会の喧騒の中に鎮座する独特の存在感があります。境内には芸能浅間神社があり、芸能関係者の参拝が多いことでも知られています。毎年11月の「酉の市」は特に盛大で、商売繁盛を願う縁起物の熊手を求める人々で大賑わいとなります。また、境内では時折「見世物小屋」が開催されるなど、独自の文化を守り続けています。",
+        worship: "商売繁盛・芸能上達・開運出世・縁結びなど。特に芸能関係やクリエイティブな仕事に就く人からの信仰が厚く、芸能浅間神社には多くの芸能人が参拝しています。",
+        info: {
+            "創建": "1590年以前（正確な年代は不明）",
+            "御祭神": "倉稲魂命・日本武尊・受持神",
+            "例大祭": "5月下旬",
+            "参拝時間": "24時間（社務所 8:00〜20:00）",
+            "アクセス": "東京メトロ新宿三丁目駅 徒歩すぐ / JR新宿駅 徒歩7分"
+        },
+        mapQuery: "花園神社 新宿"
+    },
+    {
+        name: "湯島天満宮（湯島天神）",
+        reading: "ゆしまてんまんぐう（ゆしまてんじん）",
+        location: "東京都文京区湯島3-30-1",
+        tags: ["学業成就", "合格祈願", "梅まつり", "菅原道真"],
+        mainImage: "https://images.unsplash.com/photo-1528164344705-47542687000d?w=800&h=500&fit=crop",
+        gallery: [
+            "https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?w=400&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1592882631893-cf4e818ddca3?w=400&h=300&fit=crop"
+        ],
+        history: "湯島天神は458年（雄略天皇2年）に天之手力雄命（あめのたぢからをのみこと）を祀る神社として創建されました。1355年に住民の請願により菅原道真公を勧請し、以降「湯島天神」として学問の神様を祀る天満宮となりました。江戸時代には徳川家康をはじめ歴代将軍の崇敬を受け、学者・文人からも厚い信仰を集めました。泉鏡花の小説『婦系図（おんなけいず）』の舞台としても有名です。",
+        features: "受験シーズンには合格祈願の参拝者で大変な賑わいとなり、境内には絵馬が所狭しと掛けられます。2月〜3月には約300本の梅が咲き誇る「梅まつり」が開催され、白梅を中心とした美しい梅林は東京屈指の名所です。銅製の鳥居は都内に残る数少ない銅鳥居の一つで、1667年の造立です。男坂・女坂と呼ばれる二つの参道があり、男坂は38段の急な石段で知られています。",
+        worship: "学業成就・合格祈願が最も有名。その他、就職成就・開運など。受験生にとっての聖地とも言える神社で、「学業守」「合格守」は毎年多くの受験生に求められています。",
+        info: {
+            "創建": "458年（雄略天皇2年）",
+            "御祭神": "天之手力雄命・菅原道真公",
+            "例大祭": "5月25日",
+            "参拝時間": "6:00〜20:00",
+            "アクセス": "東京メトロ湯島駅 徒歩2分 / JR御徒町駅 徒歩8分"
+        },
+        mapQuery: "湯島天神"
+    },
+    {
+        name: "亀戸天神社",
+        reading: "かめいどてんじんしゃ",
+        location: "東京都江東区亀戸3-6-1",
+        tags: ["藤まつり", "学問の神", "東宰府", "太鼓橋"],
+        mainImage: "https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?w=800&h=500&fit=crop",
+        gallery: [
+            "https://images.unsplash.com/photo-1570459027562-4a916cc6113f?w=400&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1590559899731-a382839e5549?w=400&h=300&fit=crop"
+        ],
+        history: "亀戸天神社は1646年（正保3年）に九州の太宰府天満宮の神職・菅原大鳥居信祐が、飛梅の枝で彫った天神像をこの地に祀ったことに始まります。太宰府天満宮に倣って社殿や太鼓橋などが造られたことから「東宰府天満宮」とも呼ばれました。徳川幕府の崇敬を受け、江戸庶民からも「亀戸の天神様」として親しまれてきました。",
+        features: "境内の最大の見どころは、4月下旬〜5月上旬に見頃を迎える藤の花です。15棚100株以上の藤が心字池に映る姿は息を呑む美しさで、「東京一の藤の名所」と称されます。境内には太宰府天満宮を模した太鼓橋（男橋・女橋）があり、この橋を渡ることで心が清められるとされています。スカイツリーが背景に見えるフォトスポットとしても人気です。",
+        worship: "学業成就・合格祈願・書道上達など学問に関するご利益が中心。菅原道真公は学問の神として広く信仰されており、受験シーズンには多くの学生が訪れます。",
+        info: {
+            "創建": "1646年（正保3年）",
+            "御祭神": "天満大自在天神（菅原道真公）・天菩日命",
+            "例大祭": "8月25日前後",
+            "参拝時間": "6:00〜17:00",
+            "アクセス": "JR亀戸駅 徒歩15分 / 東武亀戸線 亀戸水神駅 徒歩5分"
+        },
+        mapQuery: "亀戸天神社"
+    },
+    {
+        name: "富岡八幡宮",
+        reading: "とみおかはちまんぐう",
+        location: "東京都江東区富岡1-20-3",
+        tags: ["深川八幡祭", "相撲発祥", "伊能忠敬", "深川"],
+        mainImage: "https://images.unsplash.com/photo-1624601573012-efb68f3f150d?w=800&h=500&fit=crop",
+        gallery: [
+            "https://images.unsplash.com/photo-1583766395091-2eb9994ed094?w=400&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=400&h=300&fit=crop"
+        ],
+        history: "富岡八幡宮は1627年（寛永4年）に長盛法印が創建した、「深川の八幡様」として親しまれる江東区最大の八幡宮です。江戸時代には勧進相撲（現在の大相撲の起源）が境内で行われ、相撲の聖地としての歴史があります。また、測量家・伊能忠敬が日本地図作成の旅に出発する際、この神社に安全祈願をしたことでも知られています。",
+        features: "8月に行われる「深川八幡祭り」は江戸三大祭の一つで、「水かけ祭り」の異名を持ちます。50基以上の神輿が沿道から浴びせられる水の中を進む姿は圧巻です。境内には歴代横綱の名を刻んだ「横綱力士碑」や伊能忠敬の銅像があります。また、日本最大級の黄金神輿（1トン以上の純金装飾）を所蔵していることでも有名です。",
+        worship: "勝負運・開運・厄除け・家内安全など。相撲の聖地としてスポーツ関係者の参拝も多く、勝負事のご利益があると信仰されています。",
+        info: {
+            "創建": "1627年（寛永4年）",
+            "御祭神": "応神天皇（八幡大神）",
+            "例大祭": "8月15日前後（深川八幡祭り・3年に1度の本祭り）",
+            "参拝時間": "24時間（社務所 9:00〜17:00）",
+            "アクセス": "東京メトロ門前仲町駅 徒歩3分"
+        },
+        mapQuery: "富岡八幡宮"
+    },
+    {
+        name: "大國魂神社",
+        reading: "おおくにたまじんじゃ",
+        location: "東京都府中市宮町3-1",
+        tags: ["武蔵国総社", "くらやみ祭", "ケヤキ並木", "1900年の歴史"],
+        mainImage: "https://images.unsplash.com/photo-1478436127897-769e1b3f0f36?w=800&h=500&fit=crop",
+        gallery: [
+            "https://images.unsplash.com/photo-1576073719676-aa95576db207?w=400&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=400&h=300&fit=crop"
+        ],
+        history: "大國魂神社は111年（景行天皇41年）に創建されたと伝わる、武蔵国の総社です。武蔵国内の主要な神社の祭神を合わせ祀る「六所宮」として機能し、国司が一度にすべての神社を参拝できるようにしました。「府中」の地名は、ここが武蔵国の国府であったことに由来しています。約1900年の歴史を持つ都内でも屈指の古社です。",
+        features: "参道の馬場大門ケヤキ並木は国の天然記念物に指定されており、源義家が奥州征伐の帰途に植樹したと伝えられています。5月に行われる「くらやみ祭」は、深夜の暗闇の中で8基の神輿を渡御する壮大な祭りで、約70万人が訪れる東京西部最大の祭りです。境内は広大で、樹齢900年以上のケヤキの御神木がそびえ、歴史の重みを感じさせます。",
+        worship: "厄除け・縁結び・八方除け・商売繁盛など。武蔵国の守護神として総合的なご利益があり、地元では七五三や初宮参りなど人生の節目にも多く利用されています。",
+        info: {
+            "創建": "111年（景行天皇41年）",
+            "御祭神": "大國魂大神",
+            "例大祭": "5月5日（くらやみ祭）",
+            "参拝時間": "6:30〜17:00（季節により変動）",
+            "アクセス": "京王線 府中駅 徒歩5分 / JR府中本町駅 徒歩5分"
+        },
+        mapQuery: "大國魂神社 府中"
+    },
+    {
+        name: "赤坂氷川神社",
+        reading: "あかさかひかわじんじゃ",
+        location: "東京都港区赤坂6-10-12",
+        tags: ["縁結び", "良縁祈願祭", "徳川吉宗", "都会の隠れ家"],
+        mainImage: "https://images.unsplash.com/photo-1592882631893-cf4e818ddca3?w=800&h=500&fit=crop",
+        gallery: [
+            "https://images.unsplash.com/photo-1528164344705-47542687000d?w=400&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?w=400&h=300&fit=crop"
+        ],
+        history: "赤坂氷川神社は951年（天暦5年）に創建され、1000年以上の歴史を持つ古社です。1729年（享保14年）、八代将軍・徳川吉宗が現在地に社殿を造営しました。この社殿は関東大震災・東京大空襲を奇跡的に免れ、約300年前の姿をそのまま今に伝える貴重な建築です。東京十社の一つに数えられています。",
+        features: "六本木・赤坂という都心の一等地にありながら、大きなイチョウの木に囲まれた静寂な空間が広がります。毎月1回行われる「良縁祈願祭」は東京屈指の縁結び祈願として知られ、定員制のため予約が取りにくいほどの人気です。境内には樹齢400年を超える大イチョウがあり、秋には見事な黄葉を見せます。戦災を免れた江戸時代の社殿・石灯籠が往時の面影を伝えています。",
+        worship: "縁結び・良縁祈願・厄除け・家内安全など。特に「良縁祈願祭」は、一人一人丁寧に祈願してもらえると評判で、恋愛だけでなく仕事や人間関係の良縁にもご利益があるとされています。",
+        info: {
+            "創建": "951年（天暦5年）",
+            "御祭神": "素盞嗚尊・奇稲田姫命・大己貴命",
+            "例大祭": "9月15日前後",
+            "参拝時間": "6:00〜17:30",
+            "アクセス": "東京メトロ六本木一丁目駅 徒歩8分 / 赤坂駅 徒歩8分"
+        },
+        mapQuery: "赤坂氷川神社"
+    },
+    {
+        name: "代々木八幡宮",
+        reading: "よよぎはちまんぐう",
+        location: "東京都渋谷区代々木5-1-1",
+        tags: ["出世運", "パワースポット", "縄文遺跡", "芸能人御用達"],
+        mainImage: "https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?w=800&h=500&fit=crop",
+        gallery: [
+            "https://images.unsplash.com/photo-1590253230532-a67f6bc61c9e?w=400&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1570459027562-4a916cc6113f?w=400&h=300&fit=crop"
+        ],
+        history: "代々木八幡宮は1212年（建暦2年）、源頼家の近臣であった荒井外記智明が、この地に小さな祠を建てて八幡神を祀ったことに始まります。鎌倉幕府二代将軍・源頼家に仕えていた荒井は、頼家亡き後出家してこの地に隠棲し、八幡大神を祀ったとされています。境内からは縄文時代の遺跡（代々木八幡遺跡）が発見されており、古来より聖なる場所であったことがうかがえます。",
+        features: "小高い丘の上に位置し、代々木の緑豊かな杜に包まれた静かな神社です。近年「出世運・仕事運に強い」という評判から、芸能関係者やクリエイターの参拝が増えています。境内の出世稲荷が特に人気で、参拝後に仕事が好転したという口コミが多く広まっています。縄文時代の竪穴式住居が復元展示されており、数千年前の暮らしに触れることもできます。",
+        worship: "出世運・仕事運・商売繁盛・厄除けなど。特に出世稲荷社は「仕事運を上げたい」「ステップアップしたい」という人に絶大な人気があります。",
+        info: {
+            "創建": "1212年（建暦2年）",
+            "御祭神": "応神天皇",
+            "例大祭": "9月23日",
+            "参拝時間": "24時間（社務所 9:00〜17:00）",
+            "アクセス": "小田急線 代々木八幡駅 徒歩5分 / 東京メトロ代々木公園駅 徒歩5分"
+        },
+        mapQuery: "代々木八幡宮"
+    },
+    {
+        name: "品川神社",
+        reading: "しながわじんじゃ",
+        location: "東京都品川区北品川3-7-15",
+        tags: ["東京十社", "双龍鳥居", "富士塚", "金運"],
+        mainImage: "https://images.unsplash.com/photo-1604928141064-207cea6f571f?w=800&h=500&fit=crop",
+        gallery: [
+            "https://images.unsplash.com/photo-1624601573012-efb68f3f150d?w=400&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1583766395091-2eb9994ed094?w=400&h=300&fit=crop"
+        ],
+        history: "品川神社は1187年（文治3年）、源頼朝が安房国の洲崎明神（天比理乃咩命）を勧請して創建したと伝えられます。後に太田道灌が素盞嗚尊を、徳川家康が東海寺の鎮守として稲荷を合祀しました。明治時代に東京十社に列せられ、品川の総鎮守として信仰を集めています。",
+        features: "正面の石段を上がると目に飛び込んでくるのが、都内でも珍しい「双龍鳥居」です。鳥居の柱に昇り龍と降り龍が彫られた見事なもので、東京三大鳥居の一つとされています。境内には「品川富士」と呼ばれる富士塚があり、登頂すると品川の街並みを一望できます。阿那稲荷神社は上社と下社に分かれており、下社の「一粒萬倍の泉」で銭を洗うと金運がアップすると言われています。",
+        worship: "金運・商売繁盛・交通安全・開運厄除けなど。特に阿那稲荷神社の「一粒萬倍の泉」は銭洗いの金運パワースポットとして有名で、お金を洗ってから財布に入れると金運が上がるとされています。",
+        info: {
+            "創建": "1187年（文治3年）",
+            "御祭神": "天比理乃咩命・素盞嗚尊・宇賀之売命",
+            "例大祭": "6月上旬（北の天王祭）",
+            "参拝時間": "24時間（社務所 9:00〜17:00）",
+            "アクセス": "京急本線 新馬場駅 徒歩1分"
+        },
+        mapQuery: "品川神社"
+    },
+    {
+        name: "王子神社",
+        reading: "おうじじんじゃ",
+        location: "東京都北区王子本町1-1-12",
+        tags: ["東京十社", "王子の地名由来", "開運", "飛鳥山"],
+        mainImage: "https://images.unsplash.com/photo-1576073719676-aa95576db207?w=800&h=500&fit=crop",
+        gallery: [
+            "https://images.unsplash.com/photo-1528164344705-47542687000d?w=400&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?w=400&h=300&fit=crop"
+        ],
+        history: "王子神社の創建年代は不詳ですが、古くからこの地の守護神として祀られていました。1322年（元亨2年）に紀州の熊野三社より王子大神を勧請し、「若一王子宮」と呼ばれるようになったことから、「王子」という地名が生まれました。江戸時代には徳川将軍家の祈願所として格式を誇り、三代将軍家光が社殿を造営するなど厚い庇護を受けました。明治時代に東京十社に選ばれています。",
+        features: "JR王子駅からすぐの場所に広がる緑豊かな境内は、都心とは思えない静けさです。隣接する飛鳥山公園は八代将軍吉宗が桜を植えた東京有数の桜の名所で、神社参拝と合わせて楽しめます。毎年12月の「狐の行列」は、大晦日に関東中の狐が王子稲荷に集まったという伝説にちなんだ幻想的なイベントです。境内の大イチョウは東京都の天然記念物に指定されています。",
+        worship: "開運招福・厄除け・家内安全・子育て大願など。「王子」の名の通り、子供の成長に関するご利益が厚いとされ、七五三や初宮参りの参拝者が多い神社です。",
+        info: {
+            "創建": "不詳（1322年に王子大神を勧請）",
+            "御祭神": "伊邪那岐命・伊邪那美命・天照大御神 他",
+            "例大祭": "8月上旬（槍祭）",
+            "参拝時間": "24時間（社務所 9:00〜17:00）",
+            "アクセス": "JR王子駅 徒歩3分 / 東京メトロ王子駅 徒歩3分"
+        },
+        mapQuery: "王子神社 東京"
+    },
+    {
+        name: "鳩森八幡神社",
+        reading: "はとのもりはちまんじんじゃ",
+        location: "東京都渋谷区千駄ヶ谷1-1-24",
+        tags: ["千駄ヶ谷富士塚", "将棋の聖地", "能楽殿", "スポーツ"],
+        mainImage: "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=800&h=500&fit=crop",
+        gallery: [
+            "https://images.unsplash.com/photo-1592882631893-cf4e818ddca3?w=400&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?w=400&h=300&fit=crop"
+        ],
+        history: "鳩森八幡神社は860年（貞観2年）の創建と伝わり、この地の林から白い鳩が飛び立ったことから「鳩森」と名付けられたとされています。1789年に築かれた千駄ヶ谷の富士塚は、都内に現存する最古の富士塚として東京都の有形民俗文化財に指定されています。千駄ヶ谷・神宮外苑エリアの鎮守として古くから信仰を集めてきました。",
+        features: "境内にある「千駄ヶ谷富士塚」は高さ約6m、頂上には奥宮が祀られ、実際に登ることができるミニ富士山です。山頂からは周辺を見渡せます。隣接する将棋会館（日本将棋連盟の本部）にちなみ、「将棋堂」があり、大きな将棋の駒が奉納されています。棋士の多くが対局前に参拝する「将棋の聖地」としても有名です。国立競技場にも近く、スポーツ関連の祈願に訪れる人も多いです。",
+        worship: "勝負運・技芸上達・厄除け・安産など。将棋・囲碁の上達祈願や、スポーツの勝利祈願に多くの人が訪れます。富士塚に登ると富士山登拝と同じご利益があるとされています。",
+        info: {
+            "創建": "860年（貞観2年）",
+            "御祭神": "応神天皇・神功皇后",
+            "例大祭": "9月中旬",
+            "参拝時間": "24時間（社務所 9:00〜17:00）",
+            "アクセス": "JR千駄ヶ谷駅 徒歩5分 / 東京メトロ北参道駅 徒歩5分"
+        },
+        mapQuery: "鳩森八幡神社"
+    },
+    {
+        name: "阿佐ヶ谷神明宮",
+        reading: "あさがやしんめいぐう",
+        location: "東京都杉並区阿佐谷北1-25-5",
+        tags: ["レースお守り", "八難除", "伊勢神宮ゆかり", "女性人気"],
+        mainImage: "https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?w=800&h=500&fit=crop",
+        gallery: [
+            "https://images.unsplash.com/photo-1590253230532-a67f6bc61c9e?w=400&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1576073719676-aa95576db207?w=400&h=300&fit=crop"
+        ],
+        history: "阿佐ヶ谷神明宮は、日本武尊が東征の帰途にこの地で休息したことに由来すると伝えられています。その後、旧阿佐ヶ谷村の鎮守として天照大御神をお祀りし、「お伊勢さま」と親しまれてきました。境内には伊勢神宮から下賜された古材が使われた神明造りの社殿があり、都内では珍しい本格的な神明造りの建築が特徴です。",
+        features: "この神社が特に注目を集めているのが、全国でも珍しい「刺繍入りレースのお守り」です。繊細な刺繍が施されたブレスレット型のお守り「神むすび」は、その美しさから女性を中心に大変な人気で、季節ごとに限定デザインが登場します。また「八難除（はちなんよけ）」という独自の祈祷は、あらゆる災難を取り除く総合的な厄除けとして知られています。境内は手入れが行き届き、清浄な空気に満ちています。",
+        worship: "八難除（厄除け・方位除け・災難除けなど8つの災いを除く）・縁結び・安産・学業成就など。「八難除」は他の神社にはない独自の祈祷として人気があり、人生の転機に受ける人が多いです。",
+        info: {
+            "創建": "不詳（日本武尊の伝承に基づく）",
+            "御祭神": "天照大御神・月読尊・須佐之男尊",
+            "例大祭": "9月中旬",
+            "参拝時間": "6:00〜17:00",
+            "アクセス": "JR阿佐ケ谷駅 徒歩2分"
+        },
+        mapQuery: "阿佐ヶ谷神明宮"
+    },
+    {
+        name: "武蔵御嶽神社",
+        reading: "むさしみたけじんじゃ",
+        location: "東京都青梅市御岳山176",
+        tags: ["山岳信仰", "おいぬ様", "御岳山", "登山"],
+        mainImage: "https://images.unsplash.com/photo-1478436127897-769e1b3f0f36?w=800&h=500&fit=crop",
+        gallery: [
+            "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=400&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=400&h=300&fit=crop"
+        ],
+        history: "武蔵御嶽神社は紀元前91年（崇神天皇7年）の創建と伝えられ、2000年以上の歴史を持つ関東有数の古社です。標高929mの御岳山の山頂近くに鎮座し、古くから山岳信仰の霊場として崇められてきました。中世には修験道の道場として栄え、江戸時代には「御嶽詣で」として庶民にも広く親しまれました。狼（大口真神）を眷属として祀る「おいぬ様」信仰が特徴的です。",
+        features: "御岳山の山頂付近に位置するため、参拝にはケーブルカーとさらに徒歩での山道歩きが必要ですが、その分到達した時の感動は格別です。山上には宿坊が多く点在し、古い山岳信仰の雰囲気を今に伝えています。特に「大口真神社」に祀られるニホンオオカミ（おいぬ様）は、盗難除け・魔除けのご利益があるとされ、ペットの健康祈願にも人気です。秋の紅葉シーズンは特に美しく、天気が良ければ関東平野を一望できます。",
+        worship: "厄除け・延命・盗難除け・魔除け・ペットの健康祈願など。「おいぬ様」として犬の守護神としても知られ、ペット同伴で参拝する人も多い珍しい神社です。",
+        info: {
+            "創建": "紀元前91年（崇神天皇7年）と伝承",
+            "御祭神": "櫛眞智命・大己貴命・少彦名命",
+            "例大祭": "5月8日",
+            "参拝時間": "境内自由（社務所 9:00〜16:00）",
+            "アクセス": "JR御嶽駅からバス＋ケーブルカー＋徒歩約25分"
+        },
+        mapQuery: "武蔵御嶽神社"
+    },
+    {
+        name: "乃木神社",
+        reading: "のぎじんじゃ",
+        location: "東京都港区赤坂8-11-27",
+        tags: ["乃木坂", "文武両道", "結婚式", "正松神社"],
+        mainImage: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=800&h=500&fit=crop",
+        gallery: [
+            "https://images.unsplash.com/photo-1590559899731-a382839e5549?w=400&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1592882631893-cf4e818ddca3?w=400&h=300&fit=crop"
+        ],
+        history: "乃木神社は1923年（大正12年）に創建された、乃木希典将軍と夫人・静子を御祭神とする神社です。乃木将軍は明治時代の陸軍大将であり、学習院の院長として教育にも尽力した人物です。1912年、明治天皇の大喪の日に殉死したことは日本中に衝撃を与えました。その忠義と人格を慕う人々により、旧邸宅に隣接して神社が創建されました。",
+        features: "乃木坂駅からすぐの場所にあり、「乃木坂」の地名の由来にもなった神社です。境内は手入れが行き届いた美しい空間で、結婚式場としても人気があります。隣接する旧乃木邸は、質素倹約を旨とした将軍の人柄を偲ばせる木造家屋で、毎年命日の9月13日に公開されます。境内の正松神社には、乃木将軍の師である玉木文之進と吉田松陰が祀られており、学業成就の参拝者も多く訪れます。",
+        worship: "文武両道・忠誠・夫婦和合・学業成就など。特に勝負運や学問のご利益を求める参拝者が多く、正松神社は松陰ゆかりの学業成就スポットとして受験生にも人気です。",
+        info: {
+            "創建": "1923年（大正12年）",
+            "御祭神": "乃木希典命・乃木静子命",
+            "例大祭": "9月13日",
+            "参拝時間": "6:00〜17:00",
+            "アクセス": "東京メトロ乃木坂駅 徒歩すぐ"
+        },
+        mapQuery: "乃木神社 東京"
+    },
+    {
+        name: "芝大神宮",
+        reading: "しばだいじんぐう",
+        location: "東京都港区芝大門1-12-7",
+        tags: ["関東のお伊勢さま", "だらだら祭り", "強運お守り", "1000年の歴史"],
+        mainImage: "https://images.unsplash.com/photo-1570459027562-4a916cc6113f?w=800&h=500&fit=crop",
+        gallery: [
+            "https://images.unsplash.com/photo-1604928141064-207cea6f571f?w=400&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1528164344705-47542687000d?w=400&h=300&fit=crop"
+        ],
+        history: "芝大神宮は1005年（寛弘2年）に一条天皇の御代に創建された、1000年以上の歴史を持つ由緒ある神社です。伊勢神宮と同じ天照大御神と豊受大神をお祀りすることから「関東のお伊勢さま」と呼ばれ、江戸時代には庶民の伊勢信仰の拠点として大いに賑わいました。当時は「芝神明」と呼ばれ、門前には芝居小屋や茶屋が立ち並んでいました。",
+        features: "浜松町・大門のビジネス街に位置しながら、荘厳な雰囲気を保つ神社です。最大の行事は9月中旬から約1ヶ月間にわたって行われる「だらだら祭り」（芝大神宮祭礼）。期間が長いことから「だらだら」の名がつきましたが、生姜を売る市が立つことから「しょうが祭り」とも呼ばれます。「強運（ごううん）お守り」は宝くじ当選者が続出したとの評判で非常に人気があり、期間限定の頒布に長い行列ができることもあります。",
+        worship: "強運・商売繁盛・縁結び・学業成就など。特に「強運お守り」は金運・くじ運を求める人に大人気です。ビジネス街にあるため、仕事始めの参拝や商売繁盛の祈願に訪れるビジネスパーソンも多いです。",
+        info: {
+            "創建": "1005年（寛弘2年）",
+            "御祭神": "天照大御神・豊受大神",
+            "例大祭": "9月16日（だらだら祭り 9月中旬〜10月中旬）",
+            "参拝時間": "6:00〜18:00",
+            "アクセス": "JR浜松町駅 徒歩5分 / 都営地下鉄大門駅 徒歩1分"
+        },
+        mapQuery: "芝大神宮"
+    }
+];
+
+// Get today's shrine based on the date
+function getTodayIndex() {
+    const now = new Date();
+    const start = new Date(now.getFullYear(), 0, 0);
+    const diff = now - start;
+    const oneDay = 1000 * 60 * 60 * 24;
+    const dayOfYear = Math.floor(diff / oneDay);
+    return dayOfYear % shrines.length;
+}
+
+function formatDate() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1;
+    const day = now.getDate();
+    const weekdays = ['日', '月', '火', '水', '木', '金', '土'];
+    const weekday = weekdays[now.getDay()];
+    return `${year}年${month}月${day}日（${weekday}）`;
+}
+
+let currentIndex = getTodayIndex();
+
+function renderShrine(index) {
+    const shrine = shrines[index];
+    const card = document.getElementById('shrineCard');
+
+    let infoRows = '';
+    for (const [key, value] of Object.entries(shrine.info)) {
+        infoRows += `<tr><th>${key}</th><td>${value}</td></tr>`;
+    }
+
+    let galleryHtml = '';
+    if (shrine.gallery && shrine.gallery.length > 0) {
+        galleryHtml = `
+            <div class="section-title" style="padding: 20px 28px 0;">
+                <span class="icon">📸</span> フォトギャラリー
+            </div>
+            <div class="gallery">
+                ${shrine.gallery.map(img => `<img src="${img}" alt="${shrine.name}" onclick="openLightbox(this.src)" loading="lazy">`).join('')}
+            </div>
+        `;
+    }
+
+    card.innerHTML = `
+        <img class="hero-image" src="${shrine.mainImage}" alt="${shrine.name}" onclick="openLightbox(this.src)">
+
+        <div class="shrine-header">
+            <h2 class="shrine-name">${shrine.name}</h2>
+            <div class="shrine-reading">${shrine.reading}</div>
+            <div class="shrine-location">${shrine.location}</div>
+        </div>
+
+        <div class="tags">
+            ${shrine.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+        </div>
+
+        <div class="content-section">
+            <h3 class="section-title"><span class="icon">📜</span> 歴史・由来</h3>
+            <p>${shrine.history}</p>
+        </div>
+
+        <div class="content-section">
+            <h3 class="section-title"><span class="icon">✨</span> 見どころ・特徴</h3>
+            <p>${shrine.features}</p>
+        </div>
+
+        <div class="content-section">
+            <h3 class="section-title"><span class="icon">🙏</span> ご利益・信仰</h3>
+            <p>${shrine.worship}</p>
+        </div>
+
+        ${galleryHtml}
+
+        <div class="content-section">
+            <h3 class="section-title"><span class="icon">ℹ️</span> 基本情報</h3>
+            <table class="info-table">
+                ${infoRows}
+            </table>
+        </div>
+
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(shrine.mapQuery)}" target="_blank" rel="noopener">
+            🗺️ Google Mapsで見る
+        </a>
+
+        <div class="nav-section">
+            <button class="nav-btn" onclick="navigate(-1)" ${index === 0 ? 'disabled' : ''}>
+                ← 前の神社
+            </button>
+            <span class="day-counter">${index + 1} / ${shrines.length}</span>
+            <button class="nav-btn" onclick="navigate(1)" ${index === shrines.length - 1 ? 'disabled' : ''}>
+                次の神社 →
+            </button>
+        </div>
+    `;
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function navigate(direction) {
+    currentIndex += direction;
+    if (currentIndex < 0) currentIndex = 0;
+    if (currentIndex >= shrines.length) currentIndex = shrines.length - 1;
+    renderShrine(currentIndex);
+}
+
+function openLightbox(src) {
+    const lightbox = document.getElementById('lightbox');
+    const img = document.getElementById('lightboxImg');
+    img.src = src;
+    lightbox.classList.add('active');
+}
+
+document.getElementById('lightbox').addEventListener('click', function() {
+    this.classList.remove('active');
+});
+
+// Initialize
+document.getElementById('dateBadge').textContent = formatDate();
+renderShrine(currentIndex);
+
+// Register Service Worker for PWA
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js');
+}
+</script>
+</body>
+</html>
