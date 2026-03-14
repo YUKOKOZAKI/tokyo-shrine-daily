@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>相談受付フォーム</title>
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: #f0f2f5;
+            color: #333;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2c5f8a 0%, #3a7cbd 100%);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Form Section */
+        .form-card {
+            background: white;
+            border-radius: 12px;
+            padding: 28px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            margin-bottom: 24px;
+        }
+
+        .form-card h2 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #2c5f8a;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e8edf2;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 6px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 10px 12px;
+            border: 1px solid #d0d5dd;
+            border-radius: 8px;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.95rem;
+            color: #333;
+            background: #fafbfc;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3a7cbd;
+            box-shadow: 0 0 0 3px rgba(58, 124, 189, 0.15);
+            background: white;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: #2c5f8a;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #234d72;
+        }
+
+        .btn-success {
+            background: #2d8a4e;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #236b3d;
+        }
+
+        .btn-danger {
+            background: #c0392b;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #a03020;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Table Section */
+        .table-card {
+            background: white;
+            border-radius: 12px;
+            padding: 28px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            margin-bottom: 24px;
+            overflow-x: auto;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .table-header h2 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #2c5f8a;
+        }
+
+        .record-count {
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        thead th {
+            background: #f0f4f8;
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 500;
+            color: #555;
+            border-bottom: 2px solid #d0d5dd;
+            white-space: nowrap;
+        }
+
+        tbody td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #eee;
+            color: #444;
+        }
+
+        tbody tr:hover {
+            background: #f8f9fb;
+        }
+
+        .delete-btn {
+            background: none;
+            border: 1px solid #e0e0e0;
+            color: #999;
+            cursor: pointer;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+
+        .delete-btn:hover {
+            border-color: #c0392b;
+            color: #c0392b;
+            background: #fdf2f2;
+        }
+
+        .empty-message {
+            text-align: center;
+            color: #aaa;
+            padding: 40px 20px;
+            font-size: 0.95rem;
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #2d8a4e;
+            color: white;
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        @media (max-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .btn-row {
+                flex-direction: column;
+            }
+            .container {
+                padding: 12px;
+            }
+            .form-card, .table-card {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>相談受付フォーム</h1>
+</header>
+
+<div class="container">
+    <!-- Input Form -->
+    <div class="form-card">
+        <h2>新規相談記録</h2>
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="consultDate">相談日</label>
+                <input type="date" id="consultDate">
+            </div>
+            <div class="form-group">
+                <label for="clientName">相談者名</label>
+                <input type="text" id="clientName" placeholder="氏名を入力">
+            </div>
+            <div class="form-group">
+                <label for="gender">性別</label>
+                <select id="gender">
+                    <option value="">選択してください</option>
+                    <option value="女性">女性</option>
+                    <option value="男性">男性</option>
+                    <option value="その他">その他</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="attribute">属性</label>
+                <select id="attribute">
+                    <option value="">選択してください</option>
+                    <option value="成人">成人</option>
+                    <option value="乳児">乳児</option>
+                    <option value="幼児">幼児</option>
+                    <option value="小学生">小学生</option>
+                    <option value="中学生">中学生</option>
+                    <option value="高校生">高校生</option>
+                    <option value="大学生">大学生</option>
+                </select>
+            </div>
+            <div class="form-group full-width">
+                <label for="category">相談内容分類</label>
+                <select id="category">
+                    <option value="">選択してください</option>
+                    <optgroup label="＜18歳未満＞">
+                        <option value="①学校での問題行動">①学校での問題行動</option>
+                        <option value="②発達障害・学習の問題">②発達障害・学習の問題</option>
+                        <option value="③いじめ">③いじめ</option>
+                        <option value="④親子関係">④親子関係</option>
+                        <option value="⑤対人関係">⑤対人関係</option>
+                        <option value="⑥習癖(チック等)">⑥習癖(チック等)</option>
+                        <option value="⑦自傷行為">⑦自傷行為</option>
+                        <option value="⑧不登校・登校渋り">⑧不登校・登校渋り</option>
+                        <option value="⑨思春期の問題">⑨思春期の問題</option>
+                        <option value="⑩不安・緊張症状">⑩不安・緊張症状</option>
+                        <option value="⑪心理検査目的">⑪心理検査目的</option>
+                    </optgroup>
+                    <optgroup label="＜18歳以上＞">
+                        <option value="A-①心理・性格の問題">A-①心理・性格の問題</option>
+                        <option value="A-②夫婦関係の問題">A-②夫婦関係の問題</option>
+                        <option value="A-③子どもの問題">A-③子どもの問題</option>
+                        <option value="A-④家庭の問題">A-④家庭の問題</option>
+                        <option value="A-⑤抑鬱状態">A-⑤抑鬱状態</option>
+                        <option value="A-⑥青年期の問題">A-⑥青年期の問題</option>
+                        <option value="A-⑦その他の問題">A-⑦その他の問題</option>
+                        <option value="A-⑧人間関係の問題">A-⑧人間関係の問題</option>
+                    </optgroup>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="route">新規相談の来談経路</label>
+                <select id="route">
+                    <option value="">選択してください</option>
+                    <optgroup label="＜紹介＞">
+                        <option value="①他の相談機関">①他の相談機関</option>
+                        <option value="②SC・教育関係機関">②SC・教育関係機関</option>
+                        <option value="③姉妹校関係者より">③姉妹校関係者より</option>
+                        <option value="④医療関係">④医療関係</option>
+                        <option value="⑤宮代会">⑤宮代会</option>
+                        <option value="⑥本相談所利用者">⑥本相談所利用者</option>
+                        <option value="⑦本相談所関係者">⑦本相談所関係者</option>
+                        <option value="⑧知人">⑧知人</option>
+                        <option value="⑨在学生">⑨在学生</option>
+                        <option value="⑩パンフレット">⑩パンフレット</option>
+                        <option value="⑪インターネット・情報誌等">⑪インターネット・情報誌等</option>
+                        <option value="⑫公開講座に参加して">⑫公開講座に参加して</option>
+                        <option value="⑬近隣を通りがかって">⑬近隣を通りがかって</option>
+                    </optgroup>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="interviewType">面接形態</label>
+                <select id="interviewType">
+                    <option value="">選択してください</option>
+                    <option value="個人">個人</option>
+                    <option value="親子並行">親子並行</option>
+                </select>
+            </div>
+            <div class="form-group full-width">
+                <label for="notes">備考</label>
+                <textarea id="notes" placeholder="自由記述"></textarea>
+            </div>
+        </div>
+        <div class="btn-row">
+            <button class="btn btn-primary" onclick="addRecord()">記録を追加</button>
+            <button class="btn btn-success" onclick="exportExcel()" id="exportBtn" disabled>Excelに出力</button>
+        </div>
+    </div>
+
+    <!-- Records Table -->
+    <div class="table-card">
+        <div class="table-header">
+            <h2>入力済み記録</h2>
+            <span class="record-count" id="recordCount">0件</span>
+        </div>
+        <div id="tableContainer">
+            <p class="empty-message">まだ記録がありません</p>
+        </div>
+    </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+    let records = [];
+
+    // Load from localStorage
+    const saved = localStorage.getItem('consultRecords');
+    if (saved) {
+        try {
+            records = JSON.parse(saved);
+            renderTable();
+        } catch (e) {
+            records = [];
+        }
+    }
+
+    // Set today's date as default
+    document.getElementById('consultDate').valueAsDate = new Date();
+
+    function addRecord() {
+        const date = document.getElementById('consultDate').value;
+        const name = document.getElementById('clientName').value.trim();
+        const gender = document.getElementById('gender').value;
+        const attribute = document.getElementById('attribute').value;
+        const category = document.getElementById('category').value;
+        const route = document.getElementById('route').value;
+        const interviewType = document.getElementById('interviewType').value;
+        const notes = document.getElementById('notes').value.trim();
+
+        if (!date) {
+            showToast('相談日を入力してください', 'error');
+            return;
+        }
+
+        records.push({
+            相談日: date,
+            相談者名: name,
+            性別: gender,
+            属性: attribute,
+            相談内容分類: category,
+            来談経路: route,
+            面接形態: interviewType,
+            備考: notes
+        });
+
+        saveToStorage();
+        renderTable();
+        clearForm();
+        showToast('記録を追加しました');
+    }
+
+    function deleteRecord(index) {
+        records.splice(index, 1);
+        saveToStorage();
+        renderTable();
+        showToast('記録を削除しました', 'warn');
+    }
+
+    function clearForm() {
+        document.getElementById('clientName').value = '';
+        document.getElementById('gender').value = '';
+        document.getElementById('attribute').value = '';
+        document.getElementById('category').value = '';
+        document.getElementById('route').value = '';
+        document.getElementById('interviewType').value = '';
+        document.getElementById('notes').value = '';
+        document.getElementById('consultDate').valueAsDate = new Date();
+    }
+
+    function saveToStorage() {
+        localStorage.setItem('consultRecords', JSON.stringify(records));
+    }
+
+    function renderTable() {
+        const container = document.getElementById('tableContainer');
+        const countEl = document.getElementById('recordCount');
+        const exportBtn = document.getElementById('exportBtn');
+
+        countEl.textContent = records.length + '件';
+        exportBtn.disabled = records.length === 0;
+
+        if (records.length === 0) {
+            container.innerHTML = '<p class="empty-message">まだ記録がありません</p>';
+            return;
+        }
+
+        let html = `<table>
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>相談日</th>
+                    <th>相談者名</th>
+                    <th>性別</th>
+                    <th>属性</th>
+                    <th>相談内容分類</th>
+                    <th>来談経路</th>
+                    <th>面接形態</th>
+                    <th>備考</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>`;
+
+        records.forEach((r, i) => {
+            html += `<tr>
+                <td>${i + 1}</td>
+                <td>${r['相談日']}</td>
+                <td>${escapeHtml(r['相談者名'])}</td>
+                <td>${r['性別']}</td>
+                <td>${r['属性']}</td>
+                <td>${r['相談内容分類']}</td>
+                <td>${r['来談経路']}</td>
+                <td>${r['面接形態']}</td>
+                <td>${escapeHtml(r['備考'])}</td>
+                <td><button class="delete-btn" onclick="deleteRecord(${i})">削除</button></td>
+            </tr>`;
+        });
+
+        html += '</tbody></table>';
+        container.innerHTML = html;
+    }
+
+    function exportExcel() {
+        if (records.length === 0) return;
+
+        const exportData = records.map((r, i) => ({
+            'No.': i + 1,
+            '相談日': r['相談日'],
+            '相談者名': r['相談者名'],
+            '性別': r['性別'],
+            '属性': r['属性'],
+            '相談内容分類': r['相談内容分類'],
+            '来談経路': r['来談経路'],
+            '面接形態': r['面接形態'],
+            '備考': r['備考']
+        }));
+
+        const ws = XLSX.utils.json_to_sheet(exportData);
+
+        // Set column widths
+        ws['!cols'] = [
+            { wch: 5 },   // No.
+            { wch: 12 },  // 相談日
+            { wch: 14 },  // 相談者名
+            { wch: 6 },   // 性別
+            { wch: 8 },   // 属性
+            { wch: 22 },  // 相談内容分類
+            { wch: 22 },  // 来談経路
+            { wch: 10 },  // 面接形態
+            { wch: 30 }   // 備考
+        ];
+
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, '相談記録');
+
+        const today = new Date();
+        const filename = `相談記録_${today.getFullYear()}${String(today.getMonth()+1).padStart(2,'0')}${String(today.getDate()).padStart(2,'0')}.xlsx`;
+
+        XLSX.writeFile(wb, filename);
+        showToast('Excelファイルを出力しました');
+    }
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+    }
+
+    function showToast(message, type) {
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.style.background = type === 'error' ? '#c0392b' : type === 'warn' ? '#e67e22' : '#2d8a4e';
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+</script>
+
+</body>
+</html>
