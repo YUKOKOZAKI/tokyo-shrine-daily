@@ -40,7 +40,6 @@
             padding: 20px;
         }
 
-        /* Form Section */
         .form-card {
             background: white;
             border-radius: 12px;
@@ -105,6 +104,201 @@
         .form-group textarea {
             resize: vertical;
             min-height: 80px;
+        }
+
+        /* Client block styles */
+        .client-block {
+            border: 1px solid #e0e5eb;
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 12px;
+            background: #f8fafc;
+        }
+
+        .client-block-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .client-block-header span {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #2c5f8a;
+        }
+
+        .remove-client-btn {
+            background: none;
+            border: 1px solid #e0e0e0;
+            color: #999;
+            cursor: pointer;
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+
+        .remove-client-btn:hover {
+            border-color: #c0392b;
+            color: #c0392b;
+            background: #fdf2f2;
+        }
+
+        .client-fields {
+            display: grid;
+            grid-template-columns: 1fr 80px 80px 1fr;
+            gap: 10px;
+        }
+
+        .client-fields input,
+        .client-fields select {
+            padding: 8px 10px;
+            border: 1px solid #d0d5dd;
+            border-radius: 6px;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.9rem;
+            color: #333;
+            background: white;
+        }
+
+        .client-fields input:focus,
+        .client-fields select:focus {
+            outline: none;
+            border-color: #3a7cbd;
+            box-shadow: 0 0 0 3px rgba(58, 124, 189, 0.15);
+        }
+
+        .client-field-label {
+            font-size: 0.75rem;
+            color: #888;
+            margin-bottom: 3px;
+        }
+
+        .client-field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .add-client-btn {
+            display: inline-block;
+            background: none;
+            border: 1px dashed #3a7cbd;
+            color: #3a7cbd;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 8px;
+        }
+
+        .add-client-btn:hover {
+            background: #eef4fa;
+        }
+
+        .add-client-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        /* Checkbox group styles */
+        .checkbox-group {
+            border: 1px solid #d0d5dd;
+            border-radius: 8px;
+            padding: 12px;
+            background: #fafbfc;
+            max-height: 220px;
+            overflow-y: auto;
+        }
+
+        .checkbox-group-label {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #2c5f8a;
+            margin-top: 8px;
+            margin-bottom: 4px;
+            padding-bottom: 2px;
+            border-bottom: 1px solid #e8edf2;
+        }
+
+        .checkbox-group-label:first-child {
+            margin-top: 0;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 4px 0;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 8px;
+            accent-color: #2c5f8a;
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        .checkbox-item label {
+            font-size: 0.85rem;
+            color: #444;
+            cursor: pointer;
+        }
+
+        /* Radio group with other */
+        .radio-group {
+            border: 1px solid #d0d5dd;
+            border-radius: 8px;
+            padding: 12px;
+            background: #fafbfc;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px 16px;
+        }
+
+        .radio-item {
+            display: flex;
+            align-items: center;
+            padding: 4px 0;
+        }
+
+        .radio-item input[type="radio"] {
+            margin-right: 6px;
+            accent-color: #2c5f8a;
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        .radio-item label {
+            font-size: 0.85rem;
+            color: #444;
+            cursor: pointer;
+        }
+
+        .other-text {
+            padding: 6px 10px;
+            border: 1px solid #d0d5dd;
+            border-radius: 6px;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.85rem;
+            color: #333;
+            background: white;
+            width: 160px;
+            margin-left: 4px;
+        }
+
+        .other-text:disabled {
+            background: #eee;
+            opacity: 0.5;
+        }
+
+        .other-text:focus {
+            outline: none;
+            border-color: #3a7cbd;
+            box-shadow: 0 0 0 3px rgba(58, 124, 189, 0.15);
         }
 
         .btn-row {
@@ -187,12 +381,12 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
 
         thead th {
             background: #f0f4f8;
-            padding: 10px 12px;
+            padding: 10px 8px;
             text-align: left;
             font-weight: 500;
             color: #555;
@@ -201,9 +395,11 @@
         }
 
         tbody td {
-            padding: 10px 12px;
+            padding: 10px 8px;
             border-bottom: 1px solid #eee;
             color: #444;
+            max-width: 180px;
+            word-break: break-word;
         }
 
         tbody tr:hover {
@@ -234,7 +430,6 @@
             font-size: 0.95rem;
         }
 
-        /* Toast notification */
         .toast {
             position: fixed;
             bottom: 30px;
@@ -260,6 +455,9 @@
             .form-grid {
                 grid-template-columns: 1fr;
             }
+            .client-fields {
+                grid-template-columns: 1fr 1fr;
+            }
             .btn-row {
                 flex-direction: column;
             }
@@ -279,7 +477,6 @@
 </header>
 
 <div class="container">
-    <!-- Input Form -->
     <div class="form-card">
         <h2>新規相談記録</h2>
         <div class="form-grid">
@@ -288,89 +485,90 @@
                 <input type="date" id="consultDate">
             </div>
             <div class="form-group">
-                <label for="clientName">相談者名</label>
-                <input type="text" id="clientName" placeholder="氏名を入力">
+                <!-- spacer -->
             </div>
-            <div class="form-group">
-                <label for="gender">性別</label>
-                <select id="gender">
-                    <option value="">選択してください</option>
-                    <option value="女性">女性</option>
-                    <option value="男性">男性</option>
-                    <option value="その他">その他</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="attribute">属性</label>
-                <select id="attribute">
-                    <option value="">選択してください</option>
-                    <option value="成人">成人</option>
-                    <option value="乳児">乳児</option>
-                    <option value="幼児">幼児</option>
-                    <option value="小学生">小学生</option>
-                    <option value="中学生">中学生</option>
-                    <option value="高校生">高校生</option>
-                    <option value="大学生">大学生</option>
-                </select>
-            </div>
+
+            <!-- 相談者（最大4名） -->
             <div class="form-group full-width">
-                <label for="category">相談内容分類</label>
-                <select id="category">
-                    <option value="">選択してください</option>
-                    <optgroup label="＜18歳未満＞">
-                        <option value="①学校での問題行動">①学校での問題行動</option>
-                        <option value="②発達障害・学習の問題">②発達障害・学習の問題</option>
-                        <option value="③いじめ">③いじめ</option>
-                        <option value="④親子関係">④親子関係</option>
-                        <option value="⑤対人関係">⑤対人関係</option>
-                        <option value="⑥習癖(チック等)">⑥習癖(チック等)</option>
-                        <option value="⑦自傷行為">⑦自傷行為</option>
-                        <option value="⑧不登校・登校渋り">⑧不登校・登校渋り</option>
-                        <option value="⑨思春期の問題">⑨思春期の問題</option>
-                        <option value="⑩不安・緊張症状">⑩不安・緊張症状</option>
-                        <option value="⑪心理検査目的">⑪心理検査目的</option>
-                    </optgroup>
-                    <optgroup label="＜18歳以上＞">
-                        <option value="A-①心理・性格の問題">A-①心理・性格の問題</option>
-                        <option value="A-②夫婦関係の問題">A-②夫婦関係の問題</option>
-                        <option value="A-③子どもの問題">A-③子どもの問題</option>
-                        <option value="A-④家庭の問題">A-④家庭の問題</option>
-                        <option value="A-⑤抑鬱状態">A-⑤抑鬱状態</option>
-                        <option value="A-⑥青年期の問題">A-⑥青年期の問題</option>
-                        <option value="A-⑦その他の問題">A-⑦その他の問題</option>
-                        <option value="A-⑧人間関係の問題">A-⑧人間関係の問題</option>
-                    </optgroup>
-                </select>
+                <label>相談者（最大4名）</label>
+                <div id="clientContainer"></div>
+                <button type="button" class="add-client-btn" id="addClientBtn" onclick="addClientBlock()">＋ 相談者を追加</button>
             </div>
+
+            <!-- 相談内容（複数選択） -->
+            <div class="form-group full-width">
+                <label>相談内容分類（複数選択可）</label>
+                <div class="checkbox-group" id="categoryGroup">
+                    <div class="checkbox-group-label">＜18歳未満＞</div>
+                    <div class="checkbox-item"><input type="checkbox" id="cat_1" value="①学校での問題行動"><label for="cat_1">①学校での問題行動</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cat_2" value="②発達障害・学習の問題"><label for="cat_2">②発達障害・学習の問題</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cat_3" value="③いじめ"><label for="cat_3">③いじめ</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cat_4" value="④親子関係"><label for="cat_4">④親子関係</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cat_5" value="⑤対人関係"><label for="cat_5">⑤対人関係</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cat_6" value="⑥習癖(チック等)"><label for="cat_6">⑥習癖(チック等)</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cat_7" value="⑦自傷行為"><label for="cat_7">⑦自傷行為</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cat_8" value="⑧不登校・登校渋り"><label for="cat_8">⑧不登校・登校渋り</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cat_9" value="⑨思春期の問題"><label for="cat_9">⑨思春期の問題</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cat_10" value="⑩不安・緊張症状"><label for="cat_10">⑩不安・緊張症状</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cat_11" value="⑪心理検査目的"><label for="cat_11">⑪心理検査目的</label></div>
+                    <div class="checkbox-group-label">＜18歳以上＞</div>
+                    <div class="checkbox-item"><input type="checkbox" id="cat_a1" value="A-①心理・性格の問題"><label for="cat_a1">A-①心理・性格の問題</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cat_a2" value="A-②夫婦関係の問題"><label for="cat_a2">A-②夫婦関係の問題</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cat_a3" value="A-③子どもの問題"><label for="cat_a3">A-③子どもの問題</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cat_a4" value="A-④家庭の問題"><label for="cat_a4">A-④家庭の問題</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cat_a5" value="A-⑤抑鬱状態"><label for="cat_a5">A-⑤抑鬱状態</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cat_a6" value="A-⑥青年期の問題"><label for="cat_a6">A-⑥青年期の問題</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cat_a7" value="A-⑦その他の問題"><label for="cat_a7">A-⑦その他の問題</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cat_a8" value="A-⑧人間関係の問題"><label for="cat_a8">A-⑧人間関係の問題</label></div>
+                </div>
+            </div>
+
+            <!-- 来談経路（複数選択） -->
+            <div class="form-group full-width">
+                <label>新規相談の来談経路（複数選択可）</label>
+                <div class="checkbox-group" id="routeGroup">
+                    <div class="checkbox-group-label">＜紹介＞</div>
+                    <div class="checkbox-item"><input type="checkbox" id="route_1" value="①他の相談機関"><label for="route_1">①他の相談機関</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="route_2" value="②SC・教育関係機関"><label for="route_2">②SC・教育関係機関</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="route_3" value="③姉妹校関係者より"><label for="route_3">③姉妹校関係者より</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="route_4" value="④医療関係"><label for="route_4">④医療関係</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="route_5" value="⑤宮代会"><label for="route_5">⑤宮代会</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="route_6" value="⑥本相談所利用者"><label for="route_6">⑥本相談所利用者</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="route_7" value="⑦本相談所関係者"><label for="route_7">⑦本相談所関係者</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="route_8" value="⑧知人"><label for="route_8">⑧知人</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="route_9" value="⑨在学生"><label for="route_9">⑨在学生</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="route_10" value="⑩パンフレット"><label for="route_10">⑩パンフレット</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="route_11" value="⑪インターネット・情報誌等"><label for="route_11">⑪インターネット・情報誌等</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="route_12" value="⑫公開講座に参加して"><label for="route_12">⑫公開講座に参加して</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="route_13" value="⑬近隣を通りがかって"><label for="route_13">⑬近隣を通りがかって</label></div>
+                </div>
+            </div>
+
+            <!-- 面接形態（ラジオ＋その他自由記載） -->
             <div class="form-group">
-                <label for="route">新規相談の来談経路</label>
-                <select id="route">
-                    <option value="">選択してください</option>
-                    <optgroup label="＜紹介＞">
-                        <option value="①他の相談機関">①他の相談機関</option>
-                        <option value="②SC・教育関係機関">②SC・教育関係機関</option>
-                        <option value="③姉妹校関係者より">③姉妹校関係者より</option>
-                        <option value="④医療関係">④医療関係</option>
-                        <option value="⑤宮代会">⑤宮代会</option>
-                        <option value="⑥本相談所利用者">⑥本相談所利用者</option>
-                        <option value="⑦本相談所関係者">⑦本相談所関係者</option>
-                        <option value="⑧知人">⑧知人</option>
-                        <option value="⑨在学生">⑨在学生</option>
-                        <option value="⑩パンフレット">⑩パンフレット</option>
-                        <option value="⑪インターネット・情報誌等">⑪インターネット・情報誌等</option>
-                        <option value="⑫公開講座に参加して">⑫公開講座に参加して</option>
-                        <option value="⑬近隣を通りがかって">⑬近隣を通りがかって</option>
-                    </optgroup>
-                </select>
+                <label>面接形態</label>
+                <div class="radio-group" id="interviewTypeGroup">
+                    <div class="radio-item"><input type="radio" name="interviewType" id="iv_1" value="個別" onchange="toggleInterviewOther()"><label for="iv_1">個別</label></div>
+                    <div class="radio-item"><input type="radio" name="interviewType" id="iv_2" value="親子並行" onchange="toggleInterviewOther()"><label for="iv_2">親子並行</label></div>
+                    <div class="radio-item"><input type="radio" name="interviewType" id="iv_3" value="夫婦面接" onchange="toggleInterviewOther()"><label for="iv_3">夫婦面接</label></div>
+                    <div class="radio-item"><input type="radio" name="interviewType" id="iv_4" value="家族面接" onchange="toggleInterviewOther()"><label for="iv_4">家族面接</label></div>
+                    <div class="radio-item"><input type="radio" name="interviewType" id="iv_other" value="その他" onchange="toggleInterviewOther()"><label for="iv_other">その他:</label><input type="text" class="other-text" id="interviewOtherText" placeholder="内容を入力" disabled></div>
+                </div>
             </div>
+
+            <!-- 使用する部屋（複数選択＋その他自由記載） -->
             <div class="form-group">
-                <label for="interviewType">面接形態</label>
-                <select id="interviewType">
-                    <option value="">選択してください</option>
-                    <option value="個人">個人</option>
-                    <option value="親子並行">親子並行</option>
-                </select>
+                <label>使用する部屋（複数選択可）</label>
+                <div class="checkbox-group" id="roomGroup">
+                    <div class="checkbox-item"><input type="checkbox" id="room_1" value="面接室１" onchange="toggleRoomOther()"><label for="room_1">面接室１</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="room_2" value="面接室２" onchange="toggleRoomOther()"><label for="room_2">面接室２</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="room_3" value="面接室３" onchange="toggleRoomOther()"><label for="room_3">面接室３</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="room_4" value="プレイルーム１" onchange="toggleRoomOther()"><label for="room_4">プレイルーム１</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="room_5" value="プレイルーム２" onchange="toggleRoomOther()"><label for="room_5">プレイルーム２</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="room_other" value="その他" onchange="toggleRoomOther()"><label for="room_other">その他:</label><input type="text" class="other-text" id="roomOtherText" placeholder="内容を入力" disabled></div>
+                </div>
             </div>
+
             <div class="form-group full-width">
                 <label for="notes">備考</label>
                 <textarea id="notes" placeholder="自由記述"></textarea>
@@ -398,6 +596,8 @@
 
 <script>
     let records = [];
+    let clientCount = 0;
+    const MAX_CLIENTS = 4;
 
     // Load from localStorage
     const saved = localStorage.getItem('consultRecords');
@@ -413,29 +613,164 @@
     // Set today's date as default
     document.getElementById('consultDate').valueAsDate = new Date();
 
+    // Add first client block on load
+    addClientBlock();
+
+    function addClientBlock() {
+        if (clientCount >= MAX_CLIENTS) return;
+        clientCount++;
+        const container = document.getElementById('clientContainer');
+        const block = document.createElement('div');
+        block.className = 'client-block';
+        block.id = 'clientBlock_' + clientCount;
+        block.dataset.index = clientCount;
+
+        const showRemove = clientCount > 1 ? '' : 'style="display:none"';
+        block.innerHTML = `
+            <div class="client-block-header">
+                <span>相談者 ${clientCount}</span>
+                <button type="button" class="remove-client-btn" ${showRemove} onclick="removeClientBlock(this)">削除</button>
+            </div>
+            <div class="client-fields">
+                <div class="client-field">
+                    <div class="client-field-label">氏名</div>
+                    <input type="text" class="client-name" placeholder="氏名">
+                </div>
+                <div class="client-field">
+                    <div class="client-field-label">年齢</div>
+                    <input type="number" class="client-age" placeholder="歳" min="0" max="120">
+                </div>
+                <div class="client-field">
+                    <div class="client-field-label">性別</div>
+                    <select class="client-gender">
+                        <option value="">--</option>
+                        <option value="女性">女性</option>
+                        <option value="男性">男性</option>
+                        <option value="その他">その他</option>
+                    </select>
+                </div>
+                <div class="client-field">
+                    <div class="client-field-label">属性</div>
+                    <select class="client-attribute">
+                        <option value="">--</option>
+                        <option value="成人">成人</option>
+                        <option value="乳児">乳児</option>
+                        <option value="幼児">幼児</option>
+                        <option value="小学生">小学生</option>
+                        <option value="中学生">中学生</option>
+                        <option value="高校生">高校生</option>
+                        <option value="大学生">大学生</option>
+                    </select>
+                </div>
+            </div>
+        `;
+        container.appendChild(block);
+        updateAddClientBtn();
+    }
+
+    function removeClientBlock(btn) {
+        const block = btn.closest('.client-block');
+        block.remove();
+        clientCount--;
+        // Re-number remaining blocks
+        const blocks = document.querySelectorAll('#clientContainer .client-block');
+        blocks.forEach((b, i) => {
+            b.querySelector('.client-block-header span').textContent = '相談者 ' + (i + 1);
+            if (blocks.length === 1) {
+                b.querySelector('.remove-client-btn').style.display = 'none';
+            } else {
+                b.querySelector('.remove-client-btn').style.display = '';
+            }
+        });
+        updateAddClientBtn();
+    }
+
+    function updateAddClientBtn() {
+        const btn = document.getElementById('addClientBtn');
+        btn.disabled = clientCount >= MAX_CLIENTS;
+    }
+
+    function toggleInterviewOther() {
+        const otherRadio = document.getElementById('iv_other');
+        const otherText = document.getElementById('interviewOtherText');
+        otherText.disabled = !otherRadio.checked;
+        if (!otherRadio.checked) otherText.value = '';
+    }
+
+    function toggleRoomOther() {
+        const otherCb = document.getElementById('room_other');
+        const otherText = document.getElementById('roomOtherText');
+        otherText.disabled = !otherCb.checked;
+        if (!otherCb.checked) otherText.value = '';
+    }
+
+    function getCheckedValues(groupId) {
+        const checkboxes = document.querySelectorAll('#' + groupId + ' input[type="checkbox"]:checked');
+        return Array.from(checkboxes).map(cb => cb.value);
+    }
+
+    function getClients() {
+        const blocks = document.querySelectorAll('#clientContainer .client-block');
+        const clients = [];
+        blocks.forEach(b => {
+            const name = b.querySelector('.client-name').value.trim();
+            const age = b.querySelector('.client-age').value;
+            const gender = b.querySelector('.client-gender').value;
+            const attribute = b.querySelector('.client-attribute').value;
+            if (name || age || gender || attribute) {
+                clients.push({ name, age, gender, attribute });
+            }
+        });
+        return clients;
+    }
+
+    function formatClients(clients) {
+        return clients.map(c => {
+            let parts = [c.name];
+            if (c.age) parts.push(c.age + '歳');
+            if (c.gender) parts.push(c.gender);
+            if (c.attribute) parts.push(c.attribute);
+            return parts.join(' / ');
+        }).join('、');
+    }
+
     function addRecord() {
         const date = document.getElementById('consultDate').value;
-        const name = document.getElementById('clientName').value.trim();
-        const gender = document.getElementById('gender').value;
-        const attribute = document.getElementById('attribute').value;
-        const category = document.getElementById('category').value;
-        const route = document.getElementById('route').value;
-        const interviewType = document.getElementById('interviewType').value;
-        const notes = document.getElementById('notes').value.trim();
-
         if (!date) {
             showToast('相談日を入力してください', 'error');
             return;
         }
 
+        const clients = getClients();
+        const categories = getCheckedValues('categoryGroup');
+        const routes = getCheckedValues('routeGroup');
+
+        // Interview type
+        const ivRadio = document.querySelector('input[name="interviewType"]:checked');
+        let interviewType = '';
+        if (ivRadio) {
+            interviewType = ivRadio.value === 'その他'
+                ? 'その他: ' + document.getElementById('interviewOtherText').value.trim()
+                : ivRadio.value;
+        }
+
+        // Rooms
+        let rooms = getCheckedValues('roomGroup');
+        const roomOtherCb = document.getElementById('room_other');
+        if (roomOtherCb.checked) {
+            const otherText = document.getElementById('roomOtherText').value.trim();
+            rooms = rooms.map(r => r === 'その他' ? 'その他: ' + otherText : r);
+        }
+
+        const notes = document.getElementById('notes').value.trim();
+
         records.push({
             相談日: date,
-            相談者名: name,
-            性別: gender,
-            属性: attribute,
-            相談内容分類: category,
-            来談経路: route,
+            相談者情報: clients,
+            相談内容分類: categories,
+            来談経路: routes,
             面接形態: interviewType,
+            使用部屋: rooms,
             備考: notes
         });
 
@@ -453,12 +788,28 @@
     }
 
     function clearForm() {
-        document.getElementById('clientName').value = '';
-        document.getElementById('gender').value = '';
-        document.getElementById('attribute').value = '';
-        document.getElementById('category').value = '';
-        document.getElementById('route').value = '';
-        document.getElementById('interviewType').value = '';
+        // Reset clients - remove all and add one fresh
+        const container = document.getElementById('clientContainer');
+        container.innerHTML = '';
+        clientCount = 0;
+        addClientBlock();
+
+        // Uncheck all category checkboxes
+        document.querySelectorAll('#categoryGroup input[type="checkbox"]').forEach(cb => cb.checked = false);
+
+        // Uncheck all route checkboxes
+        document.querySelectorAll('#routeGroup input[type="checkbox"]').forEach(cb => cb.checked = false);
+
+        // Reset interview type
+        document.querySelectorAll('input[name="interviewType"]').forEach(r => r.checked = false);
+        document.getElementById('interviewOtherText').value = '';
+        document.getElementById('interviewOtherText').disabled = true;
+
+        // Reset rooms
+        document.querySelectorAll('#roomGroup input[type="checkbox"]').forEach(cb => cb.checked = false);
+        document.getElementById('roomOtherText').value = '';
+        document.getElementById('roomOtherText').disabled = true;
+
         document.getElementById('notes').value = '';
         document.getElementById('consultDate').valueAsDate = new Date();
     }
@@ -485,12 +836,11 @@
                 <tr>
                     <th>No.</th>
                     <th>相談日</th>
-                    <th>相談者名</th>
-                    <th>性別</th>
-                    <th>属性</th>
+                    <th>相談者</th>
                     <th>相談内容分類</th>
                     <th>来談経路</th>
                     <th>面接形態</th>
+                    <th>使用部屋</th>
                     <th>備考</th>
                     <th></th>
                 </tr>
@@ -498,16 +848,28 @@
             <tbody>`;
 
         records.forEach((r, i) => {
+            const clientsStr = Array.isArray(r['相談者情報'])
+                ? formatClients(r['相談者情報'])
+                : escapeHtml(r['相談者名'] || '');
+            const catsStr = Array.isArray(r['相談内容分類'])
+                ? r['相談内容分類'].join('、')
+                : escapeHtml(r['相談内容分類'] || '');
+            const routesStr = Array.isArray(r['来談経路'])
+                ? r['来談経路'].join('、')
+                : escapeHtml(r['来談経路'] || '');
+            const roomsStr = Array.isArray(r['使用部屋'])
+                ? r['使用部屋'].join('、')
+                : '';
+
             html += `<tr>
                 <td>${i + 1}</td>
                 <td>${r['相談日']}</td>
-                <td>${escapeHtml(r['相談者名'])}</td>
-                <td>${r['性別']}</td>
-                <td>${r['属性']}</td>
-                <td>${r['相談内容分類']}</td>
-                <td>${r['来談経路']}</td>
-                <td>${r['面接形態']}</td>
-                <td>${escapeHtml(r['備考'])}</td>
+                <td>${escapeHtml(clientsStr)}</td>
+                <td>${escapeHtml(catsStr)}</td>
+                <td>${escapeHtml(routesStr)}</td>
+                <td>${escapeHtml(r['面接形態'] || '')}</td>
+                <td>${escapeHtml(roomsStr)}</td>
+                <td>${escapeHtml(r['備考'] || '')}</td>
                 <td><button class="delete-btn" onclick="deleteRecord(${i})">削除</button></td>
             </tr>`;
         });
@@ -519,17 +881,30 @@
     function exportExcel() {
         if (records.length === 0) return;
 
-        const exportData = records.map((r, i) => ({
-            'No.': i + 1,
-            '相談日': r['相談日'],
-            '相談者名': r['相談者名'],
-            '性別': r['性別'],
-            '属性': r['属性'],
-            '相談内容分類': r['相談内容分類'],
-            '来談経路': r['来談経路'],
-            '面接形態': r['面接形態'],
-            '備考': r['備考']
-        }));
+        const exportData = records.map((r, i) => {
+            // Build client columns
+            const clients = r['相談者情報'] || [];
+            const row = {
+                'No.': i + 1,
+                '相談日': r['相談日']
+            };
+
+            for (let c = 0; c < MAX_CLIENTS; c++) {
+                const client = clients[c] || {};
+                row['相談者' + (c + 1) + '_氏名'] = client.name || '';
+                row['相談者' + (c + 1) + '_年齢'] = client.age || '';
+                row['相談者' + (c + 1) + '_性別'] = client.gender || '';
+                row['相談者' + (c + 1) + '_属性'] = client.attribute || '';
+            }
+
+            row['相談内容分類'] = Array.isArray(r['相談内容分類']) ? r['相談内容分類'].join('、') : (r['相談内容分類'] || '');
+            row['来談経路'] = Array.isArray(r['来談経路']) ? r['来談経路'].join('、') : (r['来談経路'] || '');
+            row['面接形態'] = r['面接形態'] || '';
+            row['使用部屋'] = Array.isArray(r['使用部屋']) ? r['使用部屋'].join('、') : '';
+            row['備考'] = r['備考'] || '';
+
+            return row;
+        });
 
         const ws = XLSX.utils.json_to_sheet(exportData);
 
@@ -537,12 +912,14 @@
         ws['!cols'] = [
             { wch: 5 },   // No.
             { wch: 12 },  // 相談日
-            { wch: 14 },  // 相談者名
-            { wch: 6 },   // 性別
-            { wch: 8 },   // 属性
-            { wch: 22 },  // 相談内容分類
-            { wch: 22 },  // 来談経路
-            { wch: 10 },  // 面接形態
+            { wch: 12 }, { wch: 5 }, { wch: 6 }, { wch: 8 },  // 相談者1
+            { wch: 12 }, { wch: 5 }, { wch: 6 }, { wch: 8 },  // 相談者2
+            { wch: 12 }, { wch: 5 }, { wch: 6 }, { wch: 8 },  // 相談者3
+            { wch: 12 }, { wch: 5 }, { wch: 6 }, { wch: 8 },  // 相談者4
+            { wch: 30 },  // 相談内容分類
+            { wch: 30 },  // 来談経路
+            { wch: 12 },  // 面接形態
+            { wch: 24 },  // 使用部屋
             { wch: 30 }   // 備考
         ];
 
