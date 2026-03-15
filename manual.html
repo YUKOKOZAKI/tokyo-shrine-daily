@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>相談受付フォーム 使い方マニュアル</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.8;
+        }
+
+        .manual {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 48px 56px;
+            min-height: 100vh;
+            box-shadow: 0 0 20px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #2c5f8a;
+            text-align: center;
+            margin-bottom: 8px;
+            letter-spacing: 0.05em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #888;
+            font-size: 0.85rem;
+            margin-bottom: 36px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e8edf2;
+        }
+
+        h2 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #2c5f8a;
+            margin-top: 32px;
+            margin-bottom: 12px;
+            padding-left: 12px;
+            border-left: 4px solid #3a7cbd;
+        }
+
+        h3 {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #444;
+            margin-top: 20px;
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .step-list {
+            list-style: none;
+            padding: 0;
+            margin: 12px 0 20px 0;
+        }
+
+        .step-list li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 14px;
+            font-size: 0.95rem;
+        }
+
+        .step-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            min-width: 28px;
+            background: #2c5f8a;
+            color: white;
+            border-radius: 50%;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-right: 12px;
+            margin-top: 1px;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .note-box {
+            background: #f0f7ff;
+            border: 1px solid #c8ddf0;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 16px 0;
+            font-size: 0.9rem;
+        }
+
+        .note-box .note-title {
+            font-weight: 700;
+            color: #2c5f8a;
+            margin-bottom: 4px;
+        }
+
+        .warn-box {
+            background: #fff8f0;
+            border: 1px solid #f0d8c0;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 16px 0;
+            font-size: 0.9rem;
+        }
+
+        .warn-box .note-title {
+            font-weight: 700;
+            color: #c07020;
+            margin-bottom: 4px;
+        }
+
+        .field-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0 20px 0;
+            font-size: 0.9rem;
+        }
+
+        .field-table th {
+            background: #f0f4f8;
+            padding: 10px 14px;
+            text-align: left;
+            font-weight: 500;
+            color: #555;
+            border: 1px solid #d8dde3;
+            white-space: nowrap;
+        }
+
+        .field-table td {
+            padding: 10px 14px;
+            border: 1px solid #d8dde3;
+            color: #444;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #e8f0f8;
+            color: #2c5f8a;
+            padding: 1px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .screenshot-placeholder {
+            background: #f8f9fb;
+            border: 2px dashed #d0d5dd;
+            border-radius: 8px;
+            padding: 24px;
+            text-align: center;
+            color: #aaa;
+            font-size: 0.85rem;
+            margin: 12px 0;
+        }
+
+        ul {
+            margin: 8px 0 12px 20px;
+            font-size: 0.95rem;
+        }
+
+        ul li {
+            margin-bottom: 6px;
+        }
+
+        .footer {
+            margin-top: 48px;
+            padding-top: 20px;
+            border-top: 2px solid #e8edf2;
+            text-align: center;
+            color: #aaa;
+            font-size: 0.8rem;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .manual {
+                box-shadow: none;
+                padding: 20px 40px;
+            }
+            h2 {
+                page-break-after: avoid;
+            }
+            .step-list li {
+                page-break-inside: avoid;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .manual {
+                padding: 24px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="manual">
+
+    <h1>相談受付フォーム</h1>
+    <p class="subtitle">使い方マニュアル</p>
+
+    <!-- ========== はじめに ========== -->
+    <h2>1. はじめに</h2>
+    <p>このフォームは、相談の受付記録を入力し、Excelファイルとして出力するためのツールです。インターネットに接続されたパソコンのブラウザで動作します。</p>
+
+    <div class="note-box">
+        <div class="note-title">必要な環境</div>
+        <ul>
+            <li>パソコン（Windows / Mac）</li>
+            <li>ブラウザ（Google Chrome 推奨）</li>
+            <li>インターネット接続</li>
+        </ul>
+    </div>
+
+    <!-- ========== 起動方法 ========== -->
+    <h2>2. フォームの開き方</h2>
+    <ol class="step-list">
+        <li>
+            <span class="step-num">1</span>
+            <span class="step-content"><strong>form.html</strong> ファイルをダブルクリックして開きます。ブラウザが自動的に起動し、フォームが表示されます。</span>
+        </li>
+    </ol>
+
+    <div class="note-box">
+        <div class="note-title">ヒント</div>
+        ファイルが正しく開かない場合は、form.html を右クリック →「プログラムから開く」→「Google Chrome」を選んでください。
+    </div>
+
+    <!-- ========== 入力項目の説明 ========== -->
+    <h2>3. 入力項目の説明</h2>
+
+    <table class="field-table">
+        <tr>
+            <th>項目名</th>
+            <th>説明</th>
+        </tr>
+        <tr>
+            <td>相談日</td>
+            <td>相談を受けた日付を入力します。初期値は当日の日付です。</td>
+        </tr>
+        <tr>
+            <td>相談者<br><span class="tag">最大4名</span></td>
+            <td>相談者の<strong>氏名・年齢・性別・属性</strong>を入力します。「＋ 相談者を追加」ボタンで最大4名まで追加できます。</td>
+        </tr>
+        <tr>
+            <td>相談内容分類<br><span class="tag">複数選択可</span></td>
+            <td>該当する相談内容にチェックを入れます。18歳未満・18歳以上に分かれており、複数選択できます。</td>
+        </tr>
+        <tr>
+            <td>来談経路<br><span class="tag">複数選択可</span></td>
+            <td>どの経路で相談に来たかをチェックで選択します。複数選択できます。</td>
+        </tr>
+        <tr>
+            <td>面接形態</td>
+            <td>個別・親子並行・夫婦面接・家族面接・その他から選択します。「その他」を選んだ場合は内容を自由記載できます。</td>
+        </tr>
+        <tr>
+            <td>使用する部屋<br><span class="tag">複数選択可</span></td>
+            <td>使用した部屋にチェックを入れます。面接室1〜3、プレイルーム1〜2、その他（自由記載）から選べます。</td>
+        </tr>
+        <tr>
+            <td>備考</td>
+            <td>補足事項があれば自由に入力できます。</td>
+        </tr>
+    </table>
+
+    <!-- ========== 基本的な使い方 ========== -->
+    <h2>4. 基本的な使い方</h2>
+
+    <h3>4-1. 記録を追加する</h3>
+    <ol class="step-list">
+        <li>
+            <span class="step-num">1</span>
+            <span class="step-content">各項目を入力・選択します。</span>
+        </li>
+        <li>
+            <span class="step-num">2</span>
+            <span class="step-content"><strong>「記録を追加」</strong>ボタンをクリックします。</span>
+        </li>
+        <li>
+            <span class="step-num">3</span>
+            <span class="step-content">画面下部の「入力済み記録」一覧に追加されます。フォームは自動でリセットされ、次の入力ができます。</span>
+        </li>
+    </ol>
+
+    <div class="note-box">
+        <div class="note-title">ヒント</div>
+        複数の相談記録を続けて入力できます。すべて入力し終わってからまとめてExcelに出力してください。
+    </div>
+
+    <h3>4-2. 記録を削除する</h3>
+    <p>入力済み記録の各行にある<strong>「削除」</strong>ボタンをクリックすると、その記録を削除できます。</p>
+
+    <h3>4-3. Excelに出力する</h3>
+    <ol class="step-list">
+        <li>
+            <span class="step-num">1</span>
+            <span class="step-content">記録を1件以上追加すると、<strong>「Excelに出力」</strong>ボタンが有効（濃い緑色）になります。</span>
+        </li>
+        <li>
+            <span class="step-num">2</span>
+            <span class="step-content">ボタンをクリックすると、<strong>「相談記録_YYYYMMDD.xlsx」</strong> というファイル名でExcelファイルがダウンロードされます。</span>
+        </li>
+        <li>
+            <span class="step-num">3</span>
+            <span class="step-content">ダウンロードされたファイルをExcel等で開いて確認できます。</span>
+        </li>
+    </ol>
+
+    <div class="warn-box">
+        <div class="note-title">注意</div>
+        記録が0件の状態では「Excelに出力」ボタンは押せません（薄い色で表示されます）。まず「記録を追加」で1件以上追加してください。
+    </div>
+
+    <!-- ========== Excelの出力内容 ========== -->
+    <h2>5. Excel出力の内容</h2>
+    <p>出力されるExcelファイルには、以下の列が含まれます。</p>
+    <table class="field-table">
+        <tr>
+            <th>列名</th>
+            <th>内容</th>
+        </tr>
+        <tr><td>No.</td><td>通し番号</td></tr>
+        <tr><td>相談日</td><td>入力した日付</td></tr>
+        <tr><td>相談者1〜4_氏名</td><td>各相談者の氏名</td></tr>
+        <tr><td>相談者1〜4_年齢</td><td>各相談者の年齢</td></tr>
+        <tr><td>相談者1〜4_性別</td><td>各相談者の性別</td></tr>
+        <tr><td>相談者1〜4_属性</td><td>各相談者の属性</td></tr>
+        <tr><td>相談内容分類</td><td>選択した内容（複数の場合は「、」区切り）</td></tr>
+        <tr><td>来談経路</td><td>選択した経路（複数の場合は「、」区切り）</td></tr>
+        <tr><td>面接形態</td><td>選択した形態</td></tr>
+        <tr><td>使用部屋</td><td>選択した部屋（複数の場合は「、」区切り）</td></tr>
+        <tr><td>備考</td><td>入力した備考</td></tr>
+    </table>
+
+    <!-- ========== データの保存 ========== -->
+    <h2>6. データの保存について</h2>
+    <p>入力した記録は<strong>ブラウザ内に自動保存</strong>されます。ブラウザを閉じても、同じブラウザで再び form.html を開けば前回の記録が残っています。</p>
+
+    <div class="warn-box">
+        <div class="note-title">注意：データが消えるケース</div>
+        <ul>
+            <li>ブラウザの履歴・キャッシュを削除した場合</li>
+            <li>別のブラウザで開いた場合（ブラウザごとに別々に保存されます）</li>
+            <li>プライベートブラウジング（シークレットモード）で使用した場合</li>
+        </ul>
+        <p style="margin-top:8px;">大切なデータは、こまめに<strong>Excelに出力して保存</strong>することをおすすめします。</p>
+    </div>
+
+    <!-- ========== よくある質問 ========== -->
+    <h2>7. よくある質問</h2>
+
+    <h3>Q. フォームが正しく表示されません</h3>
+    <p>Google Chrome で開き直してください。インターネット接続も確認してください。</p>
+
+    <h3>Q. 相談者を3名以上入力したいのですが</h3>
+    <p>「＋ 相談者を追加」ボタンを押すと、最大4名まで追加できます。4名に達するとボタンが押せなくなります。</p>
+
+    <h3>Q. 間違えて追加した相談者を消したい</h3>
+    <p>各相談者の右上にある「削除」ボタンで消せます（相談者が1名だけの場合は削除ボタンは表示されません）。</p>
+
+    <h3>Q. Excel出力ボタンが押せません</h3>
+    <p>「記録を追加」ボタンで記録を1件以上追加してから、「Excelに出力」をクリックしてください。</p>
+
+    <h3>Q. 出力したExcelファイルはどこにありますか？</h3>
+    <p>ブラウザの「ダウンロード」フォルダに保存されます。ファイル名は<strong>「相談記録_YYYYMMDD.xlsx」</strong>の形式です。</p>
+
+    <div class="footer">
+        相談受付フォーム 使い方マニュアル
+    </div>
+
+</div>
+
+</body>
+</html>
