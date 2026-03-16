@@ -34,6 +34,47 @@
             letter-spacing: 0.1em;
         }
 
+        /* Tab navigation */
+        .tab-nav {
+            display: flex;
+            background: white;
+            border-bottom: 2px solid #e0e5eb;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .tab-btn {
+            padding: 14px 24px;
+            border: none;
+            background: none;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #888;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.2s;
+        }
+
+        .tab-btn:hover {
+            color: #2c5f8a;
+        }
+
+        .tab-btn.active {
+            color: #2c5f8a;
+            border-bottom-color: #2c5f8a;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
         .container {
             max-width: 900px;
             margin: 0 auto;
@@ -128,7 +169,7 @@
             color: #2c5f8a;
         }
 
-        .remove-client-btn {
+        .remove-client-btn, .remove-session-btn {
             background: none;
             border: 1px solid #e0e0e0;
             color: #999;
@@ -139,7 +180,7 @@
             transition: all 0.2s;
         }
 
-        .remove-client-btn:hover {
+        .remove-client-btn:hover, .remove-session-btn:hover {
             border-color: #c0392b;
             color: #c0392b;
             background: #fdf2f2;
@@ -180,7 +221,7 @@
             flex-direction: column;
         }
 
-        .add-client-btn {
+        .add-client-btn, .add-session-btn {
             display: inline-block;
             background: none;
             border: 1px dashed #3a7cbd;
@@ -194,13 +235,106 @@
             margin-bottom: 8px;
         }
 
-        .add-client-btn:hover {
+        .add-client-btn:hover, .add-session-btn:hover {
             background: #eef4fa;
         }
 
-        .add-client-btn:disabled {
+        .add-client-btn:disabled, .add-session-btn:disabled {
             opacity: 0.4;
             cursor: not-allowed;
+        }
+
+        /* Session block styles */
+        .session-block {
+            border: 1px solid #e0e5eb;
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 10px;
+            background: #f8fafc;
+        }
+
+        .session-block-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .session-block-header span {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #2c5f8a;
+        }
+
+        .session-fields {
+            display: grid;
+            grid-template-columns: 1fr 120px 120px;
+            gap: 10px;
+            align-items: end;
+        }
+
+        .session-fields input,
+        .session-fields select {
+            padding: 8px 10px;
+            border: 1px solid #d0d5dd;
+            border-radius: 6px;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.9rem;
+            color: #333;
+            background: white;
+        }
+
+        .session-fields input:focus,
+        .session-fields select:focus {
+            outline: none;
+            border-color: #3a7cbd;
+            box-shadow: 0 0 0 3px rgba(58, 124, 189, 0.15);
+        }
+
+        .session-field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .session-cancelled .session-fields input,
+        .session-cancelled .session-fields select {
+            opacity: 0.5;
+        }
+
+        .cancel-label {
+            display: flex;
+            align-items: center;
+            font-size: 0.8rem;
+            color: #c0392b;
+            gap: 4px;
+            margin-top: 6px;
+        }
+
+        .cancel-label input[type="checkbox"] {
+            accent-color: #c0392b;
+        }
+
+        /* Staff input styles */
+        .staff-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+        }
+
+        .staff-grid input {
+            padding: 8px 10px;
+            border: 1px solid #d0d5dd;
+            border-radius: 6px;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.9rem;
+            color: #333;
+            background: white;
+        }
+
+        .staff-grid input:focus {
+            outline: none;
+            border-color: #3a7cbd;
+            box-shadow: 0 0 0 3px rgba(58, 124, 189, 0.15);
         }
 
         /* Checkbox group styles */
@@ -451,12 +585,261 @@
             opacity: 1;
         }
 
+        /* ===== Monthly Stats styles ===== */
+        .stats-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stats-controls label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .stats-controls input[type="month"] {
+            padding: 8px 12px;
+            border: 1px solid #d0d5dd;
+            border-radius: 8px;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.9rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: #f8fafc;
+            border: 1px solid #e0e5eb;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-card .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2c5f8a;
+        }
+
+        .stat-card .stat-label {
+            font-size: 0.85rem;
+            color: #888;
+            margin-top: 4px;
+        }
+
+        .room-stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .room-stats-table th, .room-stats-table td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .room-stats-table th {
+            background: #f0f4f8;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .room-stats-table td:last-child {
+            text-align: right;
+            font-weight: 500;
+            color: #2c5f8a;
+        }
+
+        /* ===== Calendar styles ===== */
+        .calendar-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .calendar-controls .btn {
+            padding: 8px 16px;
+            font-size: 0.85rem;
+        }
+
+        .calendar-month-label {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #2c5f8a;
+            min-width: 140px;
+            text-align: center;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+            margin-bottom: 20px;
+        }
+
+        .calendar-day-header {
+            background: #f0f4f8;
+            text-align: center;
+            padding: 8px 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #555;
+            border-radius: 4px;
+        }
+
+        .calendar-day-header.sun { color: #c0392b; }
+        .calendar-day-header.sat { color: #2c5f8a; }
+
+        .calendar-day {
+            min-height: 80px;
+            border: 1px solid #e0e5eb;
+            border-radius: 6px;
+            padding: 4px;
+            background: white;
+            cursor: pointer;
+            transition: background 0.15s;
+            overflow: hidden;
+        }
+
+        .calendar-day:hover {
+            background: #f0f4f8;
+        }
+
+        .calendar-day.other-month {
+            background: #f5f5f5;
+            opacity: 0.5;
+        }
+
+        .calendar-day.today {
+            border-color: #2c5f8a;
+            border-width: 2px;
+        }
+
+        .calendar-day .day-number {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 2px;
+        }
+
+        .calendar-day.sun .day-number { color: #c0392b; }
+        .calendar-day.sat .day-number { color: #2c5f8a; }
+
+        .calendar-event {
+            font-size: 0.65rem;
+            padding: 2px 4px;
+            margin-bottom: 2px;
+            border-radius: 3px;
+            background: #e8f0fe;
+            color: #2c5f8a;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .calendar-event.cancelled {
+            background: #fde8e8;
+            color: #c0392b;
+            text-decoration: line-through;
+        }
+
+        /* Reservation modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            z-index: 900;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 12px;
+            padding: 28px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        }
+
+        .modal h3 {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #2c5f8a;
+            margin-bottom: 16px;
+        }
+
+        .modal .form-group {
+            margin-bottom: 12px;
+        }
+
+        .modal .form-group input,
+        .modal .form-group select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d0d5dd;
+            border-radius: 8px;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.95rem;
+        }
+
+        .modal .btn-row {
+            margin-top: 16px;
+        }
+
+        .reservation-list {
+            margin-top: 12px;
+        }
+
+        .reservation-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 10px;
+            border: 1px solid #e0e5eb;
+            border-radius: 6px;
+            margin-bottom: 6px;
+            font-size: 0.85rem;
+        }
+
+        .reservation-item.cancelled {
+            background: #fdf2f2;
+            text-decoration: line-through;
+            color: #999;
+        }
+
         @media (max-width: 600px) {
             .form-grid {
                 grid-template-columns: 1fr;
             }
             .client-fields {
                 grid-template-columns: 1fr 1fr;
+            }
+            .session-fields {
+                grid-template-columns: 1fr 1fr;
+            }
+            .staff-grid {
+                grid-template-columns: 1fr;
             }
             .btn-row {
                 flex-direction: column;
@@ -467,6 +850,19 @@
             .form-card, .table-card {
                 padding: 18px;
             }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .tab-nav {
+                padding: 0 8px;
+            }
+            .tab-btn {
+                padding: 12px 14px;
+                font-size: 0.85rem;
+            }
+            .calendar-day {
+                min-height: 60px;
+            }
         }
     </style>
 </head>
@@ -476,16 +872,44 @@
     <h1>相談受付フォーム</h1>
 </header>
 
+<!-- Tab Navigation -->
+<div class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab('form')">入力フォーム</button>
+    <button class="tab-btn" onclick="switchTab('stats')">月別集計</button>
+    <button class="tab-btn" onclick="switchTab('calendar')">予約カレンダー</button>
+</div>
+
+<!-- ==================== TAB 1: FORM ==================== -->
+<div class="tab-content active" id="tab-form">
 <div class="container">
     <div class="form-card">
         <h2>新規相談記録</h2>
         <div class="form-grid">
             <div class="form-group">
-                <label for="consultDate">相談日</label>
+                <label for="consultDate">相談日（受付日）</label>
                 <input type="date" id="consultDate">
             </div>
             <div class="form-group">
                 <!-- spacer -->
+            </div>
+
+            <!-- 担当者 -->
+            <div class="form-group full-width">
+                <label>担当者</label>
+                <div class="staff-grid">
+                    <div class="client-field">
+                        <div class="client-field-label">担当者１</div>
+                        <input type="text" id="staff1" placeholder="氏名">
+                    </div>
+                    <div class="client-field">
+                        <div class="client-field-label">担当者２</div>
+                        <input type="text" id="staff2" placeholder="氏名">
+                    </div>
+                    <div class="client-field">
+                        <div class="client-field-label">その他（変更等）</div>
+                        <input type="text" id="staffOther" placeholder="変更・追加の担当者名">
+                    </div>
+                </div>
             </div>
 
             <!-- 相談者（最大4名） -->
@@ -569,6 +993,13 @@
                 </div>
             </div>
 
+            <!-- 相談実施日・料金（複数回対応） -->
+            <div class="form-group full-width">
+                <label>相談実施日・料金</label>
+                <div id="sessionContainer"></div>
+                <button type="button" class="add-session-btn" onclick="addSessionBlock()">＋ 実施回を追加</button>
+            </div>
+
             <div class="form-group full-width">
                 <label for="notes">備考</label>
                 <textarea id="notes" placeholder="自由記述"></textarea>
@@ -591,31 +1022,159 @@
         </div>
     </div>
 </div>
+</div>
+
+<!-- ==================== TAB 2: MONTHLY STATS ==================== -->
+<div class="tab-content" id="tab-stats">
+<div class="container">
+    <div class="form-card">
+        <h2>月別集計</h2>
+        <div class="stats-controls">
+            <label for="statsMonth">対象月:</label>
+            <input type="month" id="statsMonth">
+            <button class="btn btn-primary" onclick="calcStats()" style="padding:8px 20px;font-size:0.9rem;">集計する</button>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value" id="statCount">-</div>
+                <div class="stat-label">相談実施件数</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="statTotal">-</div>
+                <div class="stat-label">合計金額</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="statCancelled">-</div>
+                <div class="stat-label">キャンセル数</div>
+            </div>
+        </div>
+
+        <h2>部屋ごとの使用回数</h2>
+        <div id="roomStatsContainer">
+            <p class="empty-message">「集計する」を押して月を選択してください</p>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- ==================== TAB 3: CALENDAR ==================== -->
+<div class="tab-content" id="tab-calendar">
+<div class="container">
+    <div class="form-card">
+        <h2>予約カレンダー</h2>
+        <div class="calendar-controls">
+            <button class="btn btn-primary" onclick="changeCalendarMonth(-1)">&lt; 前月</button>
+            <span class="calendar-month-label" id="calendarMonthLabel"></span>
+            <button class="btn btn-primary" onclick="changeCalendarMonth(1)">翌月 &gt;</button>
+        </div>
+        <div class="calendar-grid" id="calendarGrid"></div>
+
+        <h2>予約一覧</h2>
+        <div class="btn-row" style="margin-top:0;margin-bottom:16px;">
+            <button class="btn btn-primary" onclick="openReservationModal()" style="padding:8px 20px;font-size:0.9rem;">＋ 新しい予約を追加</button>
+        </div>
+        <div id="reservationListContainer">
+            <p class="empty-message">この月の予約はありません</p>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- Reservation Modal -->
+<div class="modal-overlay" id="reservationModal">
+    <div class="modal">
+        <h3 id="modalTitle">新しい予約を追加</h3>
+        <div class="form-group">
+            <label>予約日</label>
+            <input type="date" id="resDate">
+        </div>
+        <div class="form-group">
+            <label>相談者名</label>
+            <input type="text" id="resClientName" placeholder="相談者名">
+        </div>
+        <div class="form-group">
+            <label>時間帯</label>
+            <input type="text" id="resTime" placeholder="例: 14:00〜15:00">
+        </div>
+        <div class="form-group">
+            <label>担当者</label>
+            <input type="text" id="resStaff" placeholder="担当者名">
+        </div>
+        <div class="form-group">
+            <label>使用部屋</label>
+            <select id="resRoom">
+                <option value="">--</option>
+                <option value="面接室１">面接室１</option>
+                <option value="面接室２">面接室２</option>
+                <option value="面接室３">面接室３</option>
+                <option value="プレイルーム１">プレイルーム１</option>
+                <option value="プレイルーム２">プレイルーム２</option>
+                <option value="その他">その他</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>メモ</label>
+            <input type="text" id="resMemo" placeholder="メモ（任意）">
+        </div>
+        <div class="btn-row">
+            <button class="btn btn-primary" onclick="saveReservation()">保存</button>
+            <button class="btn btn-danger" onclick="closeReservationModal()">キャンセル</button>
+        </div>
+    </div>
+</div>
 
 <div class="toast" id="toast"></div>
 
 <script>
     let records = [];
+    let reservations = [];
     let clientCount = 0;
+    let sessionCount = 0;
     const MAX_CLIENTS = 4;
+
+    let calendarYear, calendarMonth; // 0-indexed month
 
     // Load from localStorage
     const saved = localStorage.getItem('consultRecords');
     if (saved) {
         try {
             records = JSON.parse(saved);
-            renderTable();
         } catch (e) {
             records = [];
         }
     }
+    const savedRes = localStorage.getItem('consultReservations');
+    if (savedRes) {
+        try {
+            reservations = JSON.parse(savedRes);
+        } catch (e) {
+            reservations = [];
+        }
+    }
 
-    // Set today's date as default
+    // Init
     document.getElementById('consultDate').valueAsDate = new Date();
+    const now = new Date();
+    document.getElementById('statsMonth').value = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0');
+    calendarYear = now.getFullYear();
+    calendarMonth = now.getMonth();
 
-    // Add first client block on load
     addClientBlock();
+    addSessionBlock();
+    renderTable();
+    renderCalendar();
 
+    // ===== TAB SWITCHING =====
+    function switchTab(tabName) {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+        document.getElementById('tab-' + tabName).classList.add('active');
+        event.target.classList.add('active');
+        if (tabName === 'calendar') renderCalendar();
+    }
+
+    // ===== CLIENT BLOCKS =====
     function addClientBlock() {
         if (clientCount >= MAX_CLIENTS) return;
         clientCount++;
@@ -672,7 +1231,6 @@
         const block = btn.closest('.client-block');
         block.remove();
         clientCount--;
-        // Re-number remaining blocks
         const blocks = document.querySelectorAll('#clientContainer .client-block');
         blocks.forEach((b, i) => {
             b.querySelector('.client-block-header span').textContent = '相談者 ' + (i + 1);
@@ -686,10 +1244,80 @@
     }
 
     function updateAddClientBtn() {
-        const btn = document.getElementById('addClientBtn');
-        btn.disabled = clientCount >= MAX_CLIENTS;
+        document.getElementById('addClientBtn').disabled = clientCount >= MAX_CLIENTS;
     }
 
+    // ===== SESSION BLOCKS (実施回) =====
+    function addSessionBlock() {
+        sessionCount++;
+        const container = document.getElementById('sessionContainer');
+        const block = document.createElement('div');
+        block.className = 'session-block';
+        block.dataset.sessionIndex = sessionCount;
+
+        const showRemove = sessionCount > 1 ? '' : 'style="display:none"';
+        block.innerHTML = `
+            <div class="session-block-header">
+                <span>第${sessionCount}回</span>
+                <button type="button" class="remove-session-btn" ${showRemove} onclick="removeSessionBlock(this)">削除</button>
+            </div>
+            <div class="session-fields">
+                <div class="session-field">
+                    <div class="client-field-label">実施日</div>
+                    <input type="date" class="session-date">
+                </div>
+                <div class="session-field">
+                    <div class="client-field-label">料金（円）</div>
+                    <input type="number" class="session-fee" placeholder="0" min="0">
+                </div>
+                <div class="session-field">
+                    <div class="client-field-label">ステータス</div>
+                    <select class="session-status">
+                        <option value="実施済">実施済</option>
+                        <option value="予定">予定</option>
+                        <option value="キャンセル">キャンセル</option>
+                    </select>
+                </div>
+            </div>
+        `;
+        container.appendChild(block);
+        updateSessionRemoveButtons();
+    }
+
+    function removeSessionBlock(btn) {
+        const block = btn.closest('.session-block');
+        block.remove();
+        sessionCount--;
+        const blocks = document.querySelectorAll('#sessionContainer .session-block');
+        blocks.forEach((b, i) => {
+            b.querySelector('.session-block-header span').textContent = '第' + (i + 1) + '回';
+        });
+        updateSessionRemoveButtons();
+    }
+
+    function updateSessionRemoveButtons() {
+        const blocks = document.querySelectorAll('#sessionContainer .session-block');
+        blocks.forEach(b => {
+            const btn = b.querySelector('.remove-session-btn');
+            btn.style.display = blocks.length <= 1 ? 'none' : '';
+        });
+    }
+
+    function getSessions() {
+        const blocks = document.querySelectorAll('#sessionContainer .session-block');
+        const sessions = [];
+        blocks.forEach(b => {
+            const date = b.querySelector('.session-date').value;
+            const fee = b.querySelector('.session-fee').value;
+            const status = b.querySelector('.session-status').value;
+            if (date || fee) {
+                sessions.push({ date, fee: fee ? parseInt(fee) : 0, status });
+            }
+        });
+        return sessions;
+    }
+
+    // ===== TOGGLE FUNCTIONS =====
     function toggleInterviewOther() {
         const otherRadio = document.getElementById('iv_other');
         const otherText = document.getElementById('interviewOtherText');
@@ -734,6 +1362,18 @@
         }).join('、');
     }
 
+    function formatSessions(sessions) {
+        if (!sessions || sessions.length === 0) return '';
+        return sessions.map((s, i) => {
+            let str = '第' + (i + 1) + '回: ' + (s.date || '未定');
+            if (s.fee) str += ' ¥' + s.fee.toLocaleString();
+            if (s.status === 'キャンセル') str += '【キャンセル】';
+            else if (s.status === '予定') str += '【予定】';
+            return str;
+        }).join('、');
+    }
+
+    // ===== ADD RECORD =====
     function addRecord() {
         const date = document.getElementById('consultDate').value;
         if (!date) {
@@ -744,8 +1384,12 @@
         const clients = getClients();
         const categories = getCheckedValues('categoryGroup');
         const routes = getCheckedValues('routeGroup');
+        const sessions = getSessions();
 
-        // Interview type
+        const staff1 = document.getElementById('staff1').value.trim();
+        const staff2 = document.getElementById('staff2').value.trim();
+        const staffOther = document.getElementById('staffOther').value.trim();
+
         const ivRadio = document.querySelector('input[name="interviewType"]:checked');
         let interviewType = '';
         if (ivRadio) {
@@ -754,7 +1398,6 @@
                 : ivRadio.value;
         }
 
-        // Rooms
         let rooms = getCheckedValues('roomGroup');
         const roomOtherCb = document.getElementById('room_other');
         if (roomOtherCb.checked) {
@@ -766,11 +1409,15 @@
 
         records.push({
             相談日: date,
+            担当者1: staff1,
+            担当者2: staff2,
+            担当者その他: staffOther,
             相談者情報: clients,
             相談内容分類: categories,
             来談経路: routes,
             面接形態: interviewType,
             使用部屋: rooms,
+            実施回: sessions,
             備考: notes
         });
 
@@ -788,24 +1435,27 @@
     }
 
     function clearForm() {
-        // Reset clients - remove all and add one fresh
         const container = document.getElementById('clientContainer');
         container.innerHTML = '';
         clientCount = 0;
         addClientBlock();
 
-        // Uncheck all category checkboxes
-        document.querySelectorAll('#categoryGroup input[type="checkbox"]').forEach(cb => cb.checked = false);
+        const sessContainer = document.getElementById('sessionContainer');
+        sessContainer.innerHTML = '';
+        sessionCount = 0;
+        addSessionBlock();
 
-        // Uncheck all route checkboxes
+        document.getElementById('staff1').value = '';
+        document.getElementById('staff2').value = '';
+        document.getElementById('staffOther').value = '';
+
+        document.querySelectorAll('#categoryGroup input[type="checkbox"]').forEach(cb => cb.checked = false);
         document.querySelectorAll('#routeGroup input[type="checkbox"]').forEach(cb => cb.checked = false);
 
-        // Reset interview type
         document.querySelectorAll('input[name="interviewType"]').forEach(r => r.checked = false);
         document.getElementById('interviewOtherText').value = '';
         document.getElementById('interviewOtherText').disabled = true;
 
-        // Reset rooms
         document.querySelectorAll('#roomGroup input[type="checkbox"]').forEach(cb => cb.checked = false);
         document.getElementById('roomOtherText').value = '';
         document.getElementById('roomOtherText').disabled = true;
@@ -818,6 +1468,11 @@
         localStorage.setItem('consultRecords', JSON.stringify(records));
     }
 
+    function saveReservationsToStorage() {
+        localStorage.setItem('consultReservations', JSON.stringify(reservations));
+    }
+
+    // ===== RENDER TABLE =====
     function renderTable() {
         const container = document.getElementById('tableContainer');
         const countEl = document.getElementById('recordCount');
@@ -836,11 +1491,13 @@
                 <tr>
                     <th>No.</th>
                     <th>相談日</th>
+                    <th>担当者</th>
                     <th>相談者</th>
                     <th>相談内容分類</th>
                     <th>来談経路</th>
                     <th>面接形態</th>
                     <th>使用部屋</th>
+                    <th>実施回</th>
                     <th>備考</th>
                     <th></th>
                 </tr>
@@ -860,15 +1517,21 @@
             const roomsStr = Array.isArray(r['使用部屋'])
                 ? r['使用部屋'].join('、')
                 : '';
+            const sessionsStr = formatSessions(r['実施回']);
+
+            let staffStr = [r['担当者1'], r['担当者2']].filter(Boolean).join('、');
+            if (r['担当者その他']) staffStr += (staffStr ? '、' : '') + r['担当者その他'];
 
             html += `<tr>
                 <td>${i + 1}</td>
                 <td>${r['相談日']}</td>
+                <td>${escapeHtml(staffStr)}</td>
                 <td>${escapeHtml(clientsStr)}</td>
                 <td>${escapeHtml(catsStr)}</td>
                 <td>${escapeHtml(routesStr)}</td>
                 <td>${escapeHtml(r['面接形態'] || '')}</td>
                 <td>${escapeHtml(roomsStr)}</td>
+                <td>${escapeHtml(sessionsStr)}</td>
                 <td>${escapeHtml(r['備考'] || '')}</td>
                 <td><button class="delete-btn" onclick="deleteRecord(${i})">削除</button></td>
             </tr>`;
@@ -878,15 +1541,19 @@
         container.innerHTML = html;
     }
 
+    // ===== EXPORT EXCEL =====
     function exportExcel() {
         if (records.length === 0) return;
 
         const exportData = records.map((r, i) => {
-            // Build client columns
             const clients = r['相談者情報'] || [];
+            const sessions = r['実施回'] || [];
             const row = {
                 'No.': i + 1,
-                '相談日': r['相談日']
+                '相談日': r['相談日'],
+                '担当者1': r['担当者1'] || '',
+                '担当者2': r['担当者2'] || '',
+                '担当者その他': r['担当者その他'] || ''
             };
 
             for (let c = 0; c < MAX_CLIENTS; c++) {
@@ -901,27 +1568,41 @@
             row['来談経路'] = Array.isArray(r['来談経路']) ? r['来談経路'].join('、') : (r['来談経路'] || '');
             row['面接形態'] = r['面接形態'] || '';
             row['使用部屋'] = Array.isArray(r['使用部屋']) ? r['使用部屋'].join('、') : '';
-            row['備考'] = r['備考'] || '';
 
+            // Export up to 20 sessions
+            const maxSessions = Math.max(sessions.length, 1);
+            for (let s = 0; s < Math.min(maxSessions, 20); s++) {
+                const sess = sessions[s] || {};
+                row['第' + (s + 1) + '回_実施日'] = sess.date || '';
+                row['第' + (s + 1) + '回_料金'] = sess.fee || '';
+                row['第' + (s + 1) + '回_ステータス'] = sess.status || '';
+            }
+
+            row['備考'] = r['備考'] || '';
             return row;
         });
 
         const ws = XLSX.utils.json_to_sheet(exportData);
 
         // Set column widths
-        ws['!cols'] = [
+        const cols = [
             { wch: 5 },   // No.
             { wch: 12 },  // 相談日
-            { wch: 12 }, { wch: 5 }, { wch: 6 }, { wch: 8 },  // 相談者1
-            { wch: 12 }, { wch: 5 }, { wch: 6 }, { wch: 8 },  // 相談者2
-            { wch: 12 }, { wch: 5 }, { wch: 6 }, { wch: 8 },  // 相談者3
-            { wch: 12 }, { wch: 5 }, { wch: 6 }, { wch: 8 },  // 相談者4
-            { wch: 30 },  // 相談内容分類
-            { wch: 30 },  // 来談経路
-            { wch: 12 },  // 面接形態
-            { wch: 24 },  // 使用部屋
-            { wch: 30 }   // 備考
+            { wch: 10 },  // 担当者1
+            { wch: 10 },  // 担当者2
+            { wch: 14 },  // 担当者その他
         ];
+        for (let c = 0; c < MAX_CLIENTS; c++) {
+            cols.push({ wch: 12 }, { wch: 5 }, { wch: 6 }, { wch: 8 });
+        }
+        cols.push({ wch: 30 }, { wch: 30 }, { wch: 12 }, { wch: 24 });
+        // Session columns
+        const maxSess = Math.max(...records.map(r => (r['実施回'] || []).length), 1);
+        for (let s = 0; s < Math.min(maxSess, 20); s++) {
+            cols.push({ wch: 12 }, { wch: 10 }, { wch: 10 });
+        }
+        cols.push({ wch: 30 }); // 備考
+        ws['!cols'] = cols;
 
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, '相談記録');
@@ -933,6 +1614,285 @@
         showToast('Excelファイルを出力しました');
     }
 
+    // ===== MONTHLY STATS =====
+    function calcStats() {
+        const monthVal = document.getElementById('statsMonth').value;
+        if (!monthVal) {
+            showToast('月を選択してください', 'error');
+            return;
+        }
+
+        const [year, month] = monthVal.split('-').map(Number);
+        let totalSessions = 0;
+        let totalAmount = 0;
+        let cancelledCount = 0;
+        const roomCounts = {};
+
+        records.forEach(r => {
+            const sessions = r['実施回'] || [];
+            const rooms = r['使用部屋'] || [];
+
+            sessions.forEach(s => {
+                if (!s.date) return;
+                const d = new Date(s.date);
+                if (d.getFullYear() === year && (d.getMonth() + 1) === month) {
+                    if (s.status === 'キャンセル') {
+                        cancelledCount++;
+                    } else {
+                        totalSessions++;
+                        totalAmount += (s.fee || 0);
+                        // Count room usage for non-cancelled sessions
+                        rooms.forEach(room => {
+                            const roomName = room.startsWith('その他:') ? 'その他' : room;
+                            roomCounts[roomName] = (roomCounts[roomName] || 0) + 1;
+                        });
+                    }
+                }
+            });
+
+            // Also check records without sessions but with consultDate in the target month
+            if (sessions.length === 0) {
+                const cd = new Date(r['相談日']);
+                if (cd.getFullYear() === year && (cd.getMonth() + 1) === month) {
+                    totalSessions++;
+                    rooms.forEach(room => {
+                        const roomName = room.startsWith('その他:') ? 'その他' : room;
+                        roomCounts[roomName] = (roomCounts[roomName] || 0) + 1;
+                    });
+                }
+            }
+        });
+
+        document.getElementById('statCount').textContent = totalSessions + '件';
+        document.getElementById('statTotal').textContent = '¥' + totalAmount.toLocaleString();
+        document.getElementById('statCancelled').textContent = cancelledCount + '件';
+
+        // Room stats table
+        const roomContainer = document.getElementById('roomStatsContainer');
+        const roomEntries = Object.entries(roomCounts).sort((a, b) => b[1] - a[1]);
+
+        if (roomEntries.length === 0) {
+            roomContainer.innerHTML = '<p class="empty-message">該当月の部屋使用データがありません</p>';
+        } else {
+            let html = `<table class="room-stats-table">
+                <thead><tr><th>部屋名</th><th>使用回数</th></tr></thead>
+                <tbody>`;
+            roomEntries.forEach(([room, count]) => {
+                html += `<tr><td>${escapeHtml(room)}</td><td>${count}回</td></tr>`;
+            });
+            html += '</tbody></table>';
+            roomContainer.innerHTML = html;
+        }
+    }
+
+    // ===== CALENDAR =====
+    function renderCalendar() {
+        const grid = document.getElementById('calendarGrid');
+        const label = document.getElementById('calendarMonthLabel');
+        label.textContent = calendarYear + '年' + (calendarMonth + 1) + '月';
+
+        const firstDay = new Date(calendarYear, calendarMonth, 1);
+        const lastDay = new Date(calendarYear, calendarMonth + 1, 0);
+        const startDow = firstDay.getDay(); // 0=Sun
+
+        const dayHeaders = ['日', '月', '火', '水', '木', '金', '土'];
+        let html = '';
+        dayHeaders.forEach((d, i) => {
+            const cls = i === 0 ? 'sun' : i === 6 ? 'sat' : '';
+            html += `<div class="calendar-day-header ${cls}">${d}</div>`;
+        });
+
+        const today = new Date();
+        const todayStr = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
+
+        // Get events for this month from records + reservations
+        const monthEvents = getMonthEvents(calendarYear, calendarMonth);
+
+        // Previous month padding
+        const prevLastDay = new Date(calendarYear, calendarMonth, 0).getDate();
+        for (let i = startDow - 1; i >= 0; i--) {
+            html += `<div class="calendar-day other-month"><div class="day-number">${prevLastDay - i}</div></div>`;
+        }
+
+        // Days of month
+        for (let d = 1; d <= lastDay.getDate(); d++) {
+            const dateStr = calendarYear + '-' + String(calendarMonth + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0');
+            const dow = new Date(calendarYear, calendarMonth, d).getDay();
+            let cls = 'calendar-day';
+            if (dateStr === todayStr) cls += ' today';
+            if (dow === 0) cls += ' sun';
+            if (dow === 6) cls += ' sat';
+
+            const dayEvents = monthEvents.filter(e => e.date === dateStr);
+            let eventsHtml = '';
+            dayEvents.forEach(e => {
+                const cancelCls = e.cancelled ? ' cancelled' : '';
+                eventsHtml += `<div class="calendar-event${cancelCls}">${escapeHtml(e.label)}</div>`;
+            });
+
+            html += `<div class="${cls}" onclick="openReservationModal('${dateStr}')">
+                <div class="day-number">${d}</div>
+                ${eventsHtml}
+            </div>`;
+        }
+
+        // Next month padding
+        const remaining = 7 - ((startDow + lastDay.getDate()) % 7);
+        if (remaining < 7) {
+            for (let i = 1; i <= remaining; i++) {
+                html += `<div class="calendar-day other-month"><div class="day-number">${i}</div></div>`;
+            }
+        }
+
+        grid.innerHTML = html;
+        renderReservationList();
+    }
+
+    function getMonthEvents(year, month) {
+        const events = [];
+
+        // From records' sessions
+        records.forEach(r => {
+            const sessions = r['実施回'] || [];
+            const clientName = (r['相談者情報'] && r['相談者情報'][0]) ? r['相談者情報'][0].name : '(名前なし)';
+            sessions.forEach(s => {
+                if (!s.date) return;
+                const d = new Date(s.date);
+                if (d.getFullYear() === year && d.getMonth() === month) {
+                    events.push({
+                        date: s.date,
+                        label: clientName,
+                        cancelled: s.status === 'キャンセル'
+                    });
+                }
+            });
+        });
+
+        // From reservations
+        reservations.forEach(res => {
+            if (!res.date) return;
+            const d = new Date(res.date);
+            if (d.getFullYear() === year && d.getMonth() === month) {
+                events.push({
+                    date: res.date,
+                    label: (res.time ? res.time + ' ' : '') + (res.clientName || '予約'),
+                    cancelled: res.cancelled || false
+                });
+            }
+        });
+
+        return events;
+    }
+
+    function changeCalendarMonth(delta) {
+        calendarMonth += delta;
+        if (calendarMonth < 0) { calendarMonth = 11; calendarYear--; }
+        if (calendarMonth > 11) { calendarMonth = 0; calendarYear++; }
+
+        // Limit to 1 month ahead from current month
+        const now = new Date();
+        const maxYear = now.getMonth() === 11 ? now.getFullYear() + 1 : now.getFullYear();
+        const maxMonth = (now.getMonth() + 1) % 12;
+        if (calendarYear > maxYear || (calendarYear === maxYear && calendarMonth > maxMonth)) {
+            calendarYear = maxYear;
+            calendarMonth = maxMonth;
+            showToast('1ヶ月先までしか表示できません', 'warn');
+        }
+
+        renderCalendar();
+    }
+
+    // ===== RESERVATION MODAL =====
+    function openReservationModal(dateStr) {
+        document.getElementById('reservationModal').classList.add('show');
+        document.getElementById('resDate').value = dateStr || '';
+        document.getElementById('resClientName').value = '';
+        document.getElementById('resTime').value = '';
+        document.getElementById('resStaff').value = '';
+        document.getElementById('resRoom').value = '';
+        document.getElementById('resMemo').value = '';
+        document.getElementById('modalTitle').textContent = '新しい予約を追加';
+    }
+
+    function closeReservationModal() {
+        document.getElementById('reservationModal').classList.remove('show');
+    }
+
+    function saveReservation() {
+        const date = document.getElementById('resDate').value;
+        const clientName = document.getElementById('resClientName').value.trim();
+
+        if (!date) {
+            showToast('予約日を入力してください', 'error');
+            return;
+        }
+
+        reservations.push({
+            id: Date.now(),
+            date: date,
+            clientName: clientName,
+            time: document.getElementById('resTime').value.trim(),
+            staff: document.getElementById('resStaff').value.trim(),
+            room: document.getElementById('resRoom').value,
+            memo: document.getElementById('resMemo').value.trim(),
+            cancelled: false
+        });
+
+        saveReservationsToStorage();
+        closeReservationModal();
+        renderCalendar();
+        showToast('予約を追加しました');
+    }
+
+    function cancelReservation(id) {
+        const res = reservations.find(r => r.id === id);
+        if (res) {
+            res.cancelled = !res.cancelled;
+            saveReservationsToStorage();
+            renderCalendar();
+            showToast(res.cancelled ? '予約をキャンセルしました' : 'キャンセルを取り消しました');
+        }
+    }
+
+    function deleteReservation(id) {
+        reservations = reservations.filter(r => r.id !== id);
+        saveReservationsToStorage();
+        renderCalendar();
+        showToast('予約を削除しました', 'warn');
+    }
+
+    function renderReservationList() {
+        const container = document.getElementById('reservationListContainer');
+
+        // Filter reservations for current calendar month
+        const monthRes = reservations.filter(r => {
+            if (!r.date) return false;
+            const d = new Date(r.date);
+            return d.getFullYear() === calendarYear && d.getMonth() === calendarMonth;
+        }).sort((a, b) => a.date.localeCompare(b.date));
+
+        if (monthRes.length === 0) {
+            container.innerHTML = '<p class="empty-message">この月の予約はありません</p>';
+            return;
+        }
+
+        let html = '';
+        monthRes.forEach(r => {
+            const cls = r.cancelled ? 'reservation-item cancelled' : 'reservation-item';
+            const info = [r.date, r.time, r.clientName, r.staff, r.room].filter(Boolean).join(' | ');
+            const memo = r.memo ? ' (' + r.memo + ')' : '';
+            html += `<div class="${cls}">
+                <span>${escapeHtml(info + memo)}</span>
+                <span>
+                    <button class="delete-btn" onclick="cancelReservation(${r.id})" style="margin-right:4px;">${r.cancelled ? '復元' : 'キャンセル'}</button>
+                    <button class="delete-btn" onclick="deleteReservation(${r.id})">削除</button>
+                </span>
+            </div>`;
+        });
+        container.innerHTML = html;
+    }
+
+    // ===== UTILITIES =====
     function escapeHtml(str) {
         if (!str) return '';
         const div = document.createElement('div');
@@ -947,6 +1907,11 @@
         toast.classList.add('show');
         setTimeout(() => toast.classList.remove('show'), 2500);
     }
+
+    // Close modal on overlay click
+    document.getElementById('reservationModal').addEventListener('click', function(e) {
+        if (e.target === this) closeReservationModal();
+    });
 </script>
 
 </body>
