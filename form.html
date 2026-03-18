@@ -828,6 +828,267 @@
             color: #999;
         }
 
+        /* ===== Client Search styles ===== */
+        .client-search-card {
+            background: linear-gradient(135deg, #f0f7ff 0%, #e8f0fe 100%);
+            border: 2px solid #b8d4f0;
+        }
+
+        .client-search-row {
+            display: flex;
+            gap: 10px;
+            align-items: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .client-search-row .form-group {
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .client-search-row .btn {
+            height: 42px;
+            white-space: nowrap;
+        }
+
+        .client-id-badge {
+            display: inline-block;
+            background: #2c5f8a;
+            color: white;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-right: 10px;
+        }
+
+        .client-info-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: white;
+            border-radius: 8px;
+            margin-top: 12px;
+            border: 1px solid #d0d5dd;
+            flex-wrap: wrap;
+        }
+
+        .client-info-bar .client-detail {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .client-info-bar .client-detail strong {
+            color: #333;
+        }
+
+        .client-clear-btn {
+            background: none;
+            border: 1px solid #c0392b;
+            color: #c0392b;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            margin-left: auto;
+            font-family: 'Noto Sans JP', sans-serif;
+            transition: all 0.2s;
+        }
+
+        .client-clear-btn:hover {
+            background: #fdf2f2;
+        }
+
+        .history-panel {
+            margin-top: 12px;
+            border: 1px solid #d0d5dd;
+            border-radius: 8px;
+            background: white;
+            overflow: hidden;
+        }
+
+        .history-panel-header {
+            background: #f0f4f8;
+            padding: 10px 16px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #2c5f8a;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .history-panel-header:hover {
+            background: #e4ecf4;
+        }
+
+        .history-panel-body {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .history-panel-body.open {
+            max-height: 600px;
+            overflow-y: auto;
+            padding: 12px;
+        }
+
+        .history-item {
+            padding: 10px 12px;
+            border: 1px solid #e0e5eb;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            background: #fafbfc;
+        }
+
+        .history-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .history-item .history-date {
+            font-weight: 500;
+            color: #2c5f8a;
+            margin-bottom: 4px;
+        }
+
+        .history-item .history-detail {
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .history-count {
+            background: #2c5f8a;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+
+        .search-results-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #d0d5dd;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 100;
+            max-height: 200px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .search-results-dropdown.show {
+            display: block;
+        }
+
+        .search-result-item {
+            padding: 10px 12px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.15s;
+        }
+
+        .search-result-item:hover {
+            background: #f0f4f8;
+        }
+
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+
+        .search-result-item .result-id {
+            color: #2c5f8a;
+            font-weight: 500;
+            margin-right: 8px;
+        }
+
+        .search-result-item .result-name {
+            color: #333;
+        }
+
+        .search-result-item .result-info {
+            color: #888;
+            font-size: 0.8rem;
+            margin-left: 8px;
+        }
+
+        .btn-outline {
+            background: white;
+            border: 1px solid #2c5f8a;
+            color: #2c5f8a;
+        }
+
+        .btn-outline:hover {
+            background: #f0f4f8;
+        }
+
+        /* Client list tab styles */
+        .client-list-search {
+            margin-bottom: 16px;
+        }
+
+        .client-list-search input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d0d5dd;
+            border-radius: 8px;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.95rem;
+        }
+
+        .client-list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            border: 1px solid #e0e5eb;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            background: #fafbfc;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .client-list-item:hover {
+            background: #f0f4f8;
+            border-color: #3a7cbd;
+        }
+
+        .client-list-item .cl-id {
+            background: #2c5f8a;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin-right: 12px;
+        }
+
+        .client-list-item .cl-name {
+            font-weight: 500;
+            color: #333;
+            margin-right: 12px;
+        }
+
+        .client-list-item .cl-info {
+            color: #888;
+            font-size: 0.85rem;
+        }
+
+        .client-list-item .cl-count {
+            font-size: 0.8rem;
+            color: #2c5f8a;
+            margin-left: auto;
+        }
+
         @media (max-width: 600px) {
             .form-grid {
                 grid-template-columns: 1fr;
@@ -875,6 +1136,7 @@
 <!-- Tab Navigation -->
 <div class="tab-nav">
     <button class="tab-btn active" onclick="switchTab('form')">入力フォーム</button>
+    <button class="tab-btn" onclick="switchTab('clients')">クライアント台帳</button>
     <button class="tab-btn" onclick="switchTab('stats')">月別集計</button>
     <button class="tab-btn" onclick="switchTab('calendar')">予約カレンダー</button>
 </div>
@@ -882,8 +1144,27 @@
 <!-- ==================== TAB 1: FORM ==================== -->
 <div class="tab-content active" id="tab-form">
 <div class="container">
+    <!-- Client Search / Registration -->
+    <div class="form-card client-search-card">
+        <h2>クライアント検索・登録</h2>
+        <div class="client-search-row">
+            <div class="form-group" style="position:relative; flex:0 0 100px;">
+                <label for="searchClientId">ID検索</label>
+                <input type="number" id="searchClientId" placeholder="ID" min="1">
+            </div>
+            <div class="form-group" style="position:relative; flex:2;">
+                <label for="searchClientName">氏名検索</label>
+                <input type="text" id="searchClientName" placeholder="氏名を入力して検索" autocomplete="off">
+                <div class="search-results-dropdown" id="nameSearchResults"></div>
+            </div>
+            <button class="btn btn-primary" onclick="searchClientById()" style="height:42px;">ID検索</button>
+            <button class="btn btn-outline" onclick="clearSelectedClient()" style="height:42px;">新規入力</button>
+        </div>
+        <div id="selectedClientInfo" style="display:none;"></div>
+    </div>
+
     <div class="form-card">
-        <h2>新規相談記録</h2>
+        <h2 id="formTitle">新規相談記録</h2>
         <div class="form-grid">
             <div class="form-group">
                 <label for="consultDate">相談日（受付日）</label>
@@ -1024,7 +1305,22 @@
 </div>
 </div>
 
-<!-- ==================== TAB 2: MONTHLY STATS ==================== -->
+<!-- ==================== TAB 2: CLIENT LIST ==================== -->
+<div class="tab-content" id="tab-clients">
+<div class="container">
+    <div class="form-card">
+        <h2>クライアント台帳</h2>
+        <div class="client-list-search">
+            <input type="text" id="clientListSearch" placeholder="ID または氏名で検索..." oninput="renderClientList()">
+        </div>
+        <div id="clientListContainer">
+            <p class="empty-message">まだクライアントが登録されていません</p>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- ==================== TAB 3: MONTHLY STATS ==================== -->
 <div class="tab-content" id="tab-stats">
 <div class="container">
     <div class="form-card">
@@ -1129,9 +1425,11 @@
 <script>
     let records = [];
     let reservations = [];
+    let clientMaster = []; // クライアント台帳
     let clientCount = 0;
     let sessionCount = 0;
     const MAX_CLIENTS = 4;
+    let selectedClientId = null; // 現在選択中のクライアントID
 
     let calendarYear, calendarMonth; // 0-indexed month
 
@@ -1152,6 +1450,14 @@
             reservations = [];
         }
     }
+    const savedClients = localStorage.getItem('consultClientMaster');
+    if (savedClients) {
+        try {
+            clientMaster = JSON.parse(savedClients);
+        } catch (e) {
+            clientMaster = [];
+        }
+    }
 
     // Init
     document.getElementById('consultDate').valueAsDate = new Date();
@@ -1165,6 +1471,238 @@
     renderTable();
     renderCalendar();
 
+    // ===== CLIENT MASTER DB =====
+    function getNextClientId() {
+        if (clientMaster.length === 0) return 1;
+        return Math.max(...clientMaster.map(c => c.id)) + 1;
+    }
+
+    function saveClientMaster() {
+        localStorage.setItem('consultClientMaster', JSON.stringify(clientMaster));
+    }
+
+    function findClientById(id) {
+        return clientMaster.find(c => c.id === id);
+    }
+
+    function searchClientsByName(query) {
+        if (!query) return [];
+        const q = query.toLowerCase();
+        return clientMaster.filter(c => c.name && c.name.toLowerCase().includes(q));
+    }
+
+    function registerOrUpdateClient(clientInfo) {
+        if (selectedClientId) {
+            // 既存クライアントの情報を更新
+            const existing = findClientById(selectedClientId);
+            if (existing) {
+                existing.name = clientInfo.name;
+                existing.age = clientInfo.age;
+                existing.gender = clientInfo.gender;
+                existing.attribute = clientInfo.attribute;
+                saveClientMaster();
+                return existing.id;
+            }
+        }
+        // 名前で既存を検索（完全一致）
+        const byName = clientMaster.find(c => c.name === clientInfo.name);
+        if (byName) {
+            byName.age = clientInfo.age;
+            byName.gender = clientInfo.gender;
+            byName.attribute = clientInfo.attribute;
+            saveClientMaster();
+            return byName.id;
+        }
+        // 新規登録
+        const newId = getNextClientId();
+        clientMaster.push({
+            id: newId,
+            name: clientInfo.name,
+            age: clientInfo.age,
+            gender: clientInfo.gender,
+            attribute: clientInfo.attribute,
+            registeredDate: new Date().toISOString().split('T')[0]
+        });
+        saveClientMaster();
+        return newId;
+    }
+
+    // ===== CLIENT SEARCH UI =====
+    function searchClientById() {
+        const idInput = document.getElementById('searchClientId');
+        const id = parseInt(idInput.value);
+        if (!id) {
+            showToast('IDを入力してください', 'error');
+            return;
+        }
+        const client = findClientById(id);
+        if (!client) {
+            showToast('ID ' + id + ' のクライアントは見つかりません', 'error');
+            return;
+        }
+        selectClient(client);
+    }
+
+    // Name search with dropdown
+    document.getElementById('searchClientName').addEventListener('input', function() {
+        const query = this.value.trim();
+        const dropdown = document.getElementById('nameSearchResults');
+        if (query.length === 0) {
+            dropdown.classList.remove('show');
+            return;
+        }
+        const results = searchClientsByName(query);
+        if (results.length === 0) {
+            dropdown.classList.remove('show');
+            return;
+        }
+        let html = '';
+        results.forEach(c => {
+            const info = [c.age ? c.age + '歳' : '', c.gender, c.attribute].filter(Boolean).join(' / ');
+            html += '<div class="search-result-item" onclick="selectClient(clientMaster.find(x=>x.id===' + c.id + '))">'
+                + '<span class="result-id">ID:' + c.id + '</span>'
+                + '<span class="result-name">' + escapeHtml(c.name) + '</span>'
+                + '<span class="result-info">' + escapeHtml(info) + '</span>'
+                + '</div>';
+        });
+        dropdown.innerHTML = html;
+        dropdown.classList.add('show');
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('#searchClientName') && !e.target.closest('#nameSearchResults')) {
+            document.getElementById('nameSearchResults').classList.remove('show');
+        }
+    });
+
+    function selectClient(client) {
+        selectedClientId = client.id;
+        document.getElementById('nameSearchResults').classList.remove('show');
+        document.getElementById('searchClientId').value = client.id;
+        document.getElementById('searchClientName').value = client.name;
+
+        // Auto-fill the first client block
+        const blocks = document.querySelectorAll('#clientContainer .client-block');
+        if (blocks.length > 0) {
+            const block = blocks[0];
+            block.querySelector('.client-name').value = client.name || '';
+            block.querySelector('.client-age').value = client.age || '';
+            block.querySelector('.client-gender').value = client.gender || '';
+            block.querySelector('.client-attribute').value = client.attribute || '';
+        }
+
+        // Show selected client info bar and history
+        showSelectedClientInfo(client);
+        document.getElementById('formTitle').textContent = 'ID:' + client.id + ' の相談記録';
+        showToast('ID:' + client.id + ' ' + client.name + ' さんを選択しました');
+    }
+
+    function showSelectedClientInfo(client) {
+        const container = document.getElementById('selectedClientInfo');
+        const history = getClientHistory(client.id);
+
+        let html = '<div class="client-info-bar">';
+        html += '<span class="client-id-badge">ID: ' + client.id + '</span>';
+        html += '<span class="client-detail"><strong>' + escapeHtml(client.name) + '</strong></span>';
+        if (client.age) html += '<span class="client-detail">' + client.age + '歳</span>';
+        if (client.gender) html += '<span class="client-detail">' + client.gender + '</span>';
+        if (client.attribute) html += '<span class="client-detail">' + client.attribute + '</span>';
+        html += '<span class="client-detail" style="color:#2c5f8a;">相談回数: ' + history.length + '回</span>';
+        html += '<button class="client-clear-btn" onclick="clearSelectedClient()">選択解除</button>';
+        html += '</div>';
+
+        // History panel
+        if (history.length > 0) {
+            html += '<div class="history-panel">';
+            html += '<div class="history-panel-header" onclick="toggleHistoryPanel()">';
+            html += '<span>過去の相談履歴</span>';
+            html += '<span class="history-count">' + history.length + '件</span>';
+            html += '</div>';
+            html += '<div class="history-panel-body" id="historyPanelBody">';
+            history.forEach((r, i) => {
+                const sessStr = (r['実施回'] || []).map((s, si) =>
+                    '第' + (si + 1) + '回: ' + (s.date || '未定') + (s.fee ? ' ¥' + s.fee.toLocaleString() : '') + ' [' + s.status + ']'
+                ).join(' / ');
+                html += '<div class="history-item">';
+                html += '<div class="history-date">相談日: ' + r['相談日'] + '</div>';
+                html += '<div class="history-detail">';
+                if (r['相談内容分類'] && r['相談内容分類'].length > 0) {
+                    html += '分類: ' + r['相談内容分類'].join('、') + '<br>';
+                }
+                if (r['面接形態']) html += '面接形態: ' + r['面接形態'] + '<br>';
+                if (sessStr) html += '実施: ' + sessStr + '<br>';
+                if (r['備考']) html += '備考: ' + escapeHtml(r['備考']);
+                html += '</div></div>';
+            });
+            html += '</div></div>';
+        }
+
+        container.innerHTML = html;
+        container.style.display = 'block';
+    }
+
+    function toggleHistoryPanel() {
+        const body = document.getElementById('historyPanelBody');
+        body.classList.toggle('open');
+    }
+
+    function getClientHistory(clientId) {
+        return records.filter(r => r.clientId === clientId);
+    }
+
+    function clearSelectedClient() {
+        selectedClientId = null;
+        document.getElementById('searchClientId').value = '';
+        document.getElementById('searchClientName').value = '';
+        document.getElementById('selectedClientInfo').style.display = 'none';
+        document.getElementById('selectedClientInfo').innerHTML = '';
+        document.getElementById('formTitle').textContent = '新規相談記録';
+        clearForm();
+    }
+
+    // ===== CLIENT LIST TAB =====
+    function renderClientList() {
+        const container = document.getElementById('clientListContainer');
+        const searchQuery = document.getElementById('clientListSearch').value.trim().toLowerCase();
+
+        let filtered = clientMaster;
+        if (searchQuery) {
+            filtered = clientMaster.filter(c => {
+                return String(c.id).includes(searchQuery) || (c.name && c.name.toLowerCase().includes(searchQuery));
+            });
+        }
+
+        if (filtered.length === 0) {
+            container.innerHTML = '<p class="empty-message">' + (searchQuery ? '該当するクライアントがありません' : 'まだクライアントが登録されていません') + '</p>';
+            return;
+        }
+
+        let html = '';
+        filtered.forEach(c => {
+            const history = getClientHistory(c.id);
+            const info = [c.age ? c.age + '歳' : '', c.gender, c.attribute].filter(Boolean).join(' / ');
+            html += '<div class="client-list-item" onclick="selectClientAndGoToForm(' + c.id + ')">';
+            html += '<span class="cl-id">ID: ' + c.id + '</span>';
+            html += '<span class="cl-name">' + escapeHtml(c.name) + '</span>';
+            html += '<span class="cl-info">' + escapeHtml(info) + '</span>';
+            html += '<span class="cl-count">相談 ' + history.length + '回</span>';
+            html += '</div>';
+        });
+        container.innerHTML = html;
+    }
+
+    function selectClientAndGoToForm(clientId) {
+        const client = findClientById(clientId);
+        if (!client) return;
+        selectClient(client);
+        // Switch to form tab
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+        document.getElementById('tab-form').classList.add('active');
+        document.querySelectorAll('.tab-btn')[0].classList.add('active');
+    }
+
     // ===== TAB SWITCHING =====
     function switchTab(tabName) {
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -1172,6 +1710,7 @@
         document.getElementById('tab-' + tabName).classList.add('active');
         event.target.classList.add('active');
         if (tabName === 'calendar') renderCalendar();
+        if (tabName === 'clients') renderClientList();
     }
 
     // ===== CLIENT BLOCKS =====
@@ -1407,7 +1946,14 @@
 
         const notes = document.getElementById('notes').value.trim();
 
+        // Register or update client in master DB
+        let clientId = selectedClientId;
+        if (clients.length > 0 && clients[0].name) {
+            clientId = registerOrUpdateClient(clients[0]);
+        }
+
         records.push({
+            clientId: clientId,
             相談日: date,
             担当者1: staff1,
             担当者2: staff2,
@@ -1423,8 +1969,21 @@
 
         saveToStorage();
         renderTable();
+
+        const savedClientId = clientId;
+        const savedClientName = clients.length > 0 ? clients[0].name : '';
         clearForm();
-        showToast('記録を追加しました');
+        selectedClientId = null;
+        document.getElementById('searchClientId').value = '';
+        document.getElementById('searchClientName').value = '';
+        document.getElementById('selectedClientInfo').style.display = 'none';
+        document.getElementById('formTitle').textContent = '新規相談記録';
+
+        if (savedClientId) {
+            showToast('ID:' + savedClientId + ' ' + savedClientName + ' の記録を追加しました');
+        } else {
+            showToast('記録を追加しました');
+        }
     }
 
     function deleteRecord(index) {
@@ -1490,6 +2049,7 @@
             <thead>
                 <tr>
                     <th>No.</th>
+                    <th>ID</th>
                     <th>相談日</th>
                     <th>担当者</th>
                     <th>相談者</th>
@@ -1524,6 +2084,7 @@
 
             html += `<tr>
                 <td>${i + 1}</td>
+                <td>${r.clientId ? r.clientId : '-'}</td>
                 <td>${r['相談日']}</td>
                 <td>${escapeHtml(staffStr)}</td>
                 <td>${escapeHtml(clientsStr)}</td>
@@ -1550,6 +2111,7 @@
             const sessions = r['実施回'] || [];
             const row = {
                 'No.': i + 1,
+                'クライアントID': r.clientId || '',
                 '相談日': r['相談日'],
                 '担当者1': r['担当者1'] || '',
                 '担当者2': r['担当者2'] || '',
@@ -1587,6 +2149,7 @@
         // Set column widths
         const cols = [
             { wch: 5 },   // No.
+            { wch: 10 },  // クライアントID
             { wch: 12 },  // 相談日
             { wch: 10 },  // 担当者1
             { wch: 10 },  // 担当者2
