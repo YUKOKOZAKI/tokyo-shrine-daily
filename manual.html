@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>相談受付フォーム - 操作マニュアル</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: #f0f2f5;
+            color: #333;
+            line-height: 1.8;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2c5f8a 0%, #3a7cbd 100%);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        header h1 {
+            font-size: 1.6rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+        }
+
+        header p {
+            font-size: 0.9rem;
+            opacity: 0.85;
+            margin-top: 8px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 24px 20px;
+        }
+
+        .toc {
+            background: white;
+            border-radius: 12px;
+            padding: 24px 28px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            margin-bottom: 28px;
+        }
+
+        .toc h2 {
+            font-size: 1.1rem;
+            color: #2c5f8a;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e8edf2;
+        }
+
+        .toc ol {
+            padding-left: 24px;
+        }
+
+        .toc li {
+            margin-bottom: 6px;
+        }
+
+        .toc a {
+            color: #2c5f8a;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+        }
+
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 28px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            margin-bottom: 24px;
+        }
+
+        .section h2 {
+            font-size: 1.15rem;
+            font-weight: 500;
+            color: #2c5f8a;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e8edf2;
+        }
+
+        .section h3 {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #444;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .section p {
+            font-size: 0.92rem;
+            margin-bottom: 10px;
+        }
+
+        .step-list {
+            padding-left: 20px;
+            margin-bottom: 14px;
+        }
+
+        .step-list li {
+            font-size: 0.92rem;
+            margin-bottom: 8px;
+        }
+
+        .highlight-box {
+            background: #eef4fa;
+            border-left: 4px solid #2c5f8a;
+            padding: 14px 18px;
+            border-radius: 0 8px 8px 0;
+            margin: 14px 0;
+            font-size: 0.9rem;
+        }
+
+        .warning-box {
+            background: #fef8e8;
+            border-left: 4px solid #e67e22;
+            padding: 14px 18px;
+            border-radius: 0 8px 8px 0;
+            margin: 14px 0;
+            font-size: 0.9rem;
+        }
+
+        .tip-box {
+            background: #e8f8ee;
+            border-left: 4px solid #2d8a4e;
+            padding: 14px 18px;
+            border-radius: 0 8px 8px 0;
+            margin: 14px 0;
+            font-size: 0.9rem;
+        }
+
+        .field-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+            margin: 12px 0;
+        }
+
+        .field-table th, .field-table td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .field-table th {
+            background: #f0f4f8;
+            font-weight: 500;
+            color: #555;
+            white-space: nowrap;
+        }
+
+        .field-table td:first-child {
+            white-space: nowrap;
+            font-weight: 500;
+            color: #2c5f8a;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #aaa;
+            font-size: 0.8rem;
+        }
+
+        @media print {
+            body { background: white; }
+            .section, .toc { box-shadow: none; border: 1px solid #ddd; }
+            header { background: #2c5f8a; }
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 12px; }
+            .section, .toc { padding: 18px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>相談受付フォーム - 操作マニュアル</h1>
+    <p>バージョン 2.0 ｜ 最終更新日: 2026年3月16日</p>
+</header>
+
+<div class="container">
+
+    <!-- 目次 -->
+    <div class="toc">
+        <h2>目次</h2>
+        <ol>
+            <li><a href="#overview">アプリの概要</a></li>
+            <li><a href="#start">アプリの起動方法</a></li>
+            <li><a href="#tab-form">入力フォームの使い方</a></li>
+            <li><a href="#tab-form-staff">担当者の入力</a></li>
+            <li><a href="#tab-form-client">相談者の入力</a></li>
+            <li><a href="#tab-form-category">相談内容・来談経路の選択</a></li>
+            <li><a href="#tab-form-interview">面接形態・使用部屋の選択</a></li>
+            <li><a href="#tab-form-session">相談実施日・料金の入力</a></li>
+            <li><a href="#tab-form-save">記録の追加・削除</a></li>
+            <li><a href="#excel">Excel出力</a></li>
+            <li><a href="#tab-stats">月別集計の使い方</a></li>
+            <li><a href="#tab-calendar">予約カレンダーの使い方</a></li>
+            <li><a href="#data">データの保存について</a></li>
+            <li><a href="#faq">よくある質問</a></li>
+        </ol>
+    </div>
+
+    <!-- 1. 概要 -->
+    <div class="section" id="overview">
+        <h2>1. アプリの概要</h2>
+        <p>このアプリは、相談受付業務を効率化するためのWebフォームです。ブラウザ上で動作し、インターネット接続なしでも使用できます。</p>
+
+        <h3>主な機能</h3>
+        <table class="field-table">
+            <tr><th>機能</th><th>説明</th></tr>
+            <tr><td>入力フォーム</td><td>相談記録を入力・保存します</td></tr>
+            <tr><td>記録一覧</td><td>入力済みの記録を一覧表示、削除できます</td></tr>
+            <tr><td>Excel出力</td><td>記録をExcelファイル（.xlsx）としてダウンロードします</td></tr>
+            <tr><td>月別集計</td><td>月ごとの実施件数・金額・部屋使用回数を集計します</td></tr>
+            <tr><td>予約カレンダー</td><td>1ヶ月先までの予約をカレンダーで管理します</td></tr>
+        </table>
+    </div>
+
+    <!-- 2. 起動方法 -->
+    <div class="section" id="start">
+        <h2>2. アプリの起動方法</h2>
+        <ol class="step-list">
+            <li>パソコンで「<strong>ひまわりアプリ2</strong>」フォルダを開きます</li>
+            <li>フォルダ内の <strong>form.html</strong> をダブルクリックします</li>
+            <li>ブラウザ（Safari、Chrome、Edge等）が開き、アプリが表示されます</li>
+        </ol>
+
+        <div class="tip-box">
+            <strong>ヒント：</strong>form.htmlを右クリック →「このアプリケーションで開く」から好きなブラウザを選ぶこともできます。
+        </div>
+    </div>
+
+    <!-- 3. 入力フォーム -->
+    <div class="section" id="tab-form">
+        <h2>3. 入力フォームの使い方</h2>
+        <p>画面上部の「<strong>入力フォーム</strong>」タブをクリックすると、相談記録の入力画面が表示されます。</p>
+
+        <h3>画面構成</h3>
+        <p>入力フォームは上から順に以下の項目で構成されています：</p>
+        <ol class="step-list">
+            <li>相談日（受付日）</li>
+            <li>担当者（2名＋その他）</li>
+            <li>相談者（最大4名）</li>
+            <li>相談内容分類（複数選択可）</li>
+            <li>来談経路（複数選択可）</li>
+            <li>面接形態</li>
+            <li>使用する部屋</li>
+            <li>相談実施日・料金（複数回対応）</li>
+            <li>備考</li>
+        </ol>
+
+        <div class="highlight-box">
+            <strong>相談日について：</strong>アプリを開くと、自動的に今日の日付が入力されます。変更が必要な場合はカレンダーから選択してください。
+        </div>
+    </div>
+
+    <!-- 4. 担当者 -->
+    <div class="section" id="tab-form-staff">
+        <h2>4. 担当者の入力</h2>
+        <p>担当者は3つの欄があります。</p>
+
+        <table class="field-table">
+            <tr><th>入力欄</th><th>用途</th></tr>
+            <tr><td>担当者１</td><td>主な担当者の氏名を入力します</td></tr>
+            <tr><td>担当者２</td><td>もう1名の担当者がいる場合に入力します</td></tr>
+            <tr><td>その他（変更等）</td><td>担当者が途中で変更になった場合や、追加の担当者がいる場合に記入します</td></tr>
+        </table>
+
+        <div class="tip-box">
+            <strong>ヒント：</strong>担当者が1名だけの場合は「担当者１」だけ入力すればOKです。他の欄は空欄のままで構いません。
+        </div>
+    </div>
+
+    <!-- 5. 相談者 -->
+    <div class="section" id="tab-form-client">
+        <h2>5. 相談者の入力</h2>
+        <p>相談者は最大4名まで登録できます。</p>
+
+        <h3>入力手順</h3>
+        <ol class="step-list">
+            <li>最初から1名分の入力欄が表示されています</li>
+            <li>「<strong>＋ 相談者を追加</strong>」ボタンを押すと、2人目以降の入力欄が追加されます</li>
+            <li>不要な相談者は、その欄の「<strong>削除</strong>」ボタンで取り除けます</li>
+        </ol>
+
+        <h3>各相談者の入力項目</h3>
+        <table class="field-table">
+            <tr><th>項目</th><th>入力方法</th></tr>
+            <tr><td>氏名</td><td>相談者の名前を入力します</td></tr>
+            <tr><td>年齢</td><td>数字で年齢を入力します</td></tr>
+            <tr><td>性別</td><td>「女性」「男性」「その他」から選択します</td></tr>
+            <tr><td>属性</td><td>「成人」「乳児」「幼児」「小学生」「中学生」「高校生」「大学生」から選択します</td></tr>
+        </table>
+
+        <div class="warning-box">
+            <strong>注意：</strong>最大4名までです。4名に達すると「＋ 相談者を追加」ボタンが無効になります。
+        </div>
+    </div>
+
+    <!-- 6. 相談内容・来談経路 -->
+    <div class="section" id="tab-form-category">
+        <h2>6. 相談内容・来談経路の選択</h2>
+
+        <h3>相談内容分類</h3>
+        <p>チェックボックスで <strong>複数選択可能</strong> です。該当する項目にチェックを入れてください。</p>
+        <p>分類は2つのグループに分かれています：</p>
+        <ul class="step-list">
+            <li><strong>＜18歳未満＞</strong>：①学校での問題行動、②発達障害・学習の問題 … ⑪心理検査目的</li>
+            <li><strong>＜18歳以上＞</strong>：A-①心理・性格の問題 … A-⑧人間関係の問題</li>
+        </ul>
+
+        <h3>来談経路</h3>
+        <p>新規相談の場合、どのような経緯で来談されたかを <strong>複数選択可能</strong> です。</p>
+        <p>①他の相談機関、②SC・教育関係機関 … ⑬近隣を通りがかって の中から選択します。</p>
+    </div>
+
+    <!-- 7. 面接形態・部屋 -->
+    <div class="section" id="tab-form-interview">
+        <h2>7. 面接形態・使用部屋の選択</h2>
+
+        <h3>面接形態</h3>
+        <p>以下から <strong>1つだけ</strong> 選択します：</p>
+        <ul class="step-list">
+            <li>個別</li>
+            <li>親子並行</li>
+            <li>夫婦面接</li>
+            <li>家族面接</li>
+            <li>その他 → 選択すると右側のテキスト欄に具体的な内容を入力できます</li>
+        </ul>
+
+        <h3>使用する部屋</h3>
+        <p><strong>複数選択可能</strong> です。使用した部屋にチェックを入れてください。</p>
+        <ul class="step-list">
+            <li>面接室１、面接室２、面接室３</li>
+            <li>プレイルーム１、プレイルーム２</li>
+            <li>その他 → チェックを入れると右側のテキスト欄に具体的な場所を入力できます</li>
+        </ul>
+    </div>
+
+    <!-- 8. 相談実施日・料金 -->
+    <div class="section" id="tab-form-session">
+        <h2>8. 相談実施日・料金の入力</h2>
+        <p>相談は複数回にわたることが多いため、<strong>実施回ごとに日付と料金を記録</strong>できるようになっています。</p>
+
+        <h3>入力手順</h3>
+        <ol class="step-list">
+            <li>最初から「第1回」の入力欄が表示されています</li>
+            <li>「<strong>＋ 実施回を追加</strong>」ボタンを押すと、次の回の入力欄が追加されます</li>
+            <li>回数に上限はなく、何回でも追加できます</li>
+        </ol>
+
+        <h3>各回の入力項目</h3>
+        <table class="field-table">
+            <tr><th>項目</th><th>入力方法</th></tr>
+            <tr><td>実施日</td><td>カレンダーから日付を選択します</td></tr>
+            <tr><td>料金（円）</td><td>金額を数字で入力します（例: 5000）</td></tr>
+            <tr><td>ステータス</td><td>以下の3つから選択します</td></tr>
+        </table>
+
+        <h3>ステータスの種類</h3>
+        <table class="field-table">
+            <tr><th>ステータス</th><th>意味</th></tr>
+            <tr><td>実施済</td><td>相談が実施されました（初期値）</td></tr>
+            <tr><td>予定</td><td>まだ実施されていない予定です</td></tr>
+            <tr><td>キャンセル</td><td>キャンセルされた回です</td></tr>
+        </table>
+
+        <div class="highlight-box">
+            <strong>キャンセルの記録：</strong>キャンセルになった場合は、その回のステータスを「キャンセル」に変更してください。月別集計でキャンセル数として別途カウントされます。
+        </div>
+
+        <div class="tip-box">
+            <strong>ヒント：</strong>不要な回は「削除」ボタンで取り除けます。ただし最低1回分の入力欄は常に表示されます。
+        </div>
+    </div>
+
+    <!-- 9. 記録の追加・削除 -->
+    <div class="section" id="tab-form-save">
+        <h2>9. 記録の追加・削除</h2>
+
+        <h3>記録を追加する</h3>
+        <ol class="step-list">
+            <li>すべての入力が終わったら、「<strong>記録を追加</strong>」ボタンを押します</li>
+            <li>画面下部の「入力済み記録」一覧に追加されます</li>
+            <li>フォームは自動的にクリアされ、次の記録を入力できる状態になります</li>
+        </ol>
+
+        <div class="warning-box">
+            <strong>注意：</strong>「相談日」は必須です。入力されていないと追加できません。
+        </div>
+
+        <h3>記録を削除する</h3>
+        <ol class="step-list">
+            <li>「入力済み記録」一覧で、削除したい記録の右端にある「<strong>削除</strong>」ボタンを押します</li>
+            <li>即座に削除されます（確認画面は表示されません）</li>
+        </ol>
+
+        <div class="warning-box">
+            <strong>注意：</strong>削除した記録は元に戻せません。慎重に操作してください。
+        </div>
+    </div>
+
+    <!-- 10. Excel出力 -->
+    <div class="section" id="excel">
+        <h2>10. Excel出力</h2>
+        <p>入力済みの記録をExcelファイル（.xlsx形式）としてダウンロードできます。</p>
+
+        <h3>出力手順</h3>
+        <ol class="step-list">
+            <li>1件以上の記録がある状態で「<strong>Excelに出力</strong>」ボタンを押します</li>
+            <li>自動的にExcelファイルがダウンロードされます</li>
+            <li>ファイル名は「相談記録_YYYYMMDD.xlsx」の形式です（例: 相談記録_20260316.xlsx）</li>
+        </ol>
+
+        <h3>Excelに含まれる項目</h3>
+        <p>以下の情報がすべて含まれます：</p>
+        <ul class="step-list">
+            <li>No.、相談日</li>
+            <li>担当者1、担当者2、担当者その他</li>
+            <li>相談者1〜4（氏名・年齢・性別・属性）</li>
+            <li>相談内容分類、来談経路、面接形態、使用部屋</li>
+            <li>各実施回の日付・料金・ステータス（最大20回分）</li>
+            <li>備考</li>
+        </ul>
+
+        <div class="tip-box">
+            <strong>ヒント：</strong>Excelファイルはダウンロードフォルダに保存されます。Microsoft Excel、Googleスプレッドシート、Numbers等で開けます。
+        </div>
+    </div>
+
+    <!-- 11. 月別集計 -->
+    <div class="section" id="tab-stats">
+        <h2>11. 月別集計の使い方</h2>
+        <p>画面上部の「<strong>月別集計</strong>」タブをクリックして表示します。</p>
+
+        <h3>使い方</h3>
+        <ol class="step-list">
+            <li>「対象月」で集計したい月を選びます（初期値は今月）</li>
+            <li>「<strong>集計する</strong>」ボタンを押します</li>
+            <li>結果が表示されます</li>
+        </ol>
+
+        <h3>集計される項目</h3>
+        <table class="field-table">
+            <tr><th>項目</th><th>内容</th></tr>
+            <tr><td>相談実施件数</td><td>選択した月に実施された相談回数（キャンセルを除く）</td></tr>
+            <tr><td>合計金額</td><td>選択した月の実施済み相談の料金合計</td></tr>
+            <tr><td>キャンセル数</td><td>選択した月にキャンセルされた回数</td></tr>
+            <tr><td>部屋ごとの使用回数</td><td>各部屋が何回使われたかの一覧</td></tr>
+        </table>
+
+        <div class="highlight-box">
+            <strong>集計の基準：</strong>集計は「相談実施日」を基準に計算されます。受付日（相談日）ではなく、各回の実施日が対象月に含まれるかどうかで判定されます。
+        </div>
+    </div>
+
+    <!-- 12. 予約カレンダー -->
+    <div class="section" id="tab-calendar">
+        <h2>12. 予約カレンダーの使い方</h2>
+        <p>画面上部の「<strong>予約カレンダー</strong>」タブをクリックして表示します。当月から1ヶ月先までのカレンダーを表示できます。</p>
+
+        <h3>カレンダーの操作</h3>
+        <table class="field-table">
+            <tr><th>操作</th><th>内容</th></tr>
+            <tr><td>「&lt; 前月」ボタン</td><td>前の月を表示します</td></tr>
+            <tr><td>「翌月 &gt;」ボタン</td><td>次の月を表示します（1ヶ月先まで）</td></tr>
+            <tr><td>日付をクリック</td><td>その日の予約追加画面が開きます</td></tr>
+        </table>
+
+        <h3>予約を追加する</h3>
+        <ol class="step-list">
+            <li>カレンダーの日付をクリック、または「<strong>＋ 新しい予約を追加</strong>」ボタンを押します</li>
+            <li>予約追加画面が表示されます</li>
+            <li>以下の項目を入力します：</li>
+        </ol>
+
+        <table class="field-table">
+            <tr><th>項目</th><th>入力方法</th></tr>
+            <tr><td>予約日</td><td>日付を選択します（日付クリックの場合は自動入力）</td></tr>
+            <tr><td>相談者名</td><td>予約者の名前を入力します</td></tr>
+            <tr><td>時間帯</td><td>時間を入力します（例: 14:00〜15:00）</td></tr>
+            <tr><td>担当者</td><td>担当者名を入力します</td></tr>
+            <tr><td>使用部屋</td><td>使用する部屋を選択します</td></tr>
+            <tr><td>メモ</td><td>任意のメモを入力します</td></tr>
+        </table>
+
+        <ol class="step-list" start="4">
+            <li>「<strong>保存</strong>」ボタンを押すと予約が登録されます</li>
+        </ol>
+
+        <h3>予約のキャンセル・削除</h3>
+        <p>カレンダーの下にある「予約一覧」で操作できます。</p>
+        <table class="field-table">
+            <tr><th>ボタン</th><th>動作</th></tr>
+            <tr><td>キャンセル</td><td>予約をキャンセル状態にします（取り消し線で表示）</td></tr>
+            <tr><td>復元</td><td>キャンセルした予約を元に戻します</td></tr>
+            <tr><td>削除</td><td>予約を完全に削除します</td></tr>
+        </table>
+
+        <div class="tip-box">
+            <strong>ヒント：</strong>カレンダーには、入力フォームで登録した相談実施予定（ステータスが「予定」の回）も自動的に表示されます。
+        </div>
+    </div>
+
+    <!-- 13. データの保存 -->
+    <div class="section" id="data">
+        <h2>13. データの保存について</h2>
+
+        <h3>自動保存</h3>
+        <p>入力した記録と予約データは、ブラウザの <strong>ローカルストレージ</strong> に自動保存されます。ブラウザを閉じても、次に開いた時にデータが残っています。</p>
+
+        <div class="warning-box">
+            <strong>重要な注意事項：</strong>
+            <ul style="margin-top:8px; padding-left:18px;">
+                <li>ブラウザの「閲覧データを消去」「キャッシュをクリア」等を行うと、<strong>データが消えることがあります</strong></li>
+                <li>別のブラウザで開くと、データは共有されません</li>
+                <li>大切なデータは定期的に <strong>Excel出力で書き出してバックアップ</strong> してください</li>
+            </ul>
+        </div>
+
+        <h3>バックアップの推奨</h3>
+        <ol class="step-list">
+            <li>定期的に「Excelに出力」でファイルをダウンロードしてください</li>
+            <li>ダウンロードしたExcelファイルを安全な場所（USBメモリ、クラウドストレージ等）に保存してください</li>
+        </ol>
+    </div>
+
+    <!-- 14. FAQ -->
+    <div class="section" id="faq">
+        <h2>14. よくある質問</h2>
+
+        <h3>Q. 記録を間違えて削除してしまいました。元に戻せますか？</h3>
+        <p>A. 一度削除した記録は元に戻せません。Excelに出力済みであれば、そちらからデータを確認できます。</p>
+
+        <h3>Q. 別のパソコンでもデータを見たいです。</h3>
+        <p>A. データはブラウザのローカルストレージに保存されるため、別のパソコンでは見られません。Excel出力したファイルを共有するか、form.htmlファイルをUSBメモリ等でコピーしてご利用ください。</p>
+
+        <h3>Q. インターネットに接続していなくても使えますか？</h3>
+        <p>A. 初回起動時はフォント読み込みとExcel出力ライブラリのためにインターネット接続が必要です。一度読み込まれればキャッシュされるため、しばらくはオフラインでも動作しますが、完全なオフライン対応ではありません。</p>
+
+        <h3>Q. スマートフォンでも使えますか？</h3>
+        <p>A. はい、スマートフォンのブラウザでも使用できます。ただし画面が小さいため、パソコンでの使用を推奨します。</p>
+
+        <h3>Q. 実施回は何回まで追加できますか？</h3>
+        <p>A. 入力時に上限はありません。ただし、Excel出力時は最大20回分が出力されます。</p>
+
+        <h3>Q. 予約カレンダーは何ヶ月先まで表示できますか？</h3>
+        <p>A. 当月と翌月の2ヶ月分を表示できます。</p>
+    </div>
+
+</div>
+
+<footer>
+    相談受付フォーム 操作マニュアル v2.0
+</footer>
+
+</body>
+</html>

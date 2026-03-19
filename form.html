@@ -34,13 +34,53 @@
             letter-spacing: 0.1em;
         }
 
+        /* Tab navigation */
+        .tab-nav {
+            display: flex;
+            background: white;
+            border-bottom: 2px solid #e0e5eb;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .tab-btn {
+            padding: 14px 24px;
+            border: none;
+            background: none;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #888;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.2s;
+        }
+
+        .tab-btn:hover {
+            color: #2c5f8a;
+        }
+
+        .tab-btn.active {
+            color: #2c5f8a;
+            border-bottom-color: #2c5f8a;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
         .container {
             max-width: 900px;
             margin: 0 auto;
             padding: 20px;
         }
 
-        /* Form Section */
         .form-card {
             background: white;
             border-radius: 12px;
@@ -105,6 +145,294 @@
         .form-group textarea {
             resize: vertical;
             min-height: 80px;
+        }
+
+        /* Client block styles */
+        .client-block {
+            border: 1px solid #e0e5eb;
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 12px;
+            background: #f8fafc;
+        }
+
+        .client-block-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .client-block-header span {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #2c5f8a;
+        }
+
+        .remove-client-btn, .remove-session-btn {
+            background: none;
+            border: 1px solid #e0e0e0;
+            color: #999;
+            cursor: pointer;
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+
+        .remove-client-btn:hover, .remove-session-btn:hover {
+            border-color: #c0392b;
+            color: #c0392b;
+            background: #fdf2f2;
+        }
+
+        .client-fields {
+            display: grid;
+            grid-template-columns: 1fr 80px 80px 1fr;
+            gap: 10px;
+        }
+
+        .client-fields input,
+        .client-fields select {
+            padding: 8px 10px;
+            border: 1px solid #d0d5dd;
+            border-radius: 6px;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.9rem;
+            color: #333;
+            background: white;
+        }
+
+        .client-fields input:focus,
+        .client-fields select:focus {
+            outline: none;
+            border-color: #3a7cbd;
+            box-shadow: 0 0 0 3px rgba(58, 124, 189, 0.15);
+        }
+
+        .client-field-label {
+            font-size: 0.75rem;
+            color: #888;
+            margin-bottom: 3px;
+        }
+
+        .client-field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .add-client-btn, .add-session-btn {
+            display: inline-block;
+            background: none;
+            border: 1px dashed #3a7cbd;
+            color: #3a7cbd;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 8px;
+        }
+
+        .add-client-btn:hover, .add-session-btn:hover {
+            background: #eef4fa;
+        }
+
+        .add-client-btn:disabled, .add-session-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        /* Session block styles */
+        .session-block {
+            border: 1px solid #e0e5eb;
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 10px;
+            background: #f8fafc;
+        }
+
+        .session-block-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .session-block-header span {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #2c5f8a;
+        }
+
+        .session-fields {
+            display: grid;
+            grid-template-columns: 1fr 120px 120px;
+            gap: 10px;
+            align-items: end;
+        }
+
+        .session-fields input,
+        .session-fields select {
+            padding: 8px 10px;
+            border: 1px solid #d0d5dd;
+            border-radius: 6px;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.9rem;
+            color: #333;
+            background: white;
+        }
+
+        .session-fields input:focus,
+        .session-fields select:focus {
+            outline: none;
+            border-color: #3a7cbd;
+            box-shadow: 0 0 0 3px rgba(58, 124, 189, 0.15);
+        }
+
+        .session-field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .session-cancelled .session-fields input,
+        .session-cancelled .session-fields select {
+            opacity: 0.5;
+        }
+
+        .cancel-label {
+            display: flex;
+            align-items: center;
+            font-size: 0.8rem;
+            color: #c0392b;
+            gap: 4px;
+            margin-top: 6px;
+        }
+
+        .cancel-label input[type="checkbox"] {
+            accent-color: #c0392b;
+        }
+
+        /* Staff input styles */
+        .staff-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+        }
+
+        .staff-grid input {
+            padding: 8px 10px;
+            border: 1px solid #d0d5dd;
+            border-radius: 6px;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.9rem;
+            color: #333;
+            background: white;
+        }
+
+        .staff-grid input:focus {
+            outline: none;
+            border-color: #3a7cbd;
+            box-shadow: 0 0 0 3px rgba(58, 124, 189, 0.15);
+        }
+
+        /* Checkbox group styles */
+        .checkbox-group {
+            border: 1px solid #d0d5dd;
+            border-radius: 8px;
+            padding: 12px;
+            background: #fafbfc;
+            max-height: 220px;
+            overflow-y: auto;
+        }
+
+        .checkbox-group-label {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #2c5f8a;
+            margin-top: 8px;
+            margin-bottom: 4px;
+            padding-bottom: 2px;
+            border-bottom: 1px solid #e8edf2;
+        }
+
+        .checkbox-group-label:first-child {
+            margin-top: 0;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 4px 0;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 8px;
+            accent-color: #2c5f8a;
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        .checkbox-item label {
+            font-size: 0.85rem;
+            color: #444;
+            cursor: pointer;
+        }
+
+        /* Radio group with other */
+        .radio-group {
+            border: 1px solid #d0d5dd;
+            border-radius: 8px;
+            padding: 12px;
+            background: #fafbfc;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px 16px;
+        }
+
+        .radio-item {
+            display: flex;
+            align-items: center;
+            padding: 4px 0;
+        }
+
+        .radio-item input[type="radio"] {
+            margin-right: 6px;
+            accent-color: #2c5f8a;
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        .radio-item label {
+            font-size: 0.85rem;
+            color: #444;
+            cursor: pointer;
+        }
+
+        .other-text {
+            padding: 6px 10px;
+            border: 1px solid #d0d5dd;
+            border-radius: 6px;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.85rem;
+            color: #333;
+            background: white;
+            width: 160px;
+            margin-left: 4px;
+        }
+
+        .other-text:disabled {
+            background: #eee;
+            opacity: 0.5;
+        }
+
+        .other-text:focus {
+            outline: none;
+            border-color: #3a7cbd;
+            box-shadow: 0 0 0 3px rgba(58, 124, 189, 0.15);
         }
 
         .btn-row {
@@ -187,12 +515,12 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
 
         thead th {
             background: #f0f4f8;
-            padding: 10px 12px;
+            padding: 10px 8px;
             text-align: left;
             font-weight: 500;
             color: #555;
@@ -201,9 +529,11 @@
         }
 
         tbody td {
-            padding: 10px 12px;
+            padding: 10px 8px;
             border-bottom: 1px solid #eee;
             color: #444;
+            max-width: 180px;
+            word-break: break-word;
         }
 
         tbody tr:hover {
@@ -234,7 +564,6 @@
             font-size: 0.95rem;
         }
 
-        /* Toast notification */
         .toast {
             position: fixed;
             bottom: 30px;
@@ -256,8 +585,583 @@
             opacity: 1;
         }
 
+        /* ===== Monthly Stats styles ===== */
+        .stats-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stats-controls label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .stats-controls input[type="month"] {
+            padding: 8px 12px;
+            border: 1px solid #d0d5dd;
+            border-radius: 8px;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.9rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: #f8fafc;
+            border: 1px solid #e0e5eb;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-card .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2c5f8a;
+        }
+
+        .stat-card .stat-label {
+            font-size: 0.85rem;
+            color: #888;
+            margin-top: 4px;
+        }
+
+        .room-stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .room-stats-table th, .room-stats-table td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .room-stats-table th {
+            background: #f0f4f8;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .room-stats-table td:last-child {
+            text-align: right;
+            font-weight: 500;
+            color: #2c5f8a;
+        }
+
+        /* ===== Calendar styles ===== */
+        .calendar-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .calendar-controls .btn {
+            padding: 8px 16px;
+            font-size: 0.85rem;
+        }
+
+        .calendar-month-label {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #2c5f8a;
+            min-width: 140px;
+            text-align: center;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+            margin-bottom: 20px;
+        }
+
+        .calendar-day-header {
+            background: #f0f4f8;
+            text-align: center;
+            padding: 8px 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #555;
+            border-radius: 4px;
+        }
+
+        .calendar-day-header.sun { color: #c0392b; }
+        .calendar-day-header.sat { color: #2c5f8a; }
+
+        .calendar-day {
+            min-height: 80px;
+            border: 1px solid #e0e5eb;
+            border-radius: 6px;
+            padding: 4px;
+            background: white;
+            cursor: pointer;
+            transition: background 0.15s;
+            overflow: hidden;
+        }
+
+        .calendar-day:hover {
+            background: #f0f4f8;
+        }
+
+        .calendar-day.other-month {
+            background: #f5f5f5;
+            opacity: 0.5;
+        }
+
+        .calendar-day.today {
+            border-color: #2c5f8a;
+            border-width: 2px;
+        }
+
+        .calendar-day .day-number {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 2px;
+        }
+
+        .calendar-day.sun .day-number { color: #c0392b; }
+        .calendar-day.sat .day-number { color: #2c5f8a; }
+
+        .calendar-event {
+            font-size: 0.65rem;
+            padding: 2px 4px;
+            margin-bottom: 2px;
+            border-radius: 3px;
+            background: #e8f0fe;
+            color: #2c5f8a;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .calendar-event.cancelled {
+            background: #fde8e8;
+            color: #c0392b;
+            text-decoration: line-through;
+        }
+
+        /* Reservation modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            z-index: 900;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 12px;
+            padding: 28px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        }
+
+        .modal h3 {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #2c5f8a;
+            margin-bottom: 16px;
+        }
+
+        .modal .form-group {
+            margin-bottom: 12px;
+        }
+
+        .modal .form-group input,
+        .modal .form-group select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d0d5dd;
+            border-radius: 8px;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.95rem;
+        }
+
+        .modal .btn-row {
+            margin-top: 16px;
+        }
+
+        .reservation-list {
+            margin-top: 12px;
+        }
+
+        .reservation-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 10px;
+            border: 1px solid #e0e5eb;
+            border-radius: 6px;
+            margin-bottom: 6px;
+            font-size: 0.85rem;
+        }
+
+        .reservation-item.cancelled {
+            background: #fdf2f2;
+            text-decoration: line-through;
+            color: #999;
+        }
+
+        /* ===== Client Search styles ===== */
+        .client-search-card {
+            background: linear-gradient(135deg, #f0f7ff 0%, #e8f0fe 100%);
+            border: 2px solid #b8d4f0;
+        }
+
+        .client-search-row {
+            display: flex;
+            gap: 10px;
+            align-items: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .client-search-row .form-group {
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .client-search-row .btn {
+            height: 42px;
+            white-space: nowrap;
+        }
+
+        .client-id-badge {
+            display: inline-block;
+            background: #2c5f8a;
+            color: white;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-right: 10px;
+        }
+
+        .client-info-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: white;
+            border-radius: 8px;
+            margin-top: 12px;
+            border: 1px solid #d0d5dd;
+            flex-wrap: wrap;
+        }
+
+        .client-info-bar .client-detail {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .client-info-bar .client-detail strong {
+            color: #333;
+        }
+
+        .client-clear-btn {
+            background: none;
+            border: 1px solid #c0392b;
+            color: #c0392b;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            margin-left: auto;
+            font-family: 'Noto Sans JP', sans-serif;
+            transition: all 0.2s;
+        }
+
+        .client-clear-btn:hover {
+            background: #fdf2f2;
+        }
+
+        .history-panel {
+            margin-top: 12px;
+            border: 1px solid #d0d5dd;
+            border-radius: 8px;
+            background: white;
+            overflow: hidden;
+        }
+
+        .history-panel-header {
+            background: #f0f4f8;
+            padding: 10px 16px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #2c5f8a;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .history-panel-header:hover {
+            background: #e4ecf4;
+        }
+
+        .history-panel-body {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .history-panel-body.open {
+            max-height: 600px;
+            overflow-y: auto;
+            padding: 12px;
+        }
+
+        .history-item {
+            padding: 10px 12px;
+            border: 1px solid #e0e5eb;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            background: #fafbfc;
+        }
+
+        .history-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .history-item .history-date {
+            font-weight: 500;
+            color: #2c5f8a;
+            margin-bottom: 4px;
+        }
+
+        .history-item .history-detail {
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .history-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .history-item-header .history-date {
+            margin-bottom: 0;
+        }
+
+        .btn-edit-record {
+            background: #e8f4fd;
+            color: #2c5f8a;
+            border: 1px solid #b8d4e8;
+            border-radius: 6px;
+            padding: 4px 12px;
+            font-size: 0.78rem;
+            font-family: 'Noto Sans JP', sans-serif;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .btn-edit-record:hover {
+            background: #2c5f8a;
+            color: white;
+        }
+
+        .editing-indicator {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .editing-indicator strong {
+            color: #856404;
+        }
+
+        .btn-cancel-edit {
+            background: #fff;
+            color: #856404;
+            border: 1px solid #ffc107;
+            border-radius: 6px;
+            padding: 6px 14px;
+            font-size: 0.85rem;
+            font-family: 'Noto Sans JP', sans-serif;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-cancel-edit:hover {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .history-count {
+            background: #2c5f8a;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+
+        .search-results-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #d0d5dd;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 100;
+            max-height: 200px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .search-results-dropdown.show {
+            display: block;
+        }
+
+        .search-result-item {
+            padding: 10px 12px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.15s;
+        }
+
+        .search-result-item:hover {
+            background: #f0f4f8;
+        }
+
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+
+        .search-result-item .result-id {
+            color: #2c5f8a;
+            font-weight: 500;
+            margin-right: 8px;
+        }
+
+        .search-result-item .result-name {
+            color: #333;
+        }
+
+        .search-result-item .result-info {
+            color: #888;
+            font-size: 0.8rem;
+            margin-left: 8px;
+        }
+
+        .btn-outline {
+            background: white;
+            border: 1px solid #2c5f8a;
+            color: #2c5f8a;
+        }
+
+        .btn-outline:hover {
+            background: #f0f4f8;
+        }
+
+        /* Client list tab styles */
+        .client-list-search {
+            margin-bottom: 16px;
+        }
+
+        .client-list-search input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d0d5dd;
+            border-radius: 8px;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.95rem;
+        }
+
+        .client-list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            border: 1px solid #e0e5eb;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            background: #fafbfc;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .client-list-item:hover {
+            background: #f0f4f8;
+            border-color: #3a7cbd;
+        }
+
+        .client-list-item .cl-id {
+            background: #2c5f8a;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin-right: 12px;
+        }
+
+        .client-list-item .cl-name {
+            font-weight: 500;
+            color: #333;
+            margin-right: 12px;
+        }
+
+        .client-list-item .cl-info {
+            color: #888;
+            font-size: 0.85rem;
+        }
+
+        .client-list-item .cl-count {
+            font-size: 0.8rem;
+            color: #2c5f8a;
+            margin-left: auto;
+        }
+
         @media (max-width: 600px) {
             .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .client-fields {
+                grid-template-columns: 1fr 1fr;
+            }
+            .session-fields {
+                grid-template-columns: 1fr 1fr;
+            }
+            .staff-grid {
                 grid-template-columns: 1fr;
             }
             .btn-row {
@@ -269,6 +1173,19 @@
             .form-card, .table-card {
                 padding: 18px;
             }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .tab-nav {
+                padding: 0 8px;
+            }
+            .tab-btn {
+                padding: 12px 14px;
+                font-size: 0.85rem;
+            }
+            .calendar-day {
+                min-height: 60px;
+            }
         }
     </style>
 </head>
@@ -278,106 +1195,166 @@
     <h1>相談受付フォーム</h1>
 </header>
 
+<!-- Tab Navigation -->
+<div class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab('form')">入力フォーム</button>
+    <button class="tab-btn" onclick="switchTab('clients')">クライアント台帳</button>
+    <button class="tab-btn" onclick="switchTab('stats')">月別集計</button>
+    <button class="tab-btn" onclick="switchTab('calendar')">予約カレンダー</button>
+</div>
+
+<!-- ==================== TAB 1: FORM ==================== -->
+<div class="tab-content active" id="tab-form">
 <div class="container">
-    <!-- Input Form -->
+    <!-- Client Search / Registration -->
+    <div class="form-card client-search-card">
+        <h2>クライアント検索・登録</h2>
+        <div class="client-search-row">
+            <div class="form-group" style="position:relative; flex:0 0 100px;">
+                <label for="searchClientId">ID検索</label>
+                <input type="number" id="searchClientId" placeholder="ID" min="1">
+            </div>
+            <div class="form-group" style="position:relative; flex:2;">
+                <label for="searchClientName">氏名検索</label>
+                <input type="text" id="searchClientName" placeholder="氏名を入力して検索" autocomplete="off">
+                <div class="search-results-dropdown" id="nameSearchResults"></div>
+            </div>
+            <button class="btn btn-primary" onclick="searchClientById()" style="height:42px;">ID検索</button>
+            <button class="btn btn-outline" onclick="clearSelectedClient()" style="height:42px;">新規入力</button>
+        </div>
+        <div id="selectedClientInfo" style="display:none;"></div>
+    </div>
+
+    <div id="editingIndicator" class="editing-indicator" style="display:none;">
+        <span><strong>編集モード:</strong> <span id="editingLabel"></span></span>
+        <button class="btn-cancel-edit" onclick="cancelEditing()">編集をキャンセル</button>
+    </div>
+
     <div class="form-card">
-        <h2>新規相談記録</h2>
+        <h2 id="formTitle">新規相談記録</h2>
         <div class="form-grid">
             <div class="form-group">
-                <label for="consultDate">相談日</label>
+                <label for="consultDate">相談日（受付日）</label>
                 <input type="date" id="consultDate">
             </div>
             <div class="form-group">
-                <label for="clientName">相談者名</label>
-                <input type="text" id="clientName" placeholder="氏名を入力">
+                <!-- spacer -->
             </div>
-            <div class="form-group">
-                <label for="gender">性別</label>
-                <select id="gender">
-                    <option value="">選択してください</option>
-                    <option value="女性">女性</option>
-                    <option value="男性">男性</option>
-                    <option value="その他">その他</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="attribute">属性</label>
-                <select id="attribute">
-                    <option value="">選択してください</option>
-                    <option value="成人">成人</option>
-                    <option value="乳児">乳児</option>
-                    <option value="幼児">幼児</option>
-                    <option value="小学生">小学生</option>
-                    <option value="中学生">中学生</option>
-                    <option value="高校生">高校生</option>
-                    <option value="大学生">大学生</option>
-                </select>
-            </div>
+
+            <!-- 担当者 -->
             <div class="form-group full-width">
-                <label for="category">相談内容分類</label>
-                <select id="category">
-                    <option value="">選択してください</option>
-                    <optgroup label="＜18歳未満＞">
-                        <option value="①学校での問題行動">①学校での問題行動</option>
-                        <option value="②発達障害・学習の問題">②発達障害・学習の問題</option>
-                        <option value="③いじめ">③いじめ</option>
-                        <option value="④親子関係">④親子関係</option>
-                        <option value="⑤対人関係">⑤対人関係</option>
-                        <option value="⑥習癖(チック等)">⑥習癖(チック等)</option>
-                        <option value="⑦自傷行為">⑦自傷行為</option>
-                        <option value="⑧不登校・登校渋り">⑧不登校・登校渋り</option>
-                        <option value="⑨思春期の問題">⑨思春期の問題</option>
-                        <option value="⑩不安・緊張症状">⑩不安・緊張症状</option>
-                        <option value="⑪心理検査目的">⑪心理検査目的</option>
-                    </optgroup>
-                    <optgroup label="＜18歳以上＞">
-                        <option value="A-①心理・性格の問題">A-①心理・性格の問題</option>
-                        <option value="A-②夫婦関係の問題">A-②夫婦関係の問題</option>
-                        <option value="A-③子どもの問題">A-③子どもの問題</option>
-                        <option value="A-④家庭の問題">A-④家庭の問題</option>
-                        <option value="A-⑤抑鬱状態">A-⑤抑鬱状態</option>
-                        <option value="A-⑥青年期の問題">A-⑥青年期の問題</option>
-                        <option value="A-⑦その他の問題">A-⑦その他の問題</option>
-                        <option value="A-⑧人間関係の問題">A-⑧人間関係の問題</option>
-                    </optgroup>
-                </select>
+                <label>担当者</label>
+                <div class="staff-grid">
+                    <div class="client-field">
+                        <div class="client-field-label">担当者１</div>
+                        <input type="text" id="staff1" placeholder="氏名">
+                    </div>
+                    <div class="client-field">
+                        <div class="client-field-label">担当者２</div>
+                        <input type="text" id="staff2" placeholder="氏名">
+                    </div>
+                    <div class="client-field">
+                        <div class="client-field-label">その他（変更等）</div>
+                        <input type="text" id="staffOther" placeholder="変更・追加の担当者名">
+                    </div>
+                </div>
             </div>
+
+            <!-- 相談者（最大4名） -->
+            <div class="form-group full-width">
+                <label>相談者（最大4名）</label>
+                <div id="clientContainer"></div>
+                <button type="button" class="add-client-btn" id="addClientBtn" onclick="addClientBlock()">＋ 相談者を追加</button>
+            </div>
+
+            <!-- 相談内容（複数選択） -->
+            <div class="form-group full-width">
+                <label>相談内容分類（複数選択可）</label>
+                <div class="checkbox-group" id="categoryGroup">
+                    <div class="checkbox-group-label">＜18歳未満＞</div>
+                    <div class="checkbox-item"><input type="checkbox" id="cat_1" value="①学校での問題行動"><label for="cat_1">①学校での問題行動</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cat_2" value="②発達障害・学習の問題"><label for="cat_2">②発達障害・学習の問題</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cat_3" value="③いじめ"><label for="cat_3">③いじめ</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cat_4" value="④親子関係"><label for="cat_4">④親子関係</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cat_5" value="⑤対人関係"><label for="cat_5">⑤対人関係</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cat_6" value="⑥習癖(チック等)"><label for="cat_6">⑥習癖(チック等)</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cat_7" value="⑦自傷行為"><label for="cat_7">⑦自傷行為</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cat_8" value="⑧不登校・登校渋り"><label for="cat_8">⑧不登校・登校渋り</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cat_9" value="⑨思春期の問題"><label for="cat_9">⑨思春期の問題</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cat_10" value="⑩不安・緊張症状"><label for="cat_10">⑩不安・緊張症状</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cat_11" value="⑪心理検査目的"><label for="cat_11">⑪心理検査目的</label></div>
+                    <div class="checkbox-group-label">＜18歳以上＞</div>
+                    <div class="checkbox-item"><input type="checkbox" id="cat_a1" value="A-①心理・性格の問題"><label for="cat_a1">A-①心理・性格の問題</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cat_a2" value="A-②夫婦関係の問題"><label for="cat_a2">A-②夫婦関係の問題</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cat_a3" value="A-③子どもの問題"><label for="cat_a3">A-③子どもの問題</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cat_a4" value="A-④家庭の問題"><label for="cat_a4">A-④家庭の問題</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cat_a5" value="A-⑤抑鬱状態"><label for="cat_a5">A-⑤抑鬱状態</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cat_a6" value="A-⑥青年期の問題"><label for="cat_a6">A-⑥青年期の問題</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cat_a7" value="A-⑦その他の問題"><label for="cat_a7">A-⑦その他の問題</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cat_a8" value="A-⑧人間関係の問題"><label for="cat_a8">A-⑧人間関係の問題</label></div>
+                </div>
+            </div>
+
+            <!-- 来談経路（複数選択） -->
+            <div class="form-group full-width">
+                <label>新規相談の来談経路（複数選択可）</label>
+                <div class="checkbox-group" id="routeGroup">
+                    <div class="checkbox-group-label">＜紹介＞</div>
+                    <div class="checkbox-item"><input type="checkbox" id="route_1" value="①他の相談機関"><label for="route_1">①他の相談機関</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="route_2" value="②SC・教育関係機関"><label for="route_2">②SC・教育関係機関</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="route_3" value="③姉妹校関係者より"><label for="route_3">③姉妹校関係者より</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="route_4" value="④医療関係"><label for="route_4">④医療関係</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="route_5" value="⑤宮代会"><label for="route_5">⑤宮代会</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="route_6" value="⑥本相談所利用者"><label for="route_6">⑥本相談所利用者</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="route_7" value="⑦本相談所関係者"><label for="route_7">⑦本相談所関係者</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="route_8" value="⑧知人"><label for="route_8">⑧知人</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="route_9" value="⑨在学生"><label for="route_9">⑨在学生</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="route_10" value="⑩パンフレット"><label for="route_10">⑩パンフレット</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="route_11" value="⑪インターネット・情報誌等"><label for="route_11">⑪インターネット・情報誌等</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="route_12" value="⑫公開講座に参加して"><label for="route_12">⑫公開講座に参加して</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="route_13" value="⑬近隣を通りがかって"><label for="route_13">⑬近隣を通りがかって</label></div>
+                </div>
+            </div>
+
+            <!-- 面接形態（ラジオ＋その他自由記載） -->
             <div class="form-group">
-                <label for="route">新規相談の来談経路</label>
-                <select id="route">
-                    <option value="">選択してください</option>
-                    <optgroup label="＜紹介＞">
-                        <option value="①他の相談機関">①他の相談機関</option>
-                        <option value="②SC・教育関係機関">②SC・教育関係機関</option>
-                        <option value="③姉妹校関係者より">③姉妹校関係者より</option>
-                        <option value="④医療関係">④医療関係</option>
-                        <option value="⑤宮代会">⑤宮代会</option>
-                        <option value="⑥本相談所利用者">⑥本相談所利用者</option>
-                        <option value="⑦本相談所関係者">⑦本相談所関係者</option>
-                        <option value="⑧知人">⑧知人</option>
-                        <option value="⑨在学生">⑨在学生</option>
-                        <option value="⑩パンフレット">⑩パンフレット</option>
-                        <option value="⑪インターネット・情報誌等">⑪インターネット・情報誌等</option>
-                        <option value="⑫公開講座に参加して">⑫公開講座に参加して</option>
-                        <option value="⑬近隣を通りがかって">⑬近隣を通りがかって</option>
-                    </optgroup>
-                </select>
+                <label>面接形態</label>
+                <div class="radio-group" id="interviewTypeGroup">
+                    <div class="radio-item"><input type="radio" name="interviewType" id="iv_1" value="個別" onchange="toggleInterviewOther()"><label for="iv_1">個別</label></div>
+                    <div class="radio-item"><input type="radio" name="interviewType" id="iv_2" value="親子並行" onchange="toggleInterviewOther()"><label for="iv_2">親子並行</label></div>
+                    <div class="radio-item"><input type="radio" name="interviewType" id="iv_3" value="夫婦面接" onchange="toggleInterviewOther()"><label for="iv_3">夫婦面接</label></div>
+                    <div class="radio-item"><input type="radio" name="interviewType" id="iv_4" value="家族面接" onchange="toggleInterviewOther()"><label for="iv_4">家族面接</label></div>
+                    <div class="radio-item"><input type="radio" name="interviewType" id="iv_other" value="その他" onchange="toggleInterviewOther()"><label for="iv_other">その他:</label><input type="text" class="other-text" id="interviewOtherText" placeholder="内容を入力" disabled></div>
+                </div>
             </div>
+
+            <!-- 使用する部屋（複数選択＋その他自由記載） -->
             <div class="form-group">
-                <label for="interviewType">面接形態</label>
-                <select id="interviewType">
-                    <option value="">選択してください</option>
-                    <option value="個人">個人</option>
-                    <option value="親子並行">親子並行</option>
-                </select>
+                <label>使用する部屋（複数選択可）</label>
+                <div class="checkbox-group" id="roomGroup">
+                    <div class="checkbox-item"><input type="checkbox" id="room_1" value="面接室１" onchange="toggleRoomOther()"><label for="room_1">面接室１</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="room_2" value="面接室２" onchange="toggleRoomOther()"><label for="room_2">面接室２</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="room_3" value="面接室３" onchange="toggleRoomOther()"><label for="room_3">面接室３</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="room_4" value="プレイルーム１" onchange="toggleRoomOther()"><label for="room_4">プレイルーム１</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="room_5" value="プレイルーム２" onchange="toggleRoomOther()"><label for="room_5">プレイルーム２</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="room_other" value="その他" onchange="toggleRoomOther()"><label for="room_other">その他:</label><input type="text" class="other-text" id="roomOtherText" placeholder="内容を入力" disabled></div>
+                </div>
             </div>
+
+            <!-- 相談実施日・料金（複数回対応） -->
+            <div class="form-group full-width">
+                <label>相談実施日・料金</label>
+                <div id="sessionContainer"></div>
+                <button type="button" class="add-session-btn" onclick="addSessionBlock()">＋ 実施回を追加</button>
+            </div>
+
             <div class="form-group full-width">
                 <label for="notes">備考</label>
                 <textarea id="notes" placeholder="自由記述"></textarea>
             </div>
         </div>
         <div class="btn-row">
-            <button class="btn btn-primary" onclick="addRecord()">記録を追加</button>
+            <button class="btn btn-primary" onclick="addRecord()" id="submitBtn">記録を追加</button>
             <button class="btn btn-success" onclick="exportExcel()" id="exportBtn" disabled>Excelに出力</button>
         </div>
     </div>
@@ -393,56 +1370,835 @@
         </div>
     </div>
 </div>
+</div>
+
+<!-- ==================== TAB 2: CLIENT LIST ==================== -->
+<div class="tab-content" id="tab-clients">
+<div class="container">
+    <div class="form-card">
+        <h2>クライアント台帳</h2>
+        <div class="client-list-search">
+            <input type="text" id="clientListSearch" placeholder="ID または氏名で検索..." oninput="renderClientList()">
+        </div>
+        <div id="clientListContainer">
+            <p class="empty-message">まだクライアントが登録されていません</p>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- ==================== TAB 3: MONTHLY STATS ==================== -->
+<div class="tab-content" id="tab-stats">
+<div class="container">
+    <div class="form-card">
+        <h2>月別集計</h2>
+        <div class="stats-controls">
+            <label for="statsMonth">対象月:</label>
+            <input type="month" id="statsMonth">
+            <button class="btn btn-primary" onclick="calcStats()" style="padding:8px 20px;font-size:0.9rem;">集計する</button>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value" id="statCount">-</div>
+                <div class="stat-label">相談実施件数</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="statTotal">-</div>
+                <div class="stat-label">合計金額</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="statCancelled">-</div>
+                <div class="stat-label">キャンセル数</div>
+            </div>
+        </div>
+
+        <h2>部屋ごとの使用回数</h2>
+        <div id="roomStatsContainer">
+            <p class="empty-message">「集計する」を押して月を選択してください</p>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- ==================== TAB 3: CALENDAR ==================== -->
+<div class="tab-content" id="tab-calendar">
+<div class="container">
+    <div class="form-card">
+        <h2>予約カレンダー</h2>
+        <div class="calendar-controls">
+            <button class="btn btn-primary" onclick="changeCalendarMonth(-1)">&lt; 前月</button>
+            <span class="calendar-month-label" id="calendarMonthLabel"></span>
+            <button class="btn btn-primary" onclick="changeCalendarMonth(1)">翌月 &gt;</button>
+        </div>
+        <div class="calendar-grid" id="calendarGrid"></div>
+
+        <h2>予約一覧</h2>
+        <div class="btn-row" style="margin-top:0;margin-bottom:16px;">
+            <button class="btn btn-primary" onclick="openReservationModal()" style="padding:8px 20px;font-size:0.9rem;">＋ 新しい予約を追加</button>
+        </div>
+        <div id="reservationListContainer">
+            <p class="empty-message">この月の予約はありません</p>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- Reservation Modal -->
+<div class="modal-overlay" id="reservationModal">
+    <div class="modal">
+        <h3 id="modalTitle">新しい予約を追加</h3>
+        <div class="form-group">
+            <label>予約日</label>
+            <input type="date" id="resDate">
+        </div>
+        <div class="form-group">
+            <label>相談者名</label>
+            <input type="text" id="resClientName" placeholder="相談者名">
+        </div>
+        <div class="form-group">
+            <label>時間帯</label>
+            <input type="text" id="resTime" placeholder="例: 14:00〜15:00">
+        </div>
+        <div class="form-group">
+            <label>担当者</label>
+            <input type="text" id="resStaff" placeholder="担当者名">
+        </div>
+        <div class="form-group">
+            <label>使用部屋</label>
+            <select id="resRoom">
+                <option value="">--</option>
+                <option value="面接室１">面接室１</option>
+                <option value="面接室２">面接室２</option>
+                <option value="面接室３">面接室３</option>
+                <option value="プレイルーム１">プレイルーム１</option>
+                <option value="プレイルーム２">プレイルーム２</option>
+                <option value="その他">その他</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>メモ</label>
+            <input type="text" id="resMemo" placeholder="メモ（任意）">
+        </div>
+        <div class="btn-row">
+            <button class="btn btn-primary" onclick="saveReservation()">保存</button>
+            <button class="btn btn-danger" onclick="closeReservationModal()">キャンセル</button>
+        </div>
+    </div>
+</div>
 
 <div class="toast" id="toast"></div>
 
 <script>
     let records = [];
+    let reservations = [];
+    let clientMaster = []; // クライアント台帳
+    let clientCount = 0;
+    let sessionCount = 0;
+    const MAX_CLIENTS = 4;
+    let selectedClientId = null; // 現在選択中のクライアントID
+    let editingRecordIndex = null; // 編集中のレコードのインデックス（nullなら新規）
+
+    let calendarYear, calendarMonth; // 0-indexed month
 
     // Load from localStorage
     const saved = localStorage.getItem('consultRecords');
     if (saved) {
         try {
             records = JSON.parse(saved);
-            renderTable();
         } catch (e) {
             records = [];
         }
     }
+    const savedRes = localStorage.getItem('consultReservations');
+    if (savedRes) {
+        try {
+            reservations = JSON.parse(savedRes);
+        } catch (e) {
+            reservations = [];
+        }
+    }
+    const savedClients = localStorage.getItem('consultClientMaster');
+    if (savedClients) {
+        try {
+            clientMaster = JSON.parse(savedClients);
+        } catch (e) {
+            clientMaster = [];
+        }
+    }
 
-    // Set today's date as default
+    // Init
     document.getElementById('consultDate').valueAsDate = new Date();
+    const now = new Date();
+    document.getElementById('statsMonth').value = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0');
+    calendarYear = now.getFullYear();
+    calendarMonth = now.getMonth();
 
+    addClientBlock();
+    addSessionBlock();
+    renderTable();
+    renderCalendar();
+
+    // ===== CLIENT MASTER DB =====
+    function getNextClientId() {
+        if (clientMaster.length === 0) return 1;
+        return Math.max(...clientMaster.map(c => c.id)) + 1;
+    }
+
+    function saveClientMaster() {
+        localStorage.setItem('consultClientMaster', JSON.stringify(clientMaster));
+    }
+
+    function findClientById(id) {
+        return clientMaster.find(c => c.id === id);
+    }
+
+    function searchClientsByName(query) {
+        if (!query) return [];
+        const q = query.toLowerCase();
+        return clientMaster.filter(c => c.name && c.name.toLowerCase().includes(q));
+    }
+
+    function registerOrUpdateClient(clientInfo) {
+        if (selectedClientId) {
+            // 既存クライアントの情報を更新
+            const existing = findClientById(selectedClientId);
+            if (existing) {
+                existing.name = clientInfo.name;
+                existing.age = clientInfo.age;
+                existing.gender = clientInfo.gender;
+                existing.attribute = clientInfo.attribute;
+                saveClientMaster();
+                return existing.id;
+            }
+        }
+        // 名前で既存を検索（完全一致）
+        const byName = clientMaster.find(c => c.name === clientInfo.name);
+        if (byName) {
+            byName.age = clientInfo.age;
+            byName.gender = clientInfo.gender;
+            byName.attribute = clientInfo.attribute;
+            saveClientMaster();
+            return byName.id;
+        }
+        // 新規登録
+        const newId = getNextClientId();
+        clientMaster.push({
+            id: newId,
+            name: clientInfo.name,
+            age: clientInfo.age,
+            gender: clientInfo.gender,
+            attribute: clientInfo.attribute,
+            registeredDate: new Date().toISOString().split('T')[0]
+        });
+        saveClientMaster();
+        return newId;
+    }
+
+    // ===== CLIENT SEARCH UI =====
+    function searchClientById() {
+        const idInput = document.getElementById('searchClientId');
+        const id = parseInt(idInput.value);
+        if (!id) {
+            showToast('IDを入力してください', 'error');
+            return;
+        }
+        const client = findClientById(id);
+        if (!client) {
+            showToast('ID ' + id + ' のクライアントは見つかりません', 'error');
+            return;
+        }
+        selectClient(client);
+    }
+
+    // Name search with dropdown
+    document.getElementById('searchClientName').addEventListener('input', function() {
+        const query = this.value.trim();
+        const dropdown = document.getElementById('nameSearchResults');
+        if (query.length === 0) {
+            dropdown.classList.remove('show');
+            return;
+        }
+        const results = searchClientsByName(query);
+        if (results.length === 0) {
+            dropdown.classList.remove('show');
+            return;
+        }
+        let html = '';
+        results.forEach(c => {
+            const info = [c.age ? c.age + '歳' : '', c.gender, c.attribute].filter(Boolean).join(' / ');
+            html += '<div class="search-result-item" onclick="selectClient(clientMaster.find(x=>x.id===' + c.id + '))">'
+                + '<span class="result-id">ID:' + c.id + '</span>'
+                + '<span class="result-name">' + escapeHtml(c.name) + '</span>'
+                + '<span class="result-info">' + escapeHtml(info) + '</span>'
+                + '</div>';
+        });
+        dropdown.innerHTML = html;
+        dropdown.classList.add('show');
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('#searchClientName') && !e.target.closest('#nameSearchResults')) {
+            document.getElementById('nameSearchResults').classList.remove('show');
+        }
+    });
+
+    function selectClient(client) {
+        selectedClientId = client.id;
+        document.getElementById('nameSearchResults').classList.remove('show');
+        document.getElementById('searchClientId').value = client.id;
+        document.getElementById('searchClientName').value = client.name;
+
+        // Auto-fill the first client block
+        const blocks = document.querySelectorAll('#clientContainer .client-block');
+        if (blocks.length > 0) {
+            const block = blocks[0];
+            block.querySelector('.client-name').value = client.name || '';
+            block.querySelector('.client-age').value = client.age || '';
+            block.querySelector('.client-gender').value = client.gender || '';
+            block.querySelector('.client-attribute').value = client.attribute || '';
+        }
+
+        // Show selected client info bar and history
+        showSelectedClientInfo(client);
+        document.getElementById('formTitle').textContent = 'ID:' + client.id + ' の相談記録';
+        showToast('ID:' + client.id + ' ' + client.name + ' さんを選択しました');
+    }
+
+    function showSelectedClientInfo(client) {
+        const container = document.getElementById('selectedClientInfo');
+        const history = getClientHistory(client.id);
+
+        let html = '<div class="client-info-bar">';
+        html += '<span class="client-id-badge">ID: ' + client.id + '</span>';
+        html += '<span class="client-detail"><strong>' + escapeHtml(client.name) + '</strong></span>';
+        if (client.age) html += '<span class="client-detail">' + client.age + '歳</span>';
+        if (client.gender) html += '<span class="client-detail">' + client.gender + '</span>';
+        if (client.attribute) html += '<span class="client-detail">' + client.attribute + '</span>';
+        html += '<span class="client-detail" style="color:#2c5f8a;">相談回数: ' + history.length + '回</span>';
+        html += '<button class="client-clear-btn" onclick="clearSelectedClient()">選択解除</button>';
+        html += '</div>';
+
+        // History panel
+        if (history.length > 0) {
+            html += '<div class="history-panel">';
+            html += '<div class="history-panel-header" onclick="toggleHistoryPanel()">';
+            html += '<span>過去の相談履歴</span>';
+            html += '<span class="history-count">' + history.length + '件</span>';
+            html += '</div>';
+            html += '<div class="history-panel-body" id="historyPanelBody">';
+            history.forEach((r, i) => {
+                const recIndex = records.indexOf(r);
+                const sessStr = (r['実施回'] || []).map((s, si) =>
+                    '第' + (si + 1) + '回: ' + (s.date || '未定') + (s.fee ? ' ¥' + s.fee.toLocaleString() : '') + ' [' + s.status + ']'
+                ).join(' / ');
+                html += '<div class="history-item">';
+                html += '<div class="history-item-header">';
+                html += '<div class="history-date">相談日: ' + r['相談日'] + '</div>';
+                html += '<button class="btn-edit-record" onclick="loadRecordForEditing(' + recIndex + ')">この記録を編集</button>';
+                html += '</div>';
+                html += '<div class="history-detail">';
+                if (r['相談内容分類'] && r['相談内容分類'].length > 0) {
+                    html += '分類: ' + r['相談内容分類'].join('、') + '<br>';
+                }
+                if (r['面接形態']) html += '面接形態: ' + r['面接形態'] + '<br>';
+                if (sessStr) html += '実施: ' + sessStr + '<br>';
+                if (r['備考']) html += '備考: ' + escapeHtml(r['備考']);
+                html += '</div></div>';
+            });
+            html += '</div></div>';
+        }
+
+        container.innerHTML = html;
+        container.style.display = 'block';
+    }
+
+    function toggleHistoryPanel() {
+        const body = document.getElementById('historyPanelBody');
+        body.classList.toggle('open');
+    }
+
+    function getClientHistory(clientId) {
+        return records.filter(r => r.clientId === clientId);
+    }
+
+    // ===== LOAD EXISTING RECORD FOR EDITING =====
+    function loadRecordForEditing(index) {
+        const r = records[index];
+        if (!r) return;
+
+        editingRecordIndex = index;
+        clearForm();
+
+        // Fill consultation date
+        document.getElementById('consultDate').value = r['相談日'] || '';
+
+        // Fill staff
+        document.getElementById('staff1').value = r['担当者1'] || '';
+        document.getElementById('staff2').value = r['担当者2'] || '';
+        document.getElementById('staffOther').value = r['担当者その他'] || '';
+
+        // Fill clients
+        const clients = r['相談者情報'] || [];
+        const container = document.getElementById('clientContainer');
+        container.innerHTML = '';
+        clientCount = 0;
+        clients.forEach((c, i) => {
+            addClientBlock();
+            const block = container.querySelectorAll('.client-block')[i];
+            if (block) {
+                block.querySelector('.client-name').value = c.name || '';
+                block.querySelector('.client-age').value = c.age || '';
+                block.querySelector('.client-gender').value = c.gender || '';
+                block.querySelector('.client-attribute').value = c.attribute || '';
+            }
+        });
+        if (clients.length === 0) addClientBlock();
+
+        // Fill categories
+        const cats = r['相談内容分類'] || [];
+        document.querySelectorAll('#categoryGroup input[type="checkbox"]').forEach(cb => {
+            cb.checked = cats.includes(cb.value);
+        });
+
+        // Fill routes
+        const routes = r['来談経路'] || [];
+        document.querySelectorAll('#routeGroup input[type="checkbox"]').forEach(cb => {
+            cb.checked = routes.includes(cb.value);
+        });
+
+        // Fill interview type
+        const ivType = r['面接形態'] || '';
+        document.querySelectorAll('input[name="interviewType"]').forEach(radio => {
+            if (ivType.startsWith('その他')) {
+                if (radio.value === 'その他') {
+                    radio.checked = true;
+                    document.getElementById('interviewOtherText').disabled = false;
+                    document.getElementById('interviewOtherText').value = ivType.replace('その他: ', '');
+                }
+            } else {
+                if (radio.value === ivType) radio.checked = true;
+            }
+        });
+
+        // Fill rooms
+        const rooms = r['使用部屋'] || [];
+        document.querySelectorAll('#roomGroup input[type="checkbox"]').forEach(cb => {
+            const hasOther = rooms.some(rm => rm.startsWith('その他'));
+            if (cb.value === 'その他' && hasOther) {
+                cb.checked = true;
+                const otherRoom = rooms.find(rm => rm.startsWith('その他'));
+                document.getElementById('roomOtherText').disabled = false;
+                document.getElementById('roomOtherText').value = otherRoom ? otherRoom.replace('その他: ', '') : '';
+            } else {
+                cb.checked = rooms.includes(cb.value);
+            }
+        });
+
+        // Fill sessions
+        const sessions = r['実施回'] || [];
+        const sessContainer = document.getElementById('sessionContainer');
+        sessContainer.innerHTML = '';
+        sessionCount = 0;
+        sessions.forEach((s, i) => {
+            addSessionBlock();
+            const block = sessContainer.querySelectorAll('.session-block')[i];
+            if (block) {
+                block.querySelector('.session-date').value = s.date || '';
+                block.querySelector('.session-fee').value = s.fee || '';
+                block.querySelector('.session-status').value = s.status || '実施済';
+            }
+        });
+        if (sessions.length === 0) addSessionBlock();
+
+        // Fill notes
+        document.getElementById('notes').value = r['備考'] || '';
+
+        // Show editing indicator
+        const indicator = document.getElementById('editingIndicator');
+        const label = document.getElementById('editingLabel');
+        const clientName = (r['相談者情報'] && r['相談者情報'][0]) ? r['相談者情報'][0].name : '';
+        label.textContent = '相談日 ' + r['相談日'] + (clientName ? ' / ' + clientName : '') + ' の記録を編集中（実施回の追加が可能です）';
+        indicator.style.display = 'flex';
+
+        document.getElementById('formTitle').textContent = '記録を編集中';
+        document.getElementById('submitBtn').textContent = '記録を保存（更新）';
+
+        // Scroll to form
+        document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        showToast('記録を読み込みました。実施回を追加して「記録を保存（更新）」してください');
+    }
+
+    function cancelEditing() {
+        editingRecordIndex = null;
+        document.getElementById('editingIndicator').style.display = 'none';
+        document.getElementById('submitBtn').textContent = '記録を追加';
+        clearForm();
+        if (selectedClientId) {
+            const client = findClientById(selectedClientId);
+            if (client) {
+                document.getElementById('formTitle').textContent = 'ID:' + client.id + ' の相談記録';
+            }
+        } else {
+            document.getElementById('formTitle').textContent = '新規相談記録';
+        }
+        showToast('編集をキャンセルしました', 'warn');
+    }
+
+    function clearSelectedClient() {
+        selectedClientId = null;
+        editingRecordIndex = null;
+        document.getElementById('editingIndicator').style.display = 'none';
+        document.getElementById('searchClientId').value = '';
+        document.getElementById('searchClientName').value = '';
+        document.getElementById('selectedClientInfo').style.display = 'none';
+        document.getElementById('selectedClientInfo').innerHTML = '';
+        document.getElementById('formTitle').textContent = '新規相談記録';
+        clearForm();
+    }
+
+    // ===== CLIENT LIST TAB =====
+    function renderClientList() {
+        const container = document.getElementById('clientListContainer');
+        const searchQuery = document.getElementById('clientListSearch').value.trim().toLowerCase();
+
+        let filtered = clientMaster;
+        if (searchQuery) {
+            filtered = clientMaster.filter(c => {
+                return String(c.id).includes(searchQuery) || (c.name && c.name.toLowerCase().includes(searchQuery));
+            });
+        }
+
+        if (filtered.length === 0) {
+            container.innerHTML = '<p class="empty-message">' + (searchQuery ? '該当するクライアントがありません' : 'まだクライアントが登録されていません') + '</p>';
+            return;
+        }
+
+        let html = '';
+        filtered.forEach(c => {
+            const history = getClientHistory(c.id);
+            const info = [c.age ? c.age + '歳' : '', c.gender, c.attribute].filter(Boolean).join(' / ');
+            html += '<div class="client-list-item" onclick="selectClientAndGoToForm(' + c.id + ')">';
+            html += '<span class="cl-id">ID: ' + c.id + '</span>';
+            html += '<span class="cl-name">' + escapeHtml(c.name) + '</span>';
+            html += '<span class="cl-info">' + escapeHtml(info) + '</span>';
+            html += '<span class="cl-count">相談 ' + history.length + '回</span>';
+            html += '</div>';
+        });
+        container.innerHTML = html;
+    }
+
+    function selectClientAndGoToForm(clientId) {
+        const client = findClientById(clientId);
+        if (!client) return;
+        selectClient(client);
+        // Switch to form tab
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+        document.getElementById('tab-form').classList.add('active');
+        document.querySelectorAll('.tab-btn')[0].classList.add('active');
+    }
+
+    // ===== TAB SWITCHING =====
+    function switchTab(tabName) {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+        document.getElementById('tab-' + tabName).classList.add('active');
+        event.target.classList.add('active');
+        if (tabName === 'calendar') renderCalendar();
+        if (tabName === 'clients') renderClientList();
+    }
+
+    // ===== CLIENT BLOCKS =====
+    function addClientBlock() {
+        if (clientCount >= MAX_CLIENTS) return;
+        clientCount++;
+        const container = document.getElementById('clientContainer');
+        const block = document.createElement('div');
+        block.className = 'client-block';
+        block.id = 'clientBlock_' + clientCount;
+        block.dataset.index = clientCount;
+
+        const showRemove = clientCount > 1 ? '' : 'style="display:none"';
+        block.innerHTML = `
+            <div class="client-block-header">
+                <span>相談者 ${clientCount}</span>
+                <button type="button" class="remove-client-btn" ${showRemove} onclick="removeClientBlock(this)">削除</button>
+            </div>
+            <div class="client-fields">
+                <div class="client-field">
+                    <div class="client-field-label">氏名</div>
+                    <input type="text" class="client-name" placeholder="氏名">
+                </div>
+                <div class="client-field">
+                    <div class="client-field-label">年齢</div>
+                    <input type="number" class="client-age" placeholder="歳" min="0" max="120">
+                </div>
+                <div class="client-field">
+                    <div class="client-field-label">性別</div>
+                    <select class="client-gender">
+                        <option value="">--</option>
+                        <option value="女性">女性</option>
+                        <option value="男性">男性</option>
+                        <option value="その他">その他</option>
+                    </select>
+                </div>
+                <div class="client-field">
+                    <div class="client-field-label">属性</div>
+                    <select class="client-attribute">
+                        <option value="">--</option>
+                        <option value="成人">成人</option>
+                        <option value="乳児">乳児</option>
+                        <option value="幼児">幼児</option>
+                        <option value="小学生">小学生</option>
+                        <option value="中学生">中学生</option>
+                        <option value="高校生">高校生</option>
+                        <option value="大学生">大学生</option>
+                    </select>
+                </div>
+            </div>
+        `;
+        container.appendChild(block);
+        updateAddClientBtn();
+    }
+
+    function removeClientBlock(btn) {
+        const block = btn.closest('.client-block');
+        block.remove();
+        clientCount--;
+        const blocks = document.querySelectorAll('#clientContainer .client-block');
+        blocks.forEach((b, i) => {
+            b.querySelector('.client-block-header span').textContent = '相談者 ' + (i + 1);
+            if (blocks.length === 1) {
+                b.querySelector('.remove-client-btn').style.display = 'none';
+            } else {
+                b.querySelector('.remove-client-btn').style.display = '';
+            }
+        });
+        updateAddClientBtn();
+    }
+
+    function updateAddClientBtn() {
+        document.getElementById('addClientBtn').disabled = clientCount >= MAX_CLIENTS;
+    }
+
+    // ===== SESSION BLOCKS (実施回) =====
+    function addSessionBlock() {
+        sessionCount++;
+        const container = document.getElementById('sessionContainer');
+        const block = document.createElement('div');
+        block.className = 'session-block';
+        block.dataset.sessionIndex = sessionCount;
+
+        const showRemove = sessionCount > 1 ? '' : 'style="display:none"';
+        block.innerHTML = `
+            <div class="session-block-header">
+                <span>第${sessionCount}回</span>
+                <button type="button" class="remove-session-btn" ${showRemove} onclick="removeSessionBlock(this)">削除</button>
+            </div>
+            <div class="session-fields">
+                <div class="session-field">
+                    <div class="client-field-label">実施日</div>
+                    <input type="date" class="session-date">
+                </div>
+                <div class="session-field">
+                    <div class="client-field-label">料金（円）</div>
+                    <input type="number" class="session-fee" placeholder="0" min="0">
+                </div>
+                <div class="session-field">
+                    <div class="client-field-label">ステータス</div>
+                    <select class="session-status">
+                        <option value="実施済">実施済</option>
+                        <option value="予定">予定</option>
+                        <option value="キャンセル">キャンセル</option>
+                    </select>
+                </div>
+            </div>
+        `;
+        container.appendChild(block);
+        updateSessionRemoveButtons();
+    }
+
+    function removeSessionBlock(btn) {
+        const block = btn.closest('.session-block');
+        block.remove();
+        sessionCount--;
+        const blocks = document.querySelectorAll('#sessionContainer .session-block');
+        blocks.forEach((b, i) => {
+            b.querySelector('.session-block-header span').textContent = '第' + (i + 1) + '回';
+        });
+        updateSessionRemoveButtons();
+    }
+
+    function updateSessionRemoveButtons() {
+        const blocks = document.querySelectorAll('#sessionContainer .session-block');
+        blocks.forEach(b => {
+            const btn = b.querySelector('.remove-session-btn');
+            btn.style.display = blocks.length <= 1 ? 'none' : '';
+        });
+    }
+
+    function getSessions() {
+        const blocks = document.querySelectorAll('#sessionContainer .session-block');
+        const sessions = [];
+        blocks.forEach(b => {
+            const date = b.querySelector('.session-date').value;
+            const fee = b.querySelector('.session-fee').value;
+            const status = b.querySelector('.session-status').value;
+            if (date || fee) {
+                sessions.push({ date, fee: fee ? parseInt(fee) : 0, status });
+            }
+        });
+        return sessions;
+    }
+
+    // ===== TOGGLE FUNCTIONS =====
+    function toggleInterviewOther() {
+        const otherRadio = document.getElementById('iv_other');
+        const otherText = document.getElementById('interviewOtherText');
+        otherText.disabled = !otherRadio.checked;
+        if (!otherRadio.checked) otherText.value = '';
+    }
+
+    function toggleRoomOther() {
+        const otherCb = document.getElementById('room_other');
+        const otherText = document.getElementById('roomOtherText');
+        otherText.disabled = !otherCb.checked;
+        if (!otherCb.checked) otherText.value = '';
+    }
+
+    function getCheckedValues(groupId) {
+        const checkboxes = document.querySelectorAll('#' + groupId + ' input[type="checkbox"]:checked');
+        return Array.from(checkboxes).map(cb => cb.value);
+    }
+
+    function getClients() {
+        const blocks = document.querySelectorAll('#clientContainer .client-block');
+        const clients = [];
+        blocks.forEach(b => {
+            const name = b.querySelector('.client-name').value.trim();
+            const age = b.querySelector('.client-age').value;
+            const gender = b.querySelector('.client-gender').value;
+            const attribute = b.querySelector('.client-attribute').value;
+            if (name || age || gender || attribute) {
+                clients.push({ name, age, gender, attribute });
+            }
+        });
+        return clients;
+    }
+
+    function formatClients(clients) {
+        return clients.map(c => {
+            let parts = [c.name];
+            if (c.age) parts.push(c.age + '歳');
+            if (c.gender) parts.push(c.gender);
+            if (c.attribute) parts.push(c.attribute);
+            return parts.join(' / ');
+        }).join('、');
+    }
+
+    function formatSessions(sessions) {
+        if (!sessions || sessions.length === 0) return '';
+        return sessions.map((s, i) => {
+            let str = '第' + (i + 1) + '回: ' + (s.date || '未定');
+            if (s.fee) str += ' ¥' + s.fee.toLocaleString();
+            if (s.status === 'キャンセル') str += '【キャンセル】';
+            else if (s.status === '予定') str += '【予定】';
+            return str;
+        }).join('、');
+    }
+
+    // ===== ADD RECORD =====
     function addRecord() {
         const date = document.getElementById('consultDate').value;
-        const name = document.getElementById('clientName').value.trim();
-        const gender = document.getElementById('gender').value;
-        const attribute = document.getElementById('attribute').value;
-        const category = document.getElementById('category').value;
-        const route = document.getElementById('route').value;
-        const interviewType = document.getElementById('interviewType').value;
-        const notes = document.getElementById('notes').value.trim();
-
         if (!date) {
             showToast('相談日を入力してください', 'error');
             return;
         }
 
-        records.push({
+        const clients = getClients();
+        const categories = getCheckedValues('categoryGroup');
+        const routes = getCheckedValues('routeGroup');
+        const sessions = getSessions();
+
+        const staff1 = document.getElementById('staff1').value.trim();
+        const staff2 = document.getElementById('staff2').value.trim();
+        const staffOther = document.getElementById('staffOther').value.trim();
+
+        const ivRadio = document.querySelector('input[name="interviewType"]:checked');
+        let interviewType = '';
+        if (ivRadio) {
+            interviewType = ivRadio.value === 'その他'
+                ? 'その他: ' + document.getElementById('interviewOtherText').value.trim()
+                : ivRadio.value;
+        }
+
+        let rooms = getCheckedValues('roomGroup');
+        const roomOtherCb = document.getElementById('room_other');
+        if (roomOtherCb.checked) {
+            const otherText = document.getElementById('roomOtherText').value.trim();
+            rooms = rooms.map(r => r === 'その他' ? 'その他: ' + otherText : r);
+        }
+
+        const notes = document.getElementById('notes').value.trim();
+
+        // Register or update client in master DB
+        let clientId = selectedClientId;
+        if (clients.length > 0 && clients[0].name) {
+            clientId = registerOrUpdateClient(clients[0]);
+        }
+
+        const recordData = {
+            clientId: clientId,
             相談日: date,
-            相談者名: name,
-            性別: gender,
-            属性: attribute,
-            相談内容分類: category,
-            来談経路: route,
+            担当者1: staff1,
+            担当者2: staff2,
+            担当者その他: staffOther,
+            相談者情報: clients,
+            相談内容分類: categories,
+            来談経路: routes,
             面接形態: interviewType,
+            使用部屋: rooms,
+            実施回: sessions,
             備考: notes
-        });
+        };
+
+        let isUpdate = false;
+        if (editingRecordIndex !== null && editingRecordIndex >= 0 && editingRecordIndex < records.length) {
+            // Update existing record
+            records[editingRecordIndex] = recordData;
+            isUpdate = true;
+        } else {
+            // Add new record
+            records.push(recordData);
+        }
 
         saveToStorage();
         renderTable();
+
+        const savedClientId = clientId;
+        const savedClientName = clients.length > 0 ? clients[0].name : '';
+
+        // Reset editing state
+        editingRecordIndex = null;
+        document.getElementById('editingIndicator').style.display = 'none';
+        document.getElementById('submitBtn').textContent = '記録を追加';
+
         clearForm();
-        showToast('記録を追加しました');
+        selectedClientId = null;
+        document.getElementById('searchClientId').value = '';
+        document.getElementById('searchClientName').value = '';
+        document.getElementById('selectedClientInfo').style.display = 'none';
+        document.getElementById('formTitle').textContent = '新規相談記録';
+
+        if (isUpdate) {
+            showToast('ID:' + savedClientId + ' ' + savedClientName + ' の記録を更新しました');
+        } else if (savedClientId) {
+            showToast('ID:' + savedClientId + ' ' + savedClientName + ' の記録を追加しました');
+        } else {
+            showToast('記録を追加しました');
+        }
     }
 
     function deleteRecord(index) {
@@ -453,12 +2209,31 @@
     }
 
     function clearForm() {
-        document.getElementById('clientName').value = '';
-        document.getElementById('gender').value = '';
-        document.getElementById('attribute').value = '';
-        document.getElementById('category').value = '';
-        document.getElementById('route').value = '';
-        document.getElementById('interviewType').value = '';
+        const container = document.getElementById('clientContainer');
+        container.innerHTML = '';
+        clientCount = 0;
+        addClientBlock();
+
+        const sessContainer = document.getElementById('sessionContainer');
+        sessContainer.innerHTML = '';
+        sessionCount = 0;
+        addSessionBlock();
+
+        document.getElementById('staff1').value = '';
+        document.getElementById('staff2').value = '';
+        document.getElementById('staffOther').value = '';
+
+        document.querySelectorAll('#categoryGroup input[type="checkbox"]').forEach(cb => cb.checked = false);
+        document.querySelectorAll('#routeGroup input[type="checkbox"]').forEach(cb => cb.checked = false);
+
+        document.querySelectorAll('input[name="interviewType"]').forEach(r => r.checked = false);
+        document.getElementById('interviewOtherText').value = '';
+        document.getElementById('interviewOtherText').disabled = true;
+
+        document.querySelectorAll('#roomGroup input[type="checkbox"]').forEach(cb => cb.checked = false);
+        document.getElementById('roomOtherText').value = '';
+        document.getElementById('roomOtherText').disabled = true;
+
         document.getElementById('notes').value = '';
         document.getElementById('consultDate').valueAsDate = new Date();
     }
@@ -467,6 +2242,11 @@
         localStorage.setItem('consultRecords', JSON.stringify(records));
     }
 
+    function saveReservationsToStorage() {
+        localStorage.setItem('consultReservations', JSON.stringify(reservations));
+    }
+
+    // ===== RENDER TABLE =====
     function renderTable() {
         const container = document.getElementById('tableContainer');
         const countEl = document.getElementById('recordCount');
@@ -484,13 +2264,15 @@
             <thead>
                 <tr>
                     <th>No.</th>
+                    <th>ID</th>
                     <th>相談日</th>
-                    <th>相談者名</th>
-                    <th>性別</th>
-                    <th>属性</th>
+                    <th>担当者</th>
+                    <th>相談者</th>
                     <th>相談内容分類</th>
                     <th>来談経路</th>
                     <th>面接形態</th>
+                    <th>使用部屋</th>
+                    <th>実施回</th>
                     <th>備考</th>
                     <th></th>
                 </tr>
@@ -498,16 +2280,35 @@
             <tbody>`;
 
         records.forEach((r, i) => {
+            const clientsStr = Array.isArray(r['相談者情報'])
+                ? formatClients(r['相談者情報'])
+                : escapeHtml(r['相談者名'] || '');
+            const catsStr = Array.isArray(r['相談内容分類'])
+                ? r['相談内容分類'].join('、')
+                : escapeHtml(r['相談内容分類'] || '');
+            const routesStr = Array.isArray(r['来談経路'])
+                ? r['来談経路'].join('、')
+                : escapeHtml(r['来談経路'] || '');
+            const roomsStr = Array.isArray(r['使用部屋'])
+                ? r['使用部屋'].join('、')
+                : '';
+            const sessionsStr = formatSessions(r['実施回']);
+
+            let staffStr = [r['担当者1'], r['担当者2']].filter(Boolean).join('、');
+            if (r['担当者その他']) staffStr += (staffStr ? '、' : '') + r['担当者その他'];
+
             html += `<tr>
                 <td>${i + 1}</td>
+                <td>${r.clientId ? r.clientId : '-'}</td>
                 <td>${r['相談日']}</td>
-                <td>${escapeHtml(r['相談者名'])}</td>
-                <td>${r['性別']}</td>
-                <td>${r['属性']}</td>
-                <td>${r['相談内容分類']}</td>
-                <td>${r['来談経路']}</td>
-                <td>${r['面接形態']}</td>
-                <td>${escapeHtml(r['備考'])}</td>
+                <td>${escapeHtml(staffStr)}</td>
+                <td>${escapeHtml(clientsStr)}</td>
+                <td>${escapeHtml(catsStr)}</td>
+                <td>${escapeHtml(routesStr)}</td>
+                <td>${escapeHtml(r['面接形態'] || '')}</td>
+                <td>${escapeHtml(roomsStr)}</td>
+                <td>${escapeHtml(sessionsStr)}</td>
+                <td>${escapeHtml(r['備考'] || '')}</td>
                 <td><button class="delete-btn" onclick="deleteRecord(${i})">削除</button></td>
             </tr>`;
         });
@@ -516,35 +2317,70 @@
         container.innerHTML = html;
     }
 
+    // ===== EXPORT EXCEL =====
     function exportExcel() {
         if (records.length === 0) return;
 
-        const exportData = records.map((r, i) => ({
-            'No.': i + 1,
-            '相談日': r['相談日'],
-            '相談者名': r['相談者名'],
-            '性別': r['性別'],
-            '属性': r['属性'],
-            '相談内容分類': r['相談内容分類'],
-            '来談経路': r['来談経路'],
-            '面接形態': r['面接形態'],
-            '備考': r['備考']
-        }));
+        const exportData = records.map((r, i) => {
+            const clients = r['相談者情報'] || [];
+            const sessions = r['実施回'] || [];
+            const row = {
+                'No.': i + 1,
+                'クライアントID': r.clientId || '',
+                '相談日': r['相談日'],
+                '担当者1': r['担当者1'] || '',
+                '担当者2': r['担当者2'] || '',
+                '担当者その他': r['担当者その他'] || ''
+            };
+
+            for (let c = 0; c < MAX_CLIENTS; c++) {
+                const client = clients[c] || {};
+                row['相談者' + (c + 1) + '_氏名'] = client.name || '';
+                row['相談者' + (c + 1) + '_年齢'] = client.age || '';
+                row['相談者' + (c + 1) + '_性別'] = client.gender || '';
+                row['相談者' + (c + 1) + '_属性'] = client.attribute || '';
+            }
+
+            row['相談内容分類'] = Array.isArray(r['相談内容分類']) ? r['相談内容分類'].join('、') : (r['相談内容分類'] || '');
+            row['来談経路'] = Array.isArray(r['来談経路']) ? r['来談経路'].join('、') : (r['来談経路'] || '');
+            row['面接形態'] = r['面接形態'] || '';
+            row['使用部屋'] = Array.isArray(r['使用部屋']) ? r['使用部屋'].join('、') : '';
+
+            // Export up to 20 sessions
+            const maxSessions = Math.max(sessions.length, 1);
+            for (let s = 0; s < Math.min(maxSessions, 20); s++) {
+                const sess = sessions[s] || {};
+                row['第' + (s + 1) + '回_実施日'] = sess.date || '';
+                row['第' + (s + 1) + '回_料金'] = sess.fee || '';
+                row['第' + (s + 1) + '回_ステータス'] = sess.status || '';
+            }
+
+            row['備考'] = r['備考'] || '';
+            return row;
+        });
 
         const ws = XLSX.utils.json_to_sheet(exportData);
 
         // Set column widths
-        ws['!cols'] = [
+        const cols = [
             { wch: 5 },   // No.
+            { wch: 10 },  // クライアントID
             { wch: 12 },  // 相談日
-            { wch: 14 },  // 相談者名
-            { wch: 6 },   // 性別
-            { wch: 8 },   // 属性
-            { wch: 22 },  // 相談内容分類
-            { wch: 22 },  // 来談経路
-            { wch: 10 },  // 面接形態
-            { wch: 30 }   // 備考
+            { wch: 10 },  // 担当者1
+            { wch: 10 },  // 担当者2
+            { wch: 14 },  // 担当者その他
         ];
+        for (let c = 0; c < MAX_CLIENTS; c++) {
+            cols.push({ wch: 12 }, { wch: 5 }, { wch: 6 }, { wch: 8 });
+        }
+        cols.push({ wch: 30 }, { wch: 30 }, { wch: 12 }, { wch: 24 });
+        // Session columns
+        const maxSess = Math.max(...records.map(r => (r['実施回'] || []).length), 1);
+        for (let s = 0; s < Math.min(maxSess, 20); s++) {
+            cols.push({ wch: 12 }, { wch: 10 }, { wch: 10 });
+        }
+        cols.push({ wch: 30 }); // 備考
+        ws['!cols'] = cols;
 
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, '相談記録');
@@ -556,6 +2392,285 @@
         showToast('Excelファイルを出力しました');
     }
 
+    // ===== MONTHLY STATS =====
+    function calcStats() {
+        const monthVal = document.getElementById('statsMonth').value;
+        if (!monthVal) {
+            showToast('月を選択してください', 'error');
+            return;
+        }
+
+        const [year, month] = monthVal.split('-').map(Number);
+        let totalSessions = 0;
+        let totalAmount = 0;
+        let cancelledCount = 0;
+        const roomCounts = {};
+
+        records.forEach(r => {
+            const sessions = r['実施回'] || [];
+            const rooms = r['使用部屋'] || [];
+
+            sessions.forEach(s => {
+                if (!s.date) return;
+                const d = new Date(s.date);
+                if (d.getFullYear() === year && (d.getMonth() + 1) === month) {
+                    if (s.status === 'キャンセル') {
+                        cancelledCount++;
+                    } else {
+                        totalSessions++;
+                        totalAmount += (s.fee || 0);
+                        // Count room usage for non-cancelled sessions
+                        rooms.forEach(room => {
+                            const roomName = room.startsWith('その他:') ? 'その他' : room;
+                            roomCounts[roomName] = (roomCounts[roomName] || 0) + 1;
+                        });
+                    }
+                }
+            });
+
+            // Also check records without sessions but with consultDate in the target month
+            if (sessions.length === 0) {
+                const cd = new Date(r['相談日']);
+                if (cd.getFullYear() === year && (cd.getMonth() + 1) === month) {
+                    totalSessions++;
+                    rooms.forEach(room => {
+                        const roomName = room.startsWith('その他:') ? 'その他' : room;
+                        roomCounts[roomName] = (roomCounts[roomName] || 0) + 1;
+                    });
+                }
+            }
+        });
+
+        document.getElementById('statCount').textContent = totalSessions + '件';
+        document.getElementById('statTotal').textContent = '¥' + totalAmount.toLocaleString();
+        document.getElementById('statCancelled').textContent = cancelledCount + '件';
+
+        // Room stats table
+        const roomContainer = document.getElementById('roomStatsContainer');
+        const roomEntries = Object.entries(roomCounts).sort((a, b) => b[1] - a[1]);
+
+        if (roomEntries.length === 0) {
+            roomContainer.innerHTML = '<p class="empty-message">該当月の部屋使用データがありません</p>';
+        } else {
+            let html = `<table class="room-stats-table">
+                <thead><tr><th>部屋名</th><th>使用回数</th></tr></thead>
+                <tbody>`;
+            roomEntries.forEach(([room, count]) => {
+                html += `<tr><td>${escapeHtml(room)}</td><td>${count}回</td></tr>`;
+            });
+            html += '</tbody></table>';
+            roomContainer.innerHTML = html;
+        }
+    }
+
+    // ===== CALENDAR =====
+    function renderCalendar() {
+        const grid = document.getElementById('calendarGrid');
+        const label = document.getElementById('calendarMonthLabel');
+        label.textContent = calendarYear + '年' + (calendarMonth + 1) + '月';
+
+        const firstDay = new Date(calendarYear, calendarMonth, 1);
+        const lastDay = new Date(calendarYear, calendarMonth + 1, 0);
+        const startDow = firstDay.getDay(); // 0=Sun
+
+        const dayHeaders = ['日', '月', '火', '水', '木', '金', '土'];
+        let html = '';
+        dayHeaders.forEach((d, i) => {
+            const cls = i === 0 ? 'sun' : i === 6 ? 'sat' : '';
+            html += `<div class="calendar-day-header ${cls}">${d}</div>`;
+        });
+
+        const today = new Date();
+        const todayStr = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
+
+        // Get events for this month from records + reservations
+        const monthEvents = getMonthEvents(calendarYear, calendarMonth);
+
+        // Previous month padding
+        const prevLastDay = new Date(calendarYear, calendarMonth, 0).getDate();
+        for (let i = startDow - 1; i >= 0; i--) {
+            html += `<div class="calendar-day other-month"><div class="day-number">${prevLastDay - i}</div></div>`;
+        }
+
+        // Days of month
+        for (let d = 1; d <= lastDay.getDate(); d++) {
+            const dateStr = calendarYear + '-' + String(calendarMonth + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0');
+            const dow = new Date(calendarYear, calendarMonth, d).getDay();
+            let cls = 'calendar-day';
+            if (dateStr === todayStr) cls += ' today';
+            if (dow === 0) cls += ' sun';
+            if (dow === 6) cls += ' sat';
+
+            const dayEvents = monthEvents.filter(e => e.date === dateStr);
+            let eventsHtml = '';
+            dayEvents.forEach(e => {
+                const cancelCls = e.cancelled ? ' cancelled' : '';
+                eventsHtml += `<div class="calendar-event${cancelCls}">${escapeHtml(e.label)}</div>`;
+            });
+
+            html += `<div class="${cls}" onclick="openReservationModal('${dateStr}')">
+                <div class="day-number">${d}</div>
+                ${eventsHtml}
+            </div>`;
+        }
+
+        // Next month padding
+        const remaining = 7 - ((startDow + lastDay.getDate()) % 7);
+        if (remaining < 7) {
+            for (let i = 1; i <= remaining; i++) {
+                html += `<div class="calendar-day other-month"><div class="day-number">${i}</div></div>`;
+            }
+        }
+
+        grid.innerHTML = html;
+        renderReservationList();
+    }
+
+    function getMonthEvents(year, month) {
+        const events = [];
+
+        // From records' sessions
+        records.forEach(r => {
+            const sessions = r['実施回'] || [];
+            const clientName = (r['相談者情報'] && r['相談者情報'][0]) ? r['相談者情報'][0].name : '(名前なし)';
+            sessions.forEach(s => {
+                if (!s.date) return;
+                const d = new Date(s.date);
+                if (d.getFullYear() === year && d.getMonth() === month) {
+                    events.push({
+                        date: s.date,
+                        label: clientName,
+                        cancelled: s.status === 'キャンセル'
+                    });
+                }
+            });
+        });
+
+        // From reservations
+        reservations.forEach(res => {
+            if (!res.date) return;
+            const d = new Date(res.date);
+            if (d.getFullYear() === year && d.getMonth() === month) {
+                events.push({
+                    date: res.date,
+                    label: (res.time ? res.time + ' ' : '') + (res.clientName || '予約'),
+                    cancelled: res.cancelled || false
+                });
+            }
+        });
+
+        return events;
+    }
+
+    function changeCalendarMonth(delta) {
+        calendarMonth += delta;
+        if (calendarMonth < 0) { calendarMonth = 11; calendarYear--; }
+        if (calendarMonth > 11) { calendarMonth = 0; calendarYear++; }
+
+        // Limit to 1 month ahead from current month
+        const now = new Date();
+        const maxYear = now.getMonth() === 11 ? now.getFullYear() + 1 : now.getFullYear();
+        const maxMonth = (now.getMonth() + 1) % 12;
+        if (calendarYear > maxYear || (calendarYear === maxYear && calendarMonth > maxMonth)) {
+            calendarYear = maxYear;
+            calendarMonth = maxMonth;
+            showToast('1ヶ月先までしか表示できません', 'warn');
+        }
+
+        renderCalendar();
+    }
+
+    // ===== RESERVATION MODAL =====
+    function openReservationModal(dateStr) {
+        document.getElementById('reservationModal').classList.add('show');
+        document.getElementById('resDate').value = dateStr || '';
+        document.getElementById('resClientName').value = '';
+        document.getElementById('resTime').value = '';
+        document.getElementById('resStaff').value = '';
+        document.getElementById('resRoom').value = '';
+        document.getElementById('resMemo').value = '';
+        document.getElementById('modalTitle').textContent = '新しい予約を追加';
+    }
+
+    function closeReservationModal() {
+        document.getElementById('reservationModal').classList.remove('show');
+    }
+
+    function saveReservation() {
+        const date = document.getElementById('resDate').value;
+        const clientName = document.getElementById('resClientName').value.trim();
+
+        if (!date) {
+            showToast('予約日を入力してください', 'error');
+            return;
+        }
+
+        reservations.push({
+            id: Date.now(),
+            date: date,
+            clientName: clientName,
+            time: document.getElementById('resTime').value.trim(),
+            staff: document.getElementById('resStaff').value.trim(),
+            room: document.getElementById('resRoom').value,
+            memo: document.getElementById('resMemo').value.trim(),
+            cancelled: false
+        });
+
+        saveReservationsToStorage();
+        closeReservationModal();
+        renderCalendar();
+        showToast('予約を追加しました');
+    }
+
+    function cancelReservation(id) {
+        const res = reservations.find(r => r.id === id);
+        if (res) {
+            res.cancelled = !res.cancelled;
+            saveReservationsToStorage();
+            renderCalendar();
+            showToast(res.cancelled ? '予約をキャンセルしました' : 'キャンセルを取り消しました');
+        }
+    }
+
+    function deleteReservation(id) {
+        reservations = reservations.filter(r => r.id !== id);
+        saveReservationsToStorage();
+        renderCalendar();
+        showToast('予約を削除しました', 'warn');
+    }
+
+    function renderReservationList() {
+        const container = document.getElementById('reservationListContainer');
+
+        // Filter reservations for current calendar month
+        const monthRes = reservations.filter(r => {
+            if (!r.date) return false;
+            const d = new Date(r.date);
+            return d.getFullYear() === calendarYear && d.getMonth() === calendarMonth;
+        }).sort((a, b) => a.date.localeCompare(b.date));
+
+        if (monthRes.length === 0) {
+            container.innerHTML = '<p class="empty-message">この月の予約はありません</p>';
+            return;
+        }
+
+        let html = '';
+        monthRes.forEach(r => {
+            const cls = r.cancelled ? 'reservation-item cancelled' : 'reservation-item';
+            const info = [r.date, r.time, r.clientName, r.staff, r.room].filter(Boolean).join(' | ');
+            const memo = r.memo ? ' (' + r.memo + ')' : '';
+            html += `<div class="${cls}">
+                <span>${escapeHtml(info + memo)}</span>
+                <span>
+                    <button class="delete-btn" onclick="cancelReservation(${r.id})" style="margin-right:4px;">${r.cancelled ? '復元' : 'キャンセル'}</button>
+                    <button class="delete-btn" onclick="deleteReservation(${r.id})">削除</button>
+                </span>
+            </div>`;
+        });
+        container.innerHTML = html;
+    }
+
+    // ===== UTILITIES =====
     function escapeHtml(str) {
         if (!str) return '';
         const div = document.createElement('div');
@@ -570,6 +2685,11 @@
         toast.classList.add('show');
         setTimeout(() => toast.classList.remove('show'), 2500);
     }
+
+    // Close modal on overlay click
+    document.getElementById('reservationModal').addEventListener('click', function(e) {
+        if (e.target === this) closeReservationModal();
+    });
 </script>
 
 </body>
