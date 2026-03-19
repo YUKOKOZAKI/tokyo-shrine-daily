@@ -961,6 +961,68 @@
             line-height: 1.5;
         }
 
+        .history-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .history-item-header .history-date {
+            margin-bottom: 0;
+        }
+
+        .btn-edit-record {
+            background: #e8f4fd;
+            color: #2c5f8a;
+            border: 1px solid #b8d4e8;
+            border-radius: 6px;
+            padding: 4px 12px;
+            font-size: 0.78rem;
+            font-family: 'Noto Sans JP', sans-serif;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .btn-edit-record:hover {
+            background: #2c5f8a;
+            color: white;
+        }
+
+        .editing-indicator {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .editing-indicator strong {
+            color: #856404;
+        }
+
+        .btn-cancel-edit {
+            background: #fff;
+            color: #856404;
+            border: 1px solid #ffc107;
+            border-radius: 6px;
+            padding: 6px 14px;
+            font-size: 0.85rem;
+            font-family: 'Noto Sans JP', sans-serif;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-cancel-edit:hover {
+            background: #ffc107;
+            color: #333;
+        }
+
         .history-count {
             background: #2c5f8a;
             color: white;
@@ -1163,6 +1225,11 @@
         <div id="selectedClientInfo" style="display:none;"></div>
     </div>
 
+    <div id="editingIndicator" class="editing-indicator" style="display:none;">
+        <span><strong>編集モード:</strong> <span id="editingLabel"></span></span>
+        <button class="btn-cancel-edit" onclick="cancelEditing()">編集をキャンセル</button>
+    </div>
+
     <div class="form-card">
         <h2 id="formTitle">新規相談記録</h2>
         <div class="form-grid">
@@ -1287,7 +1354,7 @@
             </div>
         </div>
         <div class="btn-row">
-            <button class="btn btn-primary" onclick="addRecord()">記録を追加</button>
+            <button class="btn btn-primary" onclick="addRecord()" id="submitBtn">記録を追加</button>
             <button class="btn btn-success" onclick="exportExcel()" id="exportBtn" disabled>Excelに出力</button>
         </div>
     </div>
@@ -1430,6 +1497,7 @@
     let sessionCount = 0;
     const MAX_CLIENTS = 4;
     let selectedClientId = null; // 現在選択中のクライアントID
+    let editingRecordIndex = null; // 編集中のレコードのインデックス（nullなら新規）
 
     let calendarYear, calendarMonth; // 0-indexed month
 
@@ -1621,11 +1689,15 @@
             html += '</div>';
             html += '<div class="history-panel-body" id="historyPanelBody">';
             history.forEach((r, i) => {
+                const recIndex = records.indexOf(r);
                 const sessStr = (r['実施回'] || []).map((s, si) =>
                     '第' + (si + 1) + '回: ' + (s.date || '未定') + (s.fee ? ' ¥' + s.fee.toLocaleString() : '') + ' [' + s.status + ']'
                 ).join(' / ');
                 html += '<div class="history-item">';
+                html += '<div class="history-item-header">';
                 html += '<div class="history-date">相談日: ' + r['相談日'] + '</div>';
+                html += '<button class="btn-edit-record" onclick="loadRecordForEditing(' + recIndex + ')">この記録を編集</button>';
+                html += '</div>';
                 html += '<div class="history-detail">';
                 if (r['相談内容分類'] && r['相談内容分類'].length > 0) {
                     html += '分類: ' + r['相談内容分類'].join('、') + '<br>';
@@ -1651,8 +1723,133 @@
         return records.filter(r => r.clientId === clientId);
     }
 
+    // ===== LOAD EXISTING RECORD FOR EDITING =====
+    function loadRecordForEditing(index) {
+        const r = records[index];
+        if (!r) return;
+
+        editingRecordIndex = index;
+        clearForm();
+
+        // Fill consultation date
+        document.getElementById('consultDate').value = r['相談日'] || '';
+
+        // Fill staff
+        document.getElementById('staff1').value = r['担当者1'] || '';
+        document.getElementById('staff2').value = r['担当者2'] || '';
+        document.getElementById('staffOther').value = r['担当者その他'] || '';
+
+        // Fill clients
+        const clients = r['相談者情報'] || [];
+        const container = document.getElementById('clientContainer');
+        container.innerHTML = '';
+        clientCount = 0;
+        clients.forEach((c, i) => {
+            addClientBlock();
+            const block = container.querySelectorAll('.client-block')[i];
+            if (block) {
+                block.querySelector('.client-name').value = c.name || '';
+                block.querySelector('.client-age').value = c.age || '';
+                block.querySelector('.client-gender').value = c.gender || '';
+                block.querySelector('.client-attribute').value = c.attribute || '';
+            }
+        });
+        if (clients.length === 0) addClientBlock();
+
+        // Fill categories
+        const cats = r['相談内容分類'] || [];
+        document.querySelectorAll('#categoryGroup input[type="checkbox"]').forEach(cb => {
+            cb.checked = cats.includes(cb.value);
+        });
+
+        // Fill routes
+        const routes = r['来談経路'] || [];
+        document.querySelectorAll('#routeGroup input[type="checkbox"]').forEach(cb => {
+            cb.checked = routes.includes(cb.value);
+        });
+
+        // Fill interview type
+        const ivType = r['面接形態'] || '';
+        document.querySelectorAll('input[name="interviewType"]').forEach(radio => {
+            if (ivType.startsWith('その他')) {
+                if (radio.value === 'その他') {
+                    radio.checked = true;
+                    document.getElementById('interviewOtherText').disabled = false;
+                    document.getElementById('interviewOtherText').value = ivType.replace('その他: ', '');
+                }
+            } else {
+                if (radio.value === ivType) radio.checked = true;
+            }
+        });
+
+        // Fill rooms
+        const rooms = r['使用部屋'] || [];
+        document.querySelectorAll('#roomGroup input[type="checkbox"]').forEach(cb => {
+            const hasOther = rooms.some(rm => rm.startsWith('その他'));
+            if (cb.value === 'その他' && hasOther) {
+                cb.checked = true;
+                const otherRoom = rooms.find(rm => rm.startsWith('その他'));
+                document.getElementById('roomOtherText').disabled = false;
+                document.getElementById('roomOtherText').value = otherRoom ? otherRoom.replace('その他: ', '') : '';
+            } else {
+                cb.checked = rooms.includes(cb.value);
+            }
+        });
+
+        // Fill sessions
+        const sessions = r['実施回'] || [];
+        const sessContainer = document.getElementById('sessionContainer');
+        sessContainer.innerHTML = '';
+        sessionCount = 0;
+        sessions.forEach((s, i) => {
+            addSessionBlock();
+            const block = sessContainer.querySelectorAll('.session-block')[i];
+            if (block) {
+                block.querySelector('.session-date').value = s.date || '';
+                block.querySelector('.session-fee').value = s.fee || '';
+                block.querySelector('.session-status').value = s.status || '実施済';
+            }
+        });
+        if (sessions.length === 0) addSessionBlock();
+
+        // Fill notes
+        document.getElementById('notes').value = r['備考'] || '';
+
+        // Show editing indicator
+        const indicator = document.getElementById('editingIndicator');
+        const label = document.getElementById('editingLabel');
+        const clientName = (r['相談者情報'] && r['相談者情報'][0]) ? r['相談者情報'][0].name : '';
+        label.textContent = '相談日 ' + r['相談日'] + (clientName ? ' / ' + clientName : '') + ' の記録を編集中（実施回の追加が可能です）';
+        indicator.style.display = 'flex';
+
+        document.getElementById('formTitle').textContent = '記録を編集中';
+        document.getElementById('submitBtn').textContent = '記録を保存（更新）';
+
+        // Scroll to form
+        document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        showToast('記録を読み込みました。実施回を追加して「記録を保存（更新）」してください');
+    }
+
+    function cancelEditing() {
+        editingRecordIndex = null;
+        document.getElementById('editingIndicator').style.display = 'none';
+        document.getElementById('submitBtn').textContent = '記録を追加';
+        clearForm();
+        if (selectedClientId) {
+            const client = findClientById(selectedClientId);
+            if (client) {
+                document.getElementById('formTitle').textContent = 'ID:' + client.id + ' の相談記録';
+            }
+        } else {
+            document.getElementById('formTitle').textContent = '新規相談記録';
+        }
+        showToast('編集をキャンセルしました', 'warn');
+    }
+
     function clearSelectedClient() {
         selectedClientId = null;
+        editingRecordIndex = null;
+        document.getElementById('editingIndicator').style.display = 'none';
         document.getElementById('searchClientId').value = '';
         document.getElementById('searchClientName').value = '';
         document.getElementById('selectedClientInfo').style.display = 'none';
@@ -1952,7 +2149,7 @@
             clientId = registerOrUpdateClient(clients[0]);
         }
 
-        records.push({
+        const recordData = {
             clientId: clientId,
             相談日: date,
             担当者1: staff1,
@@ -1965,13 +2162,29 @@
             使用部屋: rooms,
             実施回: sessions,
             備考: notes
-        });
+        };
+
+        let isUpdate = false;
+        if (editingRecordIndex !== null && editingRecordIndex >= 0 && editingRecordIndex < records.length) {
+            // Update existing record
+            records[editingRecordIndex] = recordData;
+            isUpdate = true;
+        } else {
+            // Add new record
+            records.push(recordData);
+        }
 
         saveToStorage();
         renderTable();
 
         const savedClientId = clientId;
         const savedClientName = clients.length > 0 ? clients[0].name : '';
+
+        // Reset editing state
+        editingRecordIndex = null;
+        document.getElementById('editingIndicator').style.display = 'none';
+        document.getElementById('submitBtn').textContent = '記録を追加';
+
         clearForm();
         selectedClientId = null;
         document.getElementById('searchClientId').value = '';
@@ -1979,7 +2192,9 @@
         document.getElementById('selectedClientInfo').style.display = 'none';
         document.getElementById('formTitle').textContent = '新規相談記録';
 
-        if (savedClientId) {
+        if (isUpdate) {
+            showToast('ID:' + savedClientId + ' ' + savedClientName + ' の記録を更新しました');
+        } else if (savedClientId) {
             showToast('ID:' + savedClientId + ' ' + savedClientName + ' の記録を追加しました');
         } else {
             showToast('記録を追加しました');
