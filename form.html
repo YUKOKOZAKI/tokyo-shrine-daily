@@ -2321,18 +2321,80 @@
     function exportExcel() {
         if (records.length === 0) return;
 
-        const exportData = records.map((r, i) => {
+        // Group records by clientId (records without clientId get their own row each)
+        const grouped = {};
+        const noIdRecords = [];
+        records.forEach(r => {
+            if (r.clientId) {
+                if (!grouped[r.clientId]) grouped[r.clientId] = [];
+                grouped[r.clientId].push(r);
+            } else {
+                noIdRecords.push(r);
+            }
+        });
+
+        // Find the max number of records per client to determine column count
+        let maxRecordsPerClient = 1;
+        Object.values(grouped).forEach(recs => {
+            if (recs.length > maxRecordsPerClient) maxRecordsPerClient = recs.length;
+        });
+        // Also find max sessions across all records
+        let maxSessionsPerRecord = 1;
+        records.forEach(r => {
+            const sessLen = (r['実施回'] || []).length;
+            if (sessLen > maxSessionsPerRecord) maxSessionsPerRecord = sessLen;
+        });
+        maxSessionsPerRecord = Math.min(maxSessionsPerRecord, 20);
+
+        function buildRecordColumns(r, recNum) {
+            const prefix = '【記録' + recNum + '】';
             const clients = r['相談者情報'] || [];
             const sessions = r['実施回'] || [];
-            const row = {
-                'No.': i + 1,
-                'クライアントID': r.clientId || '',
-                '相談日': r['相談日'],
-                '担当者1': r['担当者1'] || '',
-                '担当者2': r['担当者2'] || '',
-                '担当者その他': r['担当者その他'] || ''
-            };
+            const cols = {};
 
+            cols[prefix + '相談日'] = r['相談日'] || '';
+            cols[prefix + '担当者1'] = r['担当者1'] || '';
+            cols[prefix + '担当者2'] = r['担当者2'] || '';
+            cols[prefix + '担当者その他'] = r['担当者その他'] || '';
+            cols[prefix + '相談内容分類'] = Array.isArray(r['相談内容分類']) ? r['相談内容分類'].join('、') : (r['相談内容分類'] || '');
+            cols[prefix + '来談経路'] = Array.isArray(r['来談経路']) ? r['来談経路'].join('、') : (r['来談経路'] || '');
+            cols[prefix + '面接形態'] = r['面接形態'] || '';
+            cols[prefix + '使用部屋'] = Array.isArray(r['使用部屋']) ? r['使用部屋'].join('、') : '';
+
+            for (let s = 0; s < maxSessionsPerRecord; s++) {
+                const sess = sessions[s] || {};
+                cols[prefix + '第' + (s + 1) + '回_実施日'] = sess.date || '';
+                cols[prefix + '第' + (s + 1) + '回_料金'] = sess.fee || '';
+                cols[prefix + '第' + (s + 1) + '回_ステータス'] = sess.status || '';
+            }
+
+            cols[prefix + '備考'] = r['備考'] || '';
+            return cols;
+        }
+
+        function buildEmptyRecordColumns(recNum) {
+            const prefix = '【記録' + recNum + '】';
+            const cols = {};
+            cols[prefix + '相談日'] = '';
+            cols[prefix + '担当者1'] = '';
+            cols[prefix + '担当者2'] = '';
+            cols[prefix + '担当者その他'] = '';
+            cols[prefix + '相談内容分類'] = '';
+            cols[prefix + '来談経路'] = '';
+            cols[prefix + '面接形態'] = '';
+            cols[prefix + '使用部屋'] = '';
+            for (let s = 0; s < maxSessionsPerRecord; s++) {
+                cols[prefix + '第' + (s + 1) + '回_実施日'] = '';
+                cols[prefix + '第' + (s + 1) + '回_料金'] = '';
+                cols[prefix + '第' + (s + 1) + '回_ステータス'] = '';
+            }
+            cols[prefix + '備考'] = '';
+            return cols;
+        }
+
+        function buildClientInfoColumns(r) {
+            const clients = r['相談者情報'] || [];
+            const row = {};
             for (let c = 0; c < MAX_CLIENTS; c++) {
                 const client = clients[c] || {};
                 row['相談者' + (c + 1) + '_氏名'] = client.name || '';
@@ -2340,46 +2402,57 @@
                 row['相談者' + (c + 1) + '_性別'] = client.gender || '';
                 row['相談者' + (c + 1) + '_属性'] = client.attribute || '';
             }
-
-            row['相談内容分類'] = Array.isArray(r['相談内容分類']) ? r['相談内容分類'].join('、') : (r['相談内容分類'] || '');
-            row['来談経路'] = Array.isArray(r['来談経路']) ? r['来談経路'].join('、') : (r['来談経路'] || '');
-            row['面接形態'] = r['面接形態'] || '';
-            row['使用部屋'] = Array.isArray(r['使用部屋']) ? r['使用部屋'].join('、') : '';
-
-            // Export up to 20 sessions
-            const maxSessions = Math.max(sessions.length, 1);
-            for (let s = 0; s < Math.min(maxSessions, 20); s++) {
-                const sess = sessions[s] || {};
-                row['第' + (s + 1) + '回_実施日'] = sess.date || '';
-                row['第' + (s + 1) + '回_料金'] = sess.fee || '';
-                row['第' + (s + 1) + '回_ステータス'] = sess.status || '';
-            }
-
-            row['備考'] = r['備考'] || '';
             return row;
+        }
+
+        const exportData = [];
+
+        // Grouped records (by clientId)
+        Object.keys(grouped).sort((a, b) => Number(a) - Number(b)).forEach(clientId => {
+            const recs = grouped[clientId];
+            const row = { 'クライアントID': clientId };
+            Object.assign(row, buildClientInfoColumns(recs[0]));
+
+            for (let n = 0; n < maxRecordsPerClient; n++) {
+                if (n < recs.length) {
+                    Object.assign(row, buildRecordColumns(recs[n], n + 1));
+                } else {
+                    Object.assign(row, buildEmptyRecordColumns(n + 1));
+                }
+            }
+            exportData.push(row);
+        });
+
+        // Records without clientId (each gets its own row)
+        noIdRecords.forEach(r => {
+            const row = { 'クライアントID': '' };
+            Object.assign(row, buildClientInfoColumns(r));
+            Object.assign(row, buildRecordColumns(r, 1));
+            for (let n = 1; n < maxRecordsPerClient; n++) {
+                Object.assign(row, buildEmptyRecordColumns(n + 1));
+            }
+            exportData.push(row);
         });
 
         const ws = XLSX.utils.json_to_sheet(exportData);
 
         // Set column widths
         const cols = [
-            { wch: 5 },   // No.
             { wch: 10 },  // クライアントID
-            { wch: 12 },  // 相談日
-            { wch: 10 },  // 担当者1
-            { wch: 10 },  // 担当者2
-            { wch: 14 },  // 担当者その他
         ];
         for (let c = 0; c < MAX_CLIENTS; c++) {
             cols.push({ wch: 12 }, { wch: 5 }, { wch: 6 }, { wch: 8 });
         }
-        cols.push({ wch: 30 }, { wch: 30 }, { wch: 12 }, { wch: 24 });
-        // Session columns
-        const maxSess = Math.max(...records.map(r => (r['実施回'] || []).length), 1);
-        for (let s = 0; s < Math.min(maxSess, 20); s++) {
-            cols.push({ wch: 12 }, { wch: 10 }, { wch: 10 });
+        // Record columns
+        for (let n = 0; n < maxRecordsPerClient; n++) {
+            cols.push({ wch: 12 }); // 相談日
+            cols.push({ wch: 10 }, { wch: 10 }, { wch: 14 }); // 担当者
+            cols.push({ wch: 30 }, { wch: 30 }, { wch: 12 }, { wch: 24 }); // 分類等
+            for (let s = 0; s < maxSessionsPerRecord; s++) {
+                cols.push({ wch: 12 }, { wch: 10 }, { wch: 10 }); // 実施回
+            }
+            cols.push({ wch: 30 }); // 備考
         }
-        cols.push({ wch: 30 }); // 備考
         ws['!cols'] = cols;
 
         const wb = XLSX.utils.book_new();
